@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Wavecrest Part2 Roadmap",
+  "schemaVersion": 1,
+  "description": "WaveCrest Part-2 Spec-Ecosystem roadmap — reveal-ready visual board. Now/Next/Later with the three-phase arc, near-term clocks (Jul-10 Ahrefs, Jul-12 reveal, Aug-4 Apollo), the QSI-floor reality check, and the critical path. Built 2026-07-09 for the leadership reveal; companion to the detailed .md roadmap.",
+  "mcpTools": [],
+  "mcpServerNames": []
+}
+</script>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaveCrest — Part 2 Spec-Ecosystem Roadmap</title>
+<style>
+  :root{
+    --ink:#12203a; --ink-2:#33445e; --brass:#a97f3d; --brass-2:#c8a366;
+    --bg:#eef0ee; --panel:#ffffff; --line:#e2e0d8;
+    --now:#a97f3d; --now-bg:#f7efe1;
+    --next:#1f4e79; --next-bg:#e9f0f8;
+    --later:#5b6b7f; --later-bg:#eef1f5;
+    --good:#2f7d4f; --risk:#a3242b;
+    --shadow:0 1px 2px rgba(18,32,58,.06),0 10px 26px rgba(18,32,58,.08);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.45;}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 20px 56px;}
+  h1,h2,h3,h4{margin:0;line-height:1.15;}
+
+  .cover{background:linear-gradient(120deg,#11203a,#20395a 62%,#2b4a6b);color:#fff;
+    border-radius:0 0 16px 16px;padding:30px 36px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+  .cover:before{content:"";position:absolute;inset:0;
+    background:radial-gradient(680px 200px at 88% -20%,rgba(200,163,102,.30),transparent 70%);}
+  .kick{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-2);font-weight:700;}
+  .cover h1{font-size:30px;margin:7px 0 4px;letter-spacing:-.01em;}
+  .cover .sub{color:#cdd7e6;font-size:15px;max-width:820px;}
+  .cover .by{margin-top:14px;font-size:12px;color:#a9b6c9;}
+
+  /* phase arc */
+  .arc{display:flex;gap:8px;margin:22px 0 8px;}
+  .arc .seg{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;position:relative;box-shadow:var(--shadow);}
+  .arc .seg .p{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-weight:700;}
+  .arc .seg .t{font-size:14.5px;font-weight:600;margin-top:2px;}
+  .arc .seg .s{font-size:12px;color:var(--ink-2);margin-top:3px;}
+  .arc .seg.active{border-color:var(--brass);background:linear-gradient(180deg,#fff,#fbf6ec);}
+  .arc .seg.active:after{content:"YOU ARE HERE";position:absolute;top:-9px;right:12px;background:var(--brass);color:#fff;
+    font-size:9.5px;letter-spacing:.1em;font-weight:700;padding:3px 8px;border-radius:20px;}
+  .arc .seg.done .t{color:var(--ink-2);}
+
+  /* milestones + qsi */
+  .row2{display:grid;grid-template-columns:1.15fr 1fr;gap:14px;margin-top:14px;}
+  @media(max-width:820px){.row2{grid-template-columns:1fr;}}
+  .mile,.qsi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);}
+  .mile h4,.qsi h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:10px;}
+  .mile ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;}
+  .mile li{display:flex;gap:10px;align-items:baseline;font-size:13.5px;}
+  .mile .d{font-weight:700;color:var(--ink);min-width:52px;font-variant-numeric:tabular-nums;}
+  .mile li.hot .d{color:var(--brass);}
+  .mile .tag{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:20px;background:var(--now-bg);color:var(--brass);}
+  .qsi{border-left:4px solid var(--risk);background:linear-gradient(180deg,#fff,#fbf1f1);}
+  .qsi h4{color:var(--risk);}
+  .qsi p{margin:0;font-size:13px;color:var(--ink);}
+  .qsi b{color:var(--risk);}
+
+  /* lanes */
+  .lanes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;}
+  @media(max-width:920px){.lanes{grid-template-columns:1fr;}}
+  .lane{background:transparent;}
+  .lane .hd{display:flex;align-items:baseline;gap:8px;border-radius:10px;padding:10px 14px;color:#fff;font-weight:700;box-shadow:var(--shadow);}
+  .lane.now .hd{background:linear-gradient(100deg,var(--now),#c19652);}
+  .lane.next .hd{background:linear-gradient(100deg,var(--next),#2c5f92);}
+  .lane.later .hd{background:linear-gradient(100deg,var(--later),#6f8095);}
+  .lane .hd .h{font-size:16px;letter-spacing:.02em;}
+  .lane .hd .when{margin-left:auto;font-size:11px;opacity:.9;font-weight:600;}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px 14px;margin-top:12px;box-shadow:var(--shadow);position:relative;}
+  .card .num{position:absolute;top:-9px;left:-9px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:800;color:#fff;box-shadow:var(--shadow);}
+  .now .num{background:var(--now);} .next .num{background:var(--next);} .later .num{background:var(--later);}
+  .card h3{font-size:14.5px;margin-bottom:6px;padding-left:20px;}
+  .card .what{font-size:12.5px;color:var(--ink-2);margin:0 0 10px;}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;}
+  .chip{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:20px;border:1px solid var(--line);background:#fafaf7;color:var(--ink-2);}
+  .chip.own{background:#eef2f7;border-color:#dbe4ee;color:var(--next);}
+  .chip.qsi{background:#eaf4ee;border-color:#cfe6d8;color:var(--good);}
+  .chip.dep{background:#f6efe3;border-color:#e8d8b8;color:var(--brass);}
+  .chip.p0{background:#fbe9e9;border-color:#f0cccc;color:var(--risk);}
+  .chip.key{background:#efeaf7;border-color:#dcd0ee;color:#6b21a8;}
+
+  .cp{margin-top:20px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);}
+  .cp h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px;}
+  .cp .flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13px;}
+  .cp .step{background:#f4f6f9;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-weight:600;}
+  .cp .arrow{color:var(--brass);font-weight:800;}
+  .cp p{margin:10px 0 0;font-size:12px;color:var(--ink-2);}
+
+  .foot{margin-top:22px;font-size:11.5px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:12px;}
+  @media print{body{background:#fff;}.cover{border-radius:0;}.card,.mile,.qsi,.arc .seg,.cp,.lane .hd{box-shadow:none;}}
+</style>
+</head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
+window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
+</script>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 14, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<body>
+<div class="wrap">
+
+  <header class="cover">
+    <div class="kick">WaveCrest · Specifying the Next Wave · Leadership Reveal</div>
+    <h1>Part 2 — The Specification Ecosystem</h1>
+    <div class="sub">Make WaveCrest <b>findable, downloadable, and citable</b> by specifiers and the AI engines they now query first. Now / Next / Later, anchored to W## cycles and gated on Qualified Specification Intent.</div>
+    <div class="by">Daniel B Washburn, VP of Creative Strategy &amp; Planning — Campaign Owner &amp; Creative Strategy Lead · 2026-07-09 · v1.0</div>
+  </header>
+
+  <div class="arc">
+    <div class="seg done"><div class="p">Part 1</div><div class="t">A&amp;D Mindshare</div><div class="s">Continuing · SOV scoreboard: WaveCrest 0.12</div></div>
+    <div class="seg active"><div class="p">Part 2</div><div class="t">The Specification Ecosystem</div><div class="s">This roadmap · findable · downloadable · citable</div></div>
+    <div class="seg"><div class="p">Part 3</div><div class="t">Spec Capture &amp; Scale</div><div class="s">Later · gated on the Part-2 QSI threshold</div></div>
+  </div>
+
+  <div class="row2">
+    <div class="mile">
+      <h4>Near-term clocks</h4>
+      <ul>
+        <li><span class="d">Jul 10</span> Ahrefs renewal — keep Brand Radar (the SOV/AEO spine) alive <span class="tag">billing ✓ going through</span></li>
+        <li class="hot"><span class="d">Jul 12</span> <b>Leadership reveal</b> — this roadmap + robots.txt brief + battlecards <span class="tag">confirm date/time</span></li>
+        <li><span class="d">Aug 4</span> Apollo credit cycle reset (MEP enrichment pool)</li>
+      </ul>
+    </div>
+    <div class="qsi">
+      <h4>QSI gate — reality check</h4>
+      <p>QSI Composite sits on its <b>0.1 floor</b>: the measurement spine is dark (Amplitude funded, not yet emitting; 0 A&amp;D firms past "Reached"). <b>No Part-2 → Part-3 gate date can be committed until events flow</b> — which is exactly why instrumentation is a NOW item, not later cleanup.</p>
+    </div>
+  </div>
+
+  <div class="lanes">
+
+    <div class="lane now">
+      <div class="hd"><span class="h">NOW</span><span class="when">current cycle → +2 · ≈ Jul 9–24</span></div>
+      <div class="card">
+        <div class="num">1</div>
+        <h3>Robots.txt selective AI-crawler unblock</h3>
+        <p class="what">Publish the corrected directives (real paths: /products/sensor-faucets/, /resources/technical + /literature, /markets/, /sustainability) AND allowlist the answer-engine bots at the Imperva WAF. Brief delivered.</p>
+        <div class="chips"><span class="chip p0">P0 quick win</span><span class="chip own">Web/Network</span><span class="chip dep">Dep: WAF allowlist</span><span class="chip qsi">QSI: unblocks AI visibility</span></div>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>Ship the Holden Brushed Brass Revit family</h3>
+        <p class="what">The flagship ECW-3156-BB Revit token is missing — reps can't hand over the design hero's BIM asset today. Author + QA it.</p>
+        <div class="chips"><span class="chip p0">P0 quick win</span><span class="chip own">Product Data</span><span class="chip qsi">QSI: flagship download = L1</span></div>
+      </div>
+      <div class="card">
+        <div class="num">3</div>
+        <h3>Instrument the spec surfaces (Amplitude)</h3>
+        <p class="what">Deploy on WaveCrest surfaces only, with the firm/domain group identifier (not backfillable — must be first) and a QSI/L1 event taxonomy.</p>
+        <div class="chips"><span class="chip key">Enabler / gate-opener</span><span class="chip own">Analytics/Platform</span><span class="chip dep">Dep: tracking plan</span></div>
+      </div>
+    </div>
+
+    <div class="lane next">
+      <div class="hd"><span class="h">NEXT</span><span class="when">+3 → +6 · ≈ late Jul → end Aug</span></div>
+      <div class="card">
+        <div class="num">4</div>
+        <h3>Rank BIMobject + post static BIM/CAD/Revit</h3>
+        <p class="what">The WaveCrest Touchless Faucets collection is live but doesn't rank — complete it, tag it, and end the token-only gap with static files on-site.</p>
+        <div class="chips"><span class="chip own">Product Data + Content</span><span class="chip dep">Dep: #2, #1</span><span class="chip qsi">QSI: BIM fetches = L1</span></div>
+      </div>
+      <div class="card">
+        <div class="num">5</div>
+        <h3>Claim the ARCAT 22 42 16.13 envelope</h3>
+        <p class="what">Displace the Fontana/BathSelect DTC squatters with a legitimate manufacturer listing in the CSI sensor-faucet space.</p>
+        <div class="chips"><span class="chip own">Campaign Content</span><span class="chip dep">Dep: cert data</span><span class="chip qsi">QSI: discovery → intent</span></div>
+      </div>
+      <div class="card">
+        <div class="num">6</div>
+        <h3>Spec-authority hub v1 (+ begin CSI 3-part)</h3>
+        <p class="what">Surface the full cert stack and the scoped Buy-American story; start the CSI 3-part guide-spec draft (Bradley holds 22 42 16; we hold none).</p>
+        <div class="chips"><span class="chip own">Content + Technical</span><span class="chip dep">Dep: per-SKU BAA audit</span><span class="chip qsi">QSI: cert views = L1</span></div>
+      </div>
+    </div>
+
+    <div class="lane later">
+      <div class="hd"><span class="h">LATER</span><span class="when">+7 → +12+ · ≈ Sept → Nov+</span></div>
+      <div class="card">
+        <div class="num">7</div>
+        <h3>Publish the CSI 3-part guide spec</h3>
+        <p class="what">Close the spec-authority gap Bradley currently owns — a downloadable, AI-citable guide spec for the sensor line.</p>
+        <div class="chips"><span class="chip own">Technical + Content</span><span class="chip dep">Dep: #6</span><span class="chip qsi">QSI: high-intent L1/L2</span></div>
+      </div>
+      <div class="card">
+        <div class="num">8</div>
+        <h3>Launch AIA HSW / IDCEC CEU</h3>
+        <p class="what">Own the category void (zero AI citations for any brand). Long accreditation lead — <b>file the application during NEXT</b> even though launch lands here.</p>
+        <div class="chips"><span class="chip own">Campaign + accreditation partner</span><span class="chip dep">Dep: long lead time</span><span class="chip qsi">QSI: premium engagement</span></div>
+      </div>
+      <div class="card">
+        <div class="num">9</div>
+        <h3>Part-2 → Part-3 gate review</h3>
+        <p class="what">Evaluate the QSI composite vs threshold after ≥1 full cycle of instrumented data, then open Spec Capture.</p>
+        <div class="chips"><span class="chip own">Daniel + Analytics</span><span class="chip dep">Dep: #3 live + traffic</span><span class="chip qsi">QSI: the gate · date TBD</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cp">
+    <h4>Critical path</h4>
+    <div class="flow">
+      <span class="step">Instrument first (#3)</span><span class="arrow">→</span>
+      <span class="step">Open the crawlers + WAF (#1)</span><span class="arrow">→</span>
+      <span class="step">Complete &amp; expose BIM/spec assets (#2,4,5,6)</span><span class="arrow">→</span>
+      <span class="step">Publish authority content (#6,7)</span><span class="arrow">→</span>
+      <span class="step">Own the CEU category (#8)</span><span class="arrow">→</span>
+      <span class="step">Gate to Part 3 (#9)</span>
+    </div>
+    <p>The two P0 quick wins (#1, #2) start immediately — the "we're already moving" proof for the reveal. Instrumentation (#3) is not backfillable, so it leads or nothing downstream is measurable.</p>
+  </div>
+
+  <div class="foot">
+    Exact W## indices and the QSI composite baseline to be reconciled against the DBW T&amp;S drive (<code>WaveCrest_Content_Calendar_W-04_to_W52_v1.1.xlsx</code>, <code>WaveCrest_MonthlyL1_2026-05-11.md</code>) — not mounted this session. Owners are role-based; confirm the RACI. Backlog sourced from the 2026-07-09 competitive intel pass; robots.txt paths and competitor BIM/CSI positions verified live same day. Companion detail doc: <code>WaveCrest_Roadmap_Part2-SpecEcosystem_v1.0.md</code>.
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Wavecrest Ai Answer Visibility",
+  "schemaVersion": 1,
+  "description": "WaveCrest AI Answer Visibility monitor — query-level answer-ownership across Google AI Overview, AI Mode, Perplexity, and Gemini for 6 specifier queries; refreshed daily (cron 8:30 PM ET) by the wavecrest-ai-visibility scheduled task. Category-slot count (0 for WaveCrest) is the QSI scoreboard; ChatGPT tracked separately via Ahrefs Brand Radar.",
+  "mcpTools": [
+    "mcp__Apify__call-actor",
+    "mcp__Apify__get-actor-run",
+    "mcp__Apify__get-dataset-items",
+    "mcp__Apify__fetch-actor-details",
+    "mcp__20375104-d398-41f2-af7a-59ad4536cfce__management-brand-radar-reports",
+    "mcp__20375104-d398-41f2-af7a-59ad4536cfce__brand-radar-sov-overview"
+  ],
+  "mcpServerNames": [
+    "Apify",
+    "Apify",
+    "Apify",
+    "Apify",
+    "Ahrefs",
+    "Ahrefs"
+  ]
+}
+</script>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaveCrest AI Answer Visibility</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+  :root { --tsblue:#004577; --tsblue-lt:#eaf2f8; --ink:#1a2430; --mut:#5c6b7a; --line:#dde5ec; --ok:#0f7b3d; --warn:#b45309; --bad:#b3261e; --gold:#8a6d1a; --card:#ffffff; --bg:#f4f7fa; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--ink); font-size:14px; line-height:1.45; padding:20px; }
+  .wrap { max-width:1180px; margin:0 auto; }
+  header { background:var(--tsblue); color:#fff; border-radius:10px; padding:20px 24px; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; }
+  header h1 { font-size:20px; font-weight:700; letter-spacing:.2px; }
+  header .sub { color:#bcd4e6; font-size:12.5px; margin-top:4px; }
+  header .stamp { text-align:right; font-size:12px; color:#bcd4e6; }
+  header .stamp b { color:#fff; display:block; font-size:13px; }
+  .banner { margin-top:14px; border-radius:10px; padding:14px 18px; background:linear-gradient(90deg,#062f4f,#004577); color:#fff; }
+  .banner.good { background:linear-gradient(90deg,#0b4a2f,#0f7b3d); }
+  .banner .tag { display:inline-block; background:rgba(255,255,255,.18); border-radius:5px; padding:2px 8px; font-size:11px; font-weight:700; letter-spacing:.6px; margin-bottom:6px; }
+  .banner h2 { font-size:16px; margin-bottom:4px; }
+  .banner p { font-size:12.5px; color:#e4f0e9; }
+  .banner .caveat { margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,.25); color:#ffe1b0; font-size:12px; }
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:14px; }
+  .kpi { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .kpi .lbl { font-size:11px; font-weight:700; letter-spacing:.7px; color:var(--mut); text-transform:uppercase; }
+  .kpi .val { font-size:26px; font-weight:800; color:var(--tsblue); margin-top:4px; }
+  .kpi .d { font-size:12px; margin-top:2px; }
+  .up { color:var(--ok); font-weight:700; } .dn { color:var(--bad); font-weight:700; } .fl { color:var(--warn); font-weight:700; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  @media (max-width:900px){ .grid2 { grid-template-columns:1fr; } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 18px; }
+  .card h3 { font-size:13px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--tsblue); margin-bottom:10px; }
+  .chartbox { position:relative; height:440px; }
+  .chartbox.sm { height:260px; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; font-size:11px; letter-spacing:.5px; text-transform:uppercase; color:var(--mut); border-bottom:2px solid var(--line); padding:6px 8px; }
+  td { border-bottom:1px solid var(--line); padding:7px 8px; vertical-align:top; }
+  td.c, th.c { text-align:center; }
+  .pill { display:inline-block; border-radius:4px; padding:1px 7px; font-size:11px; font-weight:700; }
+  .pill.wc { background:#e6f4ea; color:var(--ok); }
+  .pill.ts { background:var(--tsblue-lt); color:var(--tsblue); }
+  .pill.tsw { background:#fff4e0; color:var(--gold); }
+  .pill.no { background:#f1f3f5; color:#8b98a5; }
+  .pill.new { background:#fef3c7; color:var(--gold); }
+  .pill.lost { background:#fde8e6; color:var(--bad); }
+  .pill.nm { background:#f1f3f5; color:#8b98a5; font-style:italic; font-weight:600; }
+  .qcards { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:12px; margin-top:14px; }
+  .qcard { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .qcard.hero { border-left-color:var(--ok); }
+  .qcard.hold { border-left-color:var(--tsblue); }
+  .qcard.flick { border-left-color:var(--warn); }
+  .qcard.lost { border-left-color:var(--bad); }
+  .qcard h4 { font-size:13px; margin-bottom:6px; }
+  .qcard .q { font-size:11.5px; color:var(--mut); font-style:italic; margin-bottom:8px; }
+  .qcard ul { list-style:none; }
+  .qcard li { font-size:12.5px; padding:3px 0; border-bottom:1px dashed #edf1f5; }
+  .qcard li:last-child { border-bottom:none; }
+  .qcard b.e { color:var(--tsblue); }
+  .findings li { font-size:13px; padding:7px 0 7px 4px; border-bottom:1px dashed var(--line); list-style:none; }
+  .findings li:last-child { border-bottom:none; }
+  .findings b { color:var(--tsblue); }
+  footer { margin-top:16px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 18px; font-size:11.5px; color:var(--mut); line-height:1.7; }
+  footer code { background:var(--tsblue-lt); color:var(--tsblue); padding:0 5px; border-radius:3px; font-size:11px; }
+</style>
+</head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
+window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
+</script>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 14, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>WaveCrest — AI Answer Visibility Monitor</h1>
+    <div class="sub">Perplexity · Gemini · Google AI Overview · Google AI Mode &nbsp;|&nbsp; 6 tracked queries &nbsp;|&nbsp; ChatGPT excluded (owned by Ahrefs Brand Radar)</div>
+  </div>
+  <div class="stamp">
+    <b>Mon Jul 13, 2026 · 8:50 PM ET (r13 · forced)</b>
+    apify/google-search-scraper · supervised forced 2nd same-day capture (_r2)<br>
+    Run c4rCPiH2DgwVfJ9kF · <b style="color:#a8e6c0">all 4 engines SUCCEEDED (164s · 7th clean · branded AIO recovered)</b>
+  </div>
+</header>
+
+<div class="banner">
+  <span class="tag">◆ THIS RUN — JUL 13 · 8:50 PM ET (r13 · FORCED) · BRANDED AIO RECOVERED</span>
+  <h2>Supervised forced 2nd capture of the day (Daniel-directed). Headline: the branded <u>AI Overview leg RECOVERED</u> — WaveCrest branded is back to <u>4/4 engines</u> (AIO + AI Mode + Perplexity + Gemini), reversing the r12 branded-AIO lapse. Read it as the known AIO on/off intermittency swinging up (present r10–r11 → absent r12 → present r13), <u>NOT a new durable claim</u>; the durable signal stays the 3 conversational engines, now <u>7-consecutive</u>, all citing tsbrass.com. <u>Category-zero persists (0/19)</u>; T&amp;S category holds at <u>3 slots</u> — 1 Equip (ADA) + 2 generic-legacy T&amp;S.</h2>
+  <p><b>Operational:</b> 7th consecutive clean all-4-engine run (<b>164s</b>; no hang, no fallback). Supervised forced run per Daniel's &quot;force another run now&quot; — STEP-0 duplicate guard OVERRIDDEN by explicit manual intent; written to the <code>_r2</code> suffix so the afternoon r12 file is preserved (never overwritten). The projection false-blank hit the <b>TOUCHLESS-SPEC item</b> this run — the multi-item fetch dropped its engine fields; a single-item whole-object fetch CONFIRMED AI Mode + Perplexity + Gemini present (only its AIO genuinely absent, <code>#error</code> false). <b>Observed (BAU, not a campaign result):</b> branded AIO names ECW-3163 + EC-HARDWIRE transformer (up to 8 faucets), Seabrook/Holden/Stafford; AI Mode ECW-3152 ~confidential / ECW-3153 / ECW-3163 confidential (range confidential–620); Perplexity ECW-3152-MB / ECW-3162-BN-HG, 7 styles + soap dispenser; Gemini deep-links tsbrass.com/products/sensor-faucets/sensorfaucets/ECW-3152. Pre-existing strength intact: <b>when the query names the brand, all 4 engines answer with WaveCrest</b>; the AIO surface is the intermittent leg that swung back up this run.</p>
+  <div class="caveat">⚠ SCOREBOARD UNCHANGED — <b>WaveCrest category slots: 0 of 19 populated</b> (the single empty category slot this run is <b>TOUCHLESS/AIO</b>; ADA AIO recovered, so the missing slot merely rotated — not a WaveCrest change). Equip/legacy front: ADA AI Mode still leads with <b>Equip by T&amp;S 5EF-1D-WG ~confidential + 5EF-2D-DS ~confidential</b> (identical to r12, not WaveCrest); Revit/Gemini pigeonholes T&amp;S to <b>foodservice/healthcare electronic sensors</b>; ADA/AIO surfaces a generic &quot;T&amp;S Commercial Motion Sensor&quot; citation — so across the category a T&amp;S product is legacy/Equip, <b>never WaveCrest</b>. Spec-structure signal: Gemini's touchless answer explicitly asks about drafting <b>CSI MasterFormat Section 22 42 16.11</b>. NEW 1-run: <b>Newport Brass, Waterloo, JunoShowers</b> (all low-signal). <b>Gimily/Jimiley</b> (r12) did NOT recur → withdrawn. <b>Stern</b> reappeared; <b>Hansgrohe</b> now 2-consecutive (r12–r13) — flagged for Daniel's watchlist decision. Locale oddity did NOT recur on the branded query (Gemini cited a clean US tsbrass.com/products/… URL). Fontana + Sloan remain co-most-cited.</div>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="lbl">WaveCrest category</div><div class="val">0 / 19</div><div class="d"><span class="fl">● category-zero persists</span> — the QSI scoreboard (20 possible; TOUCHLESS AIO empty)</div></div>
+  <div class="kpi"><div class="lbl">WaveCrest branded</div><div class="val">4 / 4</div><div class="d"><span class="up">▲ AIO leg RECOVERED</span> · 3-engine core 7-consec</div></div>
+  <div class="kpi"><div class="lbl">T&amp;S Brass slots</div><div class="val">~6 / 22</div><div class="d"><span class="fl">● 3 branded + 3 category (1 Equip + 2 generic-legacy)</span> — none WaveCrest</div></div>
+  <div class="kpi"><div class="lbl">Branded 4-engine claim</div><div class="val">RESTORED</div><div class="d"><span class="up">▲ AIO back r13</span> — &quot;all 4 engines&quot; satisfied again (intermittent leg, not a streak)</div></div>
+  <div class="kpi"><div class="lbl">All-4-engine run</div><div class="val">7th CLEAN</div><div class="d"><span class="up">▲ 164s · forced 2nd capture</span> — supervised, Daniel-directed</div></div>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <h3>Within-run CATEGORY answer-slot mentions (this run · 19 populated category slots of 20; branded tracked separately)</h3>
+    <div class="chartbox"><canvas id="sov"></canvas></div>
+    <div style="font-size:11.5px;color:var(--mut);margin-top:8px;"><b>19 populated category slots</b> (5 category queries × 4 engines = 20 possible; only TOUCHLESS AIO empty this run — ADA AIO recovered, so the single missing slot rotated). <b>Fontana ~13</b> and <b>Sloan ~9</b> co-lead; <b>Delta ~7</b>, <b>Zurn ~6</b>, <b>Chicago ~5</b>, <b>Kohler ~5</b>, Moen ~5, TOTO ~4, BathSelect ~3, American Standard ~3. <b>T&amp;S 3 category</b> (ADA/AI Mode Equip priced SKUs + ADA/AIO generic citation + Revit/Gemini foodservice-healthcare — never WaveCrest) <b>+ 3 branded = ~6/22 total</b>. <b>WaveCrest 0 category + 4 branded (AIO leg RECOVERED this run)</b>. Gold = non-watchlist / emerging: Newport Brass/Waterloo/JunoShowers (NEW 1-run), Kraus (editorial-tier continues), Hansgrohe (now 2-consec). Coverage variance ≠ competitive shift.</div>
+  </div>
+  <div class="card">
+    <h3>WaveCrest &amp; T&amp;S trajectory — slots per run</h3>
+    <div class="chartbox"><canvas id="trend"></canvas></div>
+    <div style="font-size:11.5px;color:var(--mut);margin-top:8px;">Raw slot counts; <b>denominators vary</b> (R1–R2 /20, Jul 2 R3 /16, Jul 4 /11, Jul 5–7 /8–/10 with 2 engines, Jul 8–13 all 4 engines). Jul 9 · 3AM values corrected for the projection false-blank. <b>Jul 13 (r13 · forced): WaveCrest 4</b> — branded 4/4 (AIO leg RECOVERED; the 3 conversational engines 7-consecutive); <b>T&amp;S 6</b> = 3 branded + 3 category (1 Equip ADA + 2 generic-legacy). The r12 (4:53p) point held WaveCrest 3 (AIO lapsed); r13 recovers the AIO leg. WaveCrest category-zero is the flat line beneath it all — branded ≠ category.</div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:14px;">
+  <h3>Engine × Query matrix — Mon Jul 13 · 8:50 PM capture (r13 · forced · all 4 engines live · branded AIO recovered)</h3>
+  <table>
+    <thead><tr><th>Query</th><th class="c">AI Overview</th><th class="c">AI Mode</th><th class="c">Perplexity</th><th class="c">Gemini</th><th>Who owns the answer</th></tr></thead>
+    <tbody>
+      <tr><td><b>T&amp;S Brass WaveCrest sensor faucet</b></td>
+        <td class="c"><span class="pill wc">WC</span></td>
+        <td class="c"><span class="pill wc">WC</span></td>
+        <td class="c"><span class="pill wc">WC</span></td>
+        <td class="c"><span class="pill wc">WC</span></td>
+        <td><b>WaveCrest 4/4 — AIO leg RECOVERED (vs r12); 3 conversational engines 7-CONSECUTIVE</b>. AIO PRESENT: &quot;The T&amp;S Brass WaveCrest line combines commercial-grade durability with a sleek, designer aesthetic&quot; — SKU ECW-3163, EC-HARDWIRE transformer (up to 8 faucets), series Seabrook/Holden/Stafford, ASME/NSF/UL/ADA, 0.5 GPM, cites www.tsbrass.com. AI Mode: ECW-3152 ~confidential / ECW-3153 / ECW-3163 confidential (range confidential–620), chrome/brushed nickel/matte black. Ppx: ECW-3152-MB / ECW-3162-BN-HG, 7 styles + coordinating soap dispenser, ADA/NSF. Gemini: real deep link tsbrass.com/products/sensor-faucets/sensorfaucets/ECW-3152 (clean US URL — <b>no locale variant this run</b>). <b>Projection false-blank hit TOUCHLESS this run, not branded — branded verified present on all 4.</b></td></tr>
+      <tr><td>Top commercial sensor faucet brands comparison</td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td><b>T&amp;S ABSENT all 4 engines.</b> AIO: Sloan/Moen/Delta. AI Mode: <b>Kraus</b> (Oletto/Britt ~confidential–420, editorial-tier continues) / Zurn Elkay / Moen — <b>Gimily/Jimiley (r12 new) did NOT recur → withdrawn</b>. Ppx: Sloan/FontanaShowers/Kohler/Moen/Delta/TOTO/American Standard/Jado/KWC/Pfister/Zurn/<b>JunoShowers (NEW unknown)</b>. Gemini Big-Three: Sloan/Chicago/Zurn (+ FontanaShowers/TOTO/Moen/Delta). No new brand dominates.</td></tr>
+      <tr><td><b>Best commercial sensor faucets for architects &amp; specifiers</b></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td>Flagship specifier surface — <b>WaveCrest &amp; T&amp;S absent all 4 engines</b>. AIO drifts residential/kitchen: FontanaShowers, Delta, TOTO, Moen, Kohler, GROHE, Hansgrohe, Kraus, <b>Newport Brass (NEW)</b>. AI Mode: Bradley Verge Metro / Fontana / Zurn Elkay Nachi. Ppx: Sloan OPTIMA / TOTO / Delta HyTEC / Fontana. Gemini: Sloan Optima · Chicago HyTronic/E-Tronic · FontanaShowers+BathSelect · Kohler · Delta — builds a <b>&quot;MasterSpec checklist&quot;</b> (spec-shaped; no CSI number on this query this run). T&amp;S has no priced SKU fitting this design-forward specifier framing, so it does not surface</td></tr>
+      <tr><td>ADA compliant commercial sensor faucet</td>
+        <td class="c"><span class="pill ts">T&amp;S generic</span></td>
+        <td class="c"><span class="pill tsw">Equip lead</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td>AIO PRESENT this run (recovered vs r12 empty): names a generic <b>&quot;T&amp;S Commercial Motion Sensor Faucet&quot;</b> YouTube citation (legacy, not a recommended model) alongside Delta 590TPA0158TR / American Standard Selectronic / Zurn AquaSense Z6915/Z6913 / Fontana / Symmons. <b>AI Mode = the Equip-cannibalization surface: Equip by T&amp;S 5EF-1D-WG confidential + 5EF-2D-DS ~confidential LEAD</b> (2.2 GPM foodservice framing, IDENTICAL SKUs to r12, never WaveCrest); Delta 620TP confidential Sloan follow. Ppx: Zurn Z6950-XL / Sloan Optima ETF880 / Elkay LKB721CNC / Fontana — no T&amp;S. Gemini: Sloan/Zurn/American Standard/Moen/Symmons + Aquacubic (citation) — ADA 309.4 explainer, no T&amp;S. <b>WaveCrest ECW-3162/3163 medical SKUs cite-able on branded yet invisible here — the ADA/medical fusion page stays the closest-range play</b></td></tr>
+      <tr><td>Commercial sensor faucet Revit BIM family</td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill ts">T&amp;S generic</span></td>
+        <td>Platform-owned surface. <b>Gemini lists a generic &quot;T&amp;S Brass&quot;</b> — &quot;Great for foodservice or healthcare settings… .rfa files for their electronic sensor lines&quot; (foodservice/healthcare pigeonhole, NOT WaveCrest, NOT Equip) alongside Sloan/Moen/Chicago/FontanaShowers. AIO: Delta BIM library, FontanaShowers, BIMobject/BIMsmith/NV5. AI Mode: FontanaShowers + Chicago + BathSelect. Ppx: BathSelect Brio / Bravat (Fontana-catalog artifact) / FontanaShowers Bollnäs / Chicago. <b>Holden/Stafford BIMobject design-hero families remain the P0 lever — exposure, not authoring; the BIMsmith/P8 gap stands</b></td></tr>
+      <tr><td>Touchless sensor faucet specification (commercial restrooms)</td>
+        <td class="c"><span class="pill nm">AIO absent</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td class="c"><span class="pill no">no T&amp;S</span></td>
+        <td><b>AIO GENUINELY ABSENT this run</b> (raw-verified whole-object, <code>#error</code> false — no aiOverview object; this is the single empty category slot). AI Mode: Fontana + <b>Waterloo (NEW)</b>, spec-highlight prose (solid brass, IR smart-chip, dual power, 0.5–1.5 GPM) — no T&amp;S. Ppx: Fontana / Zurn / Chicago / <b>JunoShowers (NEW)</b> / BathSelect — detailed spec table (IP56/IP67, ASME/NSF/ADA) — no T&amp;S. Gemini: <b>*** explicitly asks &quot;Are you drafting a CSI MasterFormat specification (Section 22 42 16.11)?&quot;</b> + names Stern Engineering / Sloan / Chicago / Delta / Kohler / American Standard — structure evidence, no T&amp;S. <b>WaveCrest-shaped envelope stays competitor/generic; CSI 22 42 16.13 basis-of-design = the defensive play</b></td></tr>
+    </tbody>
+  </table>
+  <div style="font-size:11.5px;color:var(--mut);margin-top:8px;"><span class="pill wc">WC</span> = WaveCrest named · <span class="pill ts">T&amp;S generic / BIM row</span> = T&amp;S named but generic/legacy framing (not WaveCrest, not Equip) · <span class="pill tsw">Equip / EC / ChekPoint</span> = T&amp;S surfaced via legacy priced lines (weaker, not WaveCrest) · <span class="pill no">no T&amp;S / brandless</span> = engine answered, no T&amp;S/WaveCrest · <span class="pill nm">empty AIO / AIO absent</span> = engine rendered no usable answer (raw-verified whole-object). <b>All 4 engines live, 7th consecutive clean run.</b> Branded AIO = <b>PRESENT this run (RECOVERED vs r12); the 3 conversational engines 7-consec</b>. Absence discipline held: this run the projection false-blank hit the <b>TOUCHLESS item</b> (engine fields dropped) — raw-verified whole-object confirmed AI Mode + Perplexity + Gemini present, only its AIO truly absent (<code>#error</code> false).</div>
+</div>
+
+<div class="qcards">
+  <div class="qcard hold">
+    <h4>◆ Branded AIO RECOVERED — &quot;all 4 engines (branded)&quot; satisfied again this run; read as intermittency, not a new streak</h4>
+    <div class="q">the AIO leg swung back up per the Jul-12 durable-core rule</div>
+    <ul>
+      <li><b>Branded AI Overview PRESENT this run</b> — reverses the r12 lapse. The AIO leg has a documented on/off history (absent r7–r9 → present r10–r11 → absent r12 → present r13); this is intermittency, not a fresh durable claim</li>
+      <li><b>WaveCrest answer-ownership is intact and stable:</b> AI Mode + Perplexity + Gemini all answer with WaveCrest whenever the brand is named — now <b>7-consecutive</b>, all citing tsbrass.com. This 3-engine core is the durable signal; the AIO surface is the intermittent leg</li>
+      <li><b>Reporting rule:</b> treat &quot;all 4 engines&quot; as intermittent (report each swing) — do NOT re-anchor a durable claim on a single recovered run; a fresh 2-consecutive all-4 read is required to call it durable again</li>
+      <li>Headline discipline stays: branded is the expected/secondary surface, naturally-occurring/pre-campaign; category-zero remains the QSI scoreboard</li>
+    </ul>
+  </div>
+  <div class="qcard flick">
+    <h4>⚠ Equip / legacy-T&amp;S cannibalization — persists, generalized beyond Equip alone</h4>
+    <div class="q">the differentiation decision (Daniel 07-09) — the evidence holds</div>
+    <ul>
+      <li><b>ADA AI Mode = the Equip surface:</b> Equip by T&amp;S 5EF-1D-WG confidential + 5EF-2D-DS ~confidential lead the ADA answer — priced foodservice/utility SKUs (IDENTICAL to r12), never WaveCrest</li>
+      <li><b>Beyond Equip:</b> the other 2 T&amp;S category slots surface generic legacy identity — Revit/Gemini &quot;foodservice or healthcare… electronic sensor lines&quot; and ADA/AIO generic &quot;T&amp;S Commercial Motion Sensor&quot; citation. Across the category a T&amp;S product is ALWAYS legacy/Equip, never WaveCrest</li>
+      <li><b>T&amp;S absent from top-brands + best-specifiers</b> both runs; WaveCrest never appears on any category answer</li>
+      <li>Insight generalizes: it is the whole legacy-T&amp;S identity out-surfacing the WaveCrest premium A&amp;D line on category surfaces — feed Insight ds 3146edd6 when authorized</li>
+    </ul>
+  </div>
+  <div class="qcard flick">
+    <h4>⚠ Scoreboard — category-zero persists (0/19); the winning shape unchanged</h4>
+    <div class="q">structure evidence repeated — CSI Division 22 + priced SKUs</div>
+    <ul>
+      <li>WaveCrest: <b>0 category slots of 19 populated</b> vs 4/4 branded — branded ≠ category; the QSI scoreboard did not move (the single empty slot merely rotated ADA/AIO → TOUCHLESS/AIO)</li>
+      <li><b>Gemini answered in CSI Division 22</b> — its touchless answer explicitly asks about drafting <b>CSI MasterFormat Section 22 42 16.11</b>; AI Mode + Perplexity answered in priced SKUs + spec tables (Equip confidential/confidential Delta confidential Zurn/Sloan)</li>
+      <li>WaveCrest content does not appear in that shape in any category answer (no priced WaveCrest SKUs in category; no WaveCrest CSI 22 42 16.13 basis-of-design)</li>
+      <li>Content plays unchanged: (1) WaveCrest category/spec pages, (2) ADA/medical fusion page (ECW-3162/3163), (3) CSI 22 42 16.13 basis-of-design, (4) design-hero BIM exposure + the BIMsmith/P8 gap</li>
+    </ul>
+  </div>
+  <div class="qcard flick">
+    <h4>⚠ New-entrant sweep — Gimily/Jimiley withdrawn; new tail names; Hansgrohe now 2-consec</h4>
+    <div class="q">no auto-adds; Hansgrohe flagged for Daniel's decision</div>
+    <ul>
+      <li><b>Gimily/Jimiley</b> (r12 NEW 1-run) did NOT recur → <b>withdrawn</b>. NEW 1-run this run: <b>Newport Brass</b> (best-specifiers/AIO), <b>Waterloo</b> (touchless/AI Mode), <b>JunoShowers</b> (top-brands + touchless/Ppx) — all low-signal residential/e-comm; watch r14</li>
+      <li><b>Hansgrohe</b> present r12 (Ppx) + r13 (AIO) = <b>2-CONSECUTIVE</b> — meets the add threshold, but its documented intermittency + distinctness from GROHE mean it is <b>flagged for Daniel's watchlist decision</b>, not auto-added</li>
+      <li><b>Stern Engineering</b> reappeared (Gemini touchless) after its r12 absence — intermittent; stays watchlisted (Daniel-added) · <b>Kraus</b> editorial-tier continues (~7-consec, residential-adjacent) · <b>Hydrotek</b> confirmed withdrawn (absent r13) · Bravat = Fontana-catalog artifact · Jado/KWC/Pfister/Vigo low-signal tail</li>
+      <li>Field: <b>Fontana + Sloan co-most-cited</b> (Fontana especially pervasive this run); Chicago/Zurn/Delta/Kohler/TOTO/Moen steady within variance — no leadership change; no new brand dominates</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card" style="margin-top:14px;">
+  <h3>What this run changes — strategic reads (naturally-occurring, pre-campaign data)</h3>
+  <ul class="findings">
+    <li><b>Instrument — forced supervised capture: 7th consecutive clean all-4-engine run (164s).</b> Daniel-directed &quot;force another run now&quot; — STEP-0 duplicate guard overridden by explicit manual intent; written to <code>_r2</code> so the afternoon r12 file is preserved. No hang, no fallback. Est ~confidential–0.45 (0.0456 CU) inside the confidential bucket; <code>maxTotalChargeUsd</code> 1.5 held. The projection false-blank hit the TOUCHLESS item this run — engine fields dropped; single-item whole-object fetch confirmed 3 engines present, only its AIO genuinely absent. Absence-discipline rule stands. <b>STANDING OPS ESCALATION to Daniel: the r12 gap (07-12 evening + five 07-13 morning fires) was purely Apify-MCP absence in scheduled runs — root cause is upstream connector loading, not the guard or cadence.</b></li>
+    <li><b>Branded surface — AIO leg RECOVERED: &quot;WaveCrest across all 4 engines (branded)&quot; is satisfied again this run (reverses r12).</b> Branded AIO present (whole-object, coherent WaveCrest content: ECW-3163, EC-HARDWIRE, Seabrook/Holden/Stafford). The 3 conversational engines (AI Mode + Perplexity + Gemini) answer with WaveCrest whenever named — now 7-consecutive — so answer-ownership is intact and stable. Frame the AIO swing as known on/off intermittency (absent r7–r9 → present r10–r11 → absent r12 → present r13), not a new durable claim; a fresh 2-consecutive all-4 read is required before re-anchoring &quot;all 4 engines&quot; as durable.</li>
+    <li><b>Equip cannibalization — SUPPORTED and GENERALIZED (HIGH PRIORITY, Daniel 07-09).</b> ADA AI Mode leads with Equip by T&amp;S priced SKUs (5EF-1D-WG confidential, 5EF-2D-DS ~confidential — identical to r12), not WaveCrest. Beyond Equip, the other 2 T&amp;S category slots surface generic legacy identity (Revit/Gemini foodservice-healthcare; ADA/AIO generic citation). Across the category a T&amp;S product is ALWAYS legacy/Equip, never WaveCrest — the Insight is the whole legacy-T&amp;S identity out-surfacing WaveCrest. Feed Insight ds 3146edd6 when authorized.</li>
+    <li><b>Category-zero persists (0/19 populated) — the engines keep spelling the winning shape.</b> Gemini's touchless answer explicitly references CSI MasterFormat Section 22 42 16.11 and offers to draft a spec; Gemini best-specifiers builds a MasterSpec checklist; AI Mode + Perplexity answer in priced SKUs + spec tables. WaveCrest content isn't in that shape in category answers. Content plays unchanged: (1) WaveCrest category/spec pages, (2) ADA/medical fusion page (ECW-3162/3163), (3) CSI 22 42 16.13 basis-of-design, (4) design-hero BIM exposure + the BIMsmith/P8 gap. Locale oddity did NOT recur this run (Gemini cited a clean US tsbrass.com/products/… URL); watch for recurrence — WAF/robots workstream.</li>
+    <li><b>Competitive field + watchlist.</b> Fontana + Sloan co-most-cited (Fontana especially pervasive); Chicago/Zurn/Delta/Kohler/TOTO/Moen steady within variance — no leadership change, no new brand dominates. AIO category coverage 4/5 (TOUCHLESS AIO empty; ADA AIO recovered). New-entrant sweep: <b>Gimily/Jimiley withdrawn (r12, did not recur)</b>; <b>NEW 1-run Newport Brass / Waterloo / JunoShowers</b>; <b>Stern reappeared</b>; <b>Hansgrohe now 2-consecutive (r12–r13) — flagged for Daniel's decision</b>; Kraus editorial-tier continues; Hydrotek withdrawn; Bravat catalog artifact; Jado/KWC/Pfister/Vigo low-signal tail. No auto watchlist adds.</li>
+  </ul>
+</div>
+
+<footer>
+  <b>Run log (Jul 13 · 8:50 PM capture · r13 · forced):</b> main <code>c4rCPiH2DgwVfJ9kF</code> → dataset <code>ezq9V3fa6VoD5eiEW</code> (SUCCEEDED 164s, <b>all 4 engines</b>; 5 AIO-with-content + 6 AI Mode + 6 Perplexity + 6 Gemini — <b>23 of 24 slots populated</b>; only TOUCHLESS AIO genuinely absent, raw-verified whole-object). <b>7th consecutive clean all-4-engine run</b>; no hang, no fallback. 0.0456 CU ≈ confidential–0.45 est — inside prepaid confidential bucket; <code>maxTotalChargeUsd</code> 1.5 held. Supervised forced 2nd same-day capture (Daniel &quot;force another run now&quot;); STEP-0 duplicate guard OVERRIDDEN by manual intent; written to <code>_r2</code> so the afternoon r12 file is preserved.<br>
+  <b>Verification state:</b> branded AIO = <b>PRESENT r13 → RECOVERED from the r12 lapse</b> (report as intermittency, not a new durable claim; a fresh 2-consecutive all-4 read re-anchors durability). Branded 3-engine leg (AI Mode + Ppx + Gemini) = <b>7-consecutive</b> — WaveCrest answer-ownership intact. Absence-discipline held: this run the projection false-blank hit the <b>TOUCHLESS item</b> (engine fields dropped) — corrected via single-item whole-object fetch (AI Mode + Ppx + Gemini present; only its AIO absent, <code>#error</code> false) at <code>ezq9V3fa6VoD5eiEW</code> offset 0.<br>
+  <b>Method:</b> 6 queries × live engines = answer slots; a brand counts once per slot it's named in. This run: <b>23 slots with content = 19 category + 4 branded</b>. Category-slot count (<b>0 for WaveCrest</b>) is the QSI scoreboard; branded is secondary/expected. Denominators move run-to-run (r12: 19 category, ADA AIO empty; r13: 19 category, TOUCHLESS AIO empty — same count, rotated slot) — compare within-engine + branded-vs-category, never raw cross-run totals. ChatGPT deliberately excluded (Ahrefs Brand Radar owns it; <code>confidential…4b08</code>, weekly model-direct — reconcile, don't conflate). Snapshot: <code>Apify_Monitors/ai_answer_visibility_2026-07-13_r2.json</code>.<br>
+  <b>Framing:</b> naturally-occurring, business-as-usual data captured while the campaign is being PREPARED — pre-campaign evidence, not campaign results. Branded 4-engine citability this run = pre-existing strength (AIO leg intermittent — recovered r13); category-zero = the identified gap; Equip + generic legacy-T&amp;S out-surfacing WaveCrest on category answers = the threat to counter. <b>OPS FLAG (escalated to Daniel):</b> the monitor took 6 consecutive no-scrape scheduled sessions (07-12 eve → 07-13 AM) on Apify-MCP absence before the 4:53 PM r12 catch-up — root cause is upstream connector availability in scheduled runs, not the STEP-0 guard or cadence. <b>DQ notes:</b> TOUCHLESS AIO genuinely absent (whole-object, #error false); branded present on all 4; ⚠ locale-citation oddity did NOT recur this run (Gemini cited a clean US tsbrass.com/products/… URL vs r12's en-ma) — keep watching, WAF/robots workstream. <b>New-entrant status:</b> Gimily/Jimiley withdrawn (did not recur) · NEW 1-run Newport Brass / Waterloo / JunoShowers (low-signal) · Stern Engineering reappeared (watchlisted per Daniel) · Hansgrohe now 2-consecutive r12–r13 (flagged for Daniel's decision) · Kraus editorial-tier continues · Hydrotek withdrawn · Bravat Fontana-catalog artifact · Jado/KWC/Pfister/Vigo low-signal tail. 21-watchlist unchanged pending Daniel's OK.
+</footer>
+
+</div>
+<script>
+(function(){
+  var blue='#004577', green='#0f7b3d', gold='#8a6d1a';
+  var sov = document.getElementById('sov');
+  new Chart(sov, {
+    type:'bar',
+    data:{
+      labels:['Fontana','Sloan','Delta','Zurn','Chicago Faucets','Kohler','Moen','TOTO','BathSelect','T&S (category)','American Standard','Elkay','Kraus','Symmons','Grohe','Hansgrohe','Newport Brass','WaveCrest (category)'],
+      datasets:[{
+        label:'Category answer-slot mentions (of 19 populated)',
+        data:[13,9,7,6,5,5,5,4,3,3,3,2,2,2,1,1,1,0],
+        backgroundColor:['#94a7b8','#a9b8c6','#a9b8c6','#c3cfda','#a9b8c6','#c3cfda','#c3cfda','#c3cfda','#c3cfda',blue,'#c3cfda','#c3cfda',gold,'#c3cfda','#c3cfda',gold,gold,green],
+        borderRadius:3
+      }]
+    },
+    options:{ responsive:true, maintainAspectRatio:false, indexAxis:'y',
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{label:function(c){return c.parsed.x+' of 19 populated category slots — 20 possible (branded tracked separately: WaveCrest 4, T&S 3)';}}} },
+      scales:{ x:{ beginAtZero:true, max:14, ticks:{stepSize:1}, grid:{color:'#e8edf2'} }, y:{ grid:{display:false}, ticks:{font:{size:11}} } }
+    }
+  });
+  var tr = document.getElementById('trend');
+  new Chart(tr, {
+    type:'line',
+    data:{
+      labels:['Jul 1 · R1','Jul 2 · R3','Jul 4 (2-eng)','Jul 5 (2-eng)','Jul 6 · 5AM','Jul 6 · 8:38p','Jul 7 · 12:05a','Jul 7 · 8:50p','Jul 8 · 4-eng','Jul 9 · 3AM (corr.)','Jul 9 · 8:41p','Jul 10 · 8:42p','Jul 11 · 8:39p','Jul 13 · 4:53p','Jul 13 · 8:50p (r13)'],
+      datasets:[
+        { label:'WaveCrest', data:[0,3,1,1,1,1,1,1,4,3,3,4,4,3,4], borderColor:'#0f7b3d', backgroundColor:'#0f7b3d', tension:.25, pointRadius:5, pointStyle:'circle' },
+        { label:'T&S Brass', data:[2,5,2,1,1,1,2,2,8,5,6,6,7,6,6], borderColor:blue, backgroundColor:blue, tension:.25, pointRadius:5, pointStyle:'rect' }
+      ]
+    },
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{position:'bottom', labels:{boxWidth:12, font:{size:11}}} },
+      scales:{ y:{ beginAtZero:true, suggestedMax:9, ticks:{stepSize:2}, grid:{color:'#e8edf2'}, title:{display:true, text:'answer slots (denominator varies; Jul 8–13 = 4 engines; Jul 13 r13 WaveCrest 4 = branded 4/4, AIO leg RECOVERED; T&S 6 incl. 3 category — 1 Equip + 2 generic-legacy)', font:{size:11}} }, x:{ grid:{display:false}, ticks:{font:{size:10.5}} } }
+    }
+  });
+})();
+</script>
+</body>
+</html>

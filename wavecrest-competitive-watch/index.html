@@ -1,0 +1,260 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Wavecrest Competitive Watch",
+  "schemaVersion": 1,
+  "description": "WaveCrest Competitive Watch — daily Apify crawl of the 19-brand watchlist's spec/BIM/CEU + news/press surfaces, diffed over time. Jul 13 (same-day re-run after a morning Apify outage — no day missing): 87 pages, ~confidential-0.06, cheerio 77/77 + Sloan 11/11, zero Launch/Spec-Win/Personnel flags; still no sensor line / BIM / CEU / entrant. Sloan no-BIM 10th consecutive; Chicago sole on-site Revit host. American Standard returned no dataset item (datacenter no-item block, day 1 — capture artifact). Durable signal: Fontana domain-wide sensor-faucet meta-description AEO play persists 07-05→07-13, 9th consecutive day (39 unique sensor-faucet metas across 55 pages, tracked descriptors byte-identical; Insights row corroborated to 07-13)."
+}
+</script>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WaveCrest Competitive Watch</title>
+<style>
+  :root{
+    --ts-blue:#004577; --ts-blue-2:#0a5c94; --ink:#12212e; --muted:#5c7080;
+    --line:#e3eaf0; --bg:#f4f7fa; --card:#ffffff; --good:#1a7a4c; --good-bg:#e7f5ee;
+    --warn:#9a6b00; --warn-bg:#fbf1dc; --flat:#5c7080; --flat-bg:#eef2f6;
+    --new:#004577; --new-bg:#e2eef6; --shadow:0 1px 2px rgba(16,40,60,.06),0 6px 18px rgba(16,40,60,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:26px 22px 60px}
+  header.top{border-bottom:3px solid var(--ts-blue);padding-bottom:16px;margin-bottom:22px}
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ts-blue);font-weight:700}
+  h1{margin:6px 0 4px;font-size:27px;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:14px;margin:0}
+  .updated{display:inline-flex;align-items:center;gap:7px;margin-top:12px;font-size:12.5px;
+    background:var(--new-bg);color:var(--ts-blue);border:1px solid #cfe2ef;border-radius:999px;padding:5px 12px;font-weight:600}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-bg)}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 22px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px;box-shadow:var(--shadow)}
+  .stat .n{font-size:29px;font-weight:750;letter-spacing:-.02em;color:var(--ts-blue);line-height:1.05}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:4px}
+  .stat .s{font-size:11.5px;color:var(--flat);margin-top:5px}
+  .headline{background:linear-gradient(180deg,#fbfdff,#f3f8fc);border:1px solid #d7e6f1;
+    border-left:4px solid var(--ts-blue);border-radius:12px;padding:15px 18px;margin-bottom:24px}
+  .headline b{color:var(--ts-blue)}
+  h2{font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
+    margin:28px 0 12px;font-weight:700}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 17px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 3px;font-size:15.5px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .pill{font-size:10.5px;font-weight:700;letter-spacing:.03em;padding:3px 9px;border-radius:999px;text-transform:uppercase}
+  .p-new{background:var(--new-bg);color:var(--new)} .p-good{background:var(--good-bg);color:var(--good)}
+  .p-flat{background:var(--flat-bg);color:var(--flat)} .p-warn{background:var(--warn-bg);color:var(--warn)}
+  .card .meta{font-size:12px;color:var(--muted);margin:2px 0 9px}
+  .card p{margin:0;font-size:13.3px;color:#2b3f4e}
+  .kpages{list-style:none;padding:0;margin:9px 0 0;font-size:12.5px}
+  .kpages li{padding:4px 0;border-top:1px dashed var(--line);color:#33485a}
+  .kpages li:first-child{border-top:none}
+  .kpages .tag{display:inline-block;font-size:10px;font-weight:700;color:var(--ts-blue);
+    background:var(--new-bg);border-radius:5px;padding:1px 6px;margin-left:6px}
+  .kpages .tag.w{color:var(--warn);background:var(--warn-bg)}
+  .diff{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+  .diff .row{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:12px 17px;border-top:1px solid var(--line);font-size:13.2px}
+  .diff .row:first-child{border-top:none}
+  .diff .row .k{font-weight:700;color:var(--ts-blue);font-size:12.5px}
+  .diff .row .v{color:#2b3f4e}
+  .bench{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px 18px;box-shadow:var(--shadow)}
+  .brow{display:grid;grid-template-columns:150px 1fr 42px;align-items:center;gap:12px;margin:9px 0}
+  .brow .bn{font-size:13px;color:#33485a;font-weight:600}
+  .bar{height:16px;border-radius:8px;background:#eef2f6;overflow:hidden;position:relative}
+  .bar > span{display:block;height:100%;border-radius:8px}
+  .bar.b-chi>span{background:linear-gradient(90deg,#0a5c94,#004577)}
+  .bar.b-slo>span{background:#6b8ea6}.bar.b-zur>span{background:#6b8ea6}.bar.b-sym>span{background:#8aa8bd}
+  .bar.b-wc>span{background:#c0392b}
+  .bnum{font-size:13px;font-weight:750;text-align:right;color:var(--ts-blue)}
+  .bnum.zero{color:#c0392b}
+  .note{font-size:12px;color:var(--muted);margin-top:11px}
+  footer{margin-top:30px;border-top:1px solid var(--line);padding-top:16px;font-size:11.5px;color:var(--muted)}
+  footer code{background:#eef2f6;border-radius:5px;padding:1px 6px;font-size:11px;color:#33485a}
+  .frow{margin:4px 0}
+  @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}
+    .diff .row{grid-template-columns:1fr}.brow{grid-template-columns:110px 1fr 36px}}
+</style>
+</head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
+window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
+</script>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 14, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">WaveCrest · Specifying the Next Wave — Competitive Intelligence</div>
+    <h1>Competitive Watch</h1>
+    <p class="sub">Daily crawl of the 19-brand sensor-faucet watchlist — sensor / BIM / CEU / spec pages plus news, press &amp; leadership surfaces, diffed over time. Powered by Apify (free crawler) on the prepaid Scale plan.</p>
+    <span class="updated"><span class="dot"></span>Updated Jul 13, 2026 (8:56 PM ET · same-day re-run) · 2 crawls · 1-day diff vs Jul 12</span>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="n">87</div><div class="l">Pages captured this run</div><div class="s">76 cheerio · 11 Sloan · AmStd no-item (day 1)</div></div>
+    <div class="stat"><div class="n">8<span style="font-size:15px;color:var(--muted)"> / 19</span></div><div class="l">Core rivals crawled / watchlist</div><div class="s">Zurn · Chicago · Sloan · +5</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Competitor moves detected</div><div class="s">Still no line / BIM / CEU / entrant</div></div>
+    <div class="stat"><div class="n">&approx;confidential</div><div class="l">Run cost (compute)</div><div class="s">0.262 CU · 2 runs · inside prepaid confidential</div></div>
+  </div>
+
+  <div class="headline">
+    <b>Clean Jul 13 pass — nothing moved on the eight core rivals.</b> This was a <b>same-day re-run</b>: the 7:30 AM
+    scheduled fire was again blocked by a Claude-side Apify connector outage, so once reconnected the run was re-triggered
+    the same evening — <b>no day is missing from the series</b> (3rd such morning-block/same-day-recover cycle: 07-09,
+    07-12, 07-13). No rival launched a sensor/touchless line, BIM library, or CEU program; no new brand entered the
+    space. The competitive-intel lens (launches · spec-wins · personnel) screened
+    every page — <b>zero flags</b> again. All spec-critical sets held under the verbatim-recovered explicit-seed config:
+    <b>Chicago 5/5</b>, <b>Sloan core spec set identical</b> (still no BIM/Revit — 10th consecutive), <b>Zurn Smart
+    Connected 5/5</b>, <b>Symmons ecosystem</b> intact, <b>Fontana's A&amp;D quartet</b> re-captured — <b>cheerio 77/77 +
+    Sloan 11/11, 0 failed</b>. <b>American Standard returned no dataset item</b> [datacenter no-item block] — the seed was
+    fetched (in the 77 succeeded requests) but readable text fell below threshold (bot-challenge/JS-shell); <b>day 1</b>
+    (captured cleanly Jul 12), a capture artifact with no residential confirm spent and <b>no change asserted</b>. The one
+    durable signal — <b>Fontana's domain-wide sensor-faucet
+    meta-description AEO play</b> — <b>persists into a 9th consecutive capture day</b> (55 pages, <b>39 carrying
+    unique sensor-faucet meta descriptions</b> — the 39-vs-28 delta is lottery-mix composition, not drift; tracked
+    descriptors <b>byte-identical</b>); its Insights row was <b>corroborated to today</b> (one sanctioned staged
+    date-bump). Cost <b>&approx;confidential–0.06</b>. Exactly the upstream fight the AI-visibility gate predicts.
+  </div>
+
+  <h2>Competitive-intel signals (lens · Jul 13)</h2>
+  <div class="diff">
+    <div class="row"><div class="k">Launches</div><div class="v"><b>None detected</b> across 87 pages including news/press surfaces. Still launch-free run over run.</div></div>
+    <div class="row"><div class="k">Spec-wins / projects</div><div class="v"><b>None.</b> Zurn Elkay press-room + news index healthy [200] and Symmons blog [200] — no dated launch/spec-win headline in the title/description projection; Bradley /press-releases stays JS-opaque to cheerio.</div></div>
+    <div class="row"><div class="k">Personnel moves</div><div class="v"><b>None captured.</b> Structural note unchanged: Sloan has <b>no on-site newsroom/leadership page</b>, Chicago &amp; AmStd have no on-domain newsroom, and Bradley's /press-releases is JS-opaque to cheerio — personnel watch for these needs corrected seeds or parent-corp sources (Geberit/LIXIL — scope decision pending, supervised).</div></div>
+    <div class="row"><div class="k">Capture note (not a flag)</div><div class="v"><b>American Standard returned no dataset item — datacenter no-item block, day 1.</b> The commercial collection seed was fetched (counted in the 77 succeeded requests) but yielded no item: readable text below the 100-char threshold = bot-challenge/JS-shell. Captured cleanly Jul 12, so this is <b>day 1</b> of a block — most likely transient (cf. the 07-08 BIMobject 403 that proved a proxy artifact). Capture-side only — <b>no product/spec change asserted</b>, and (per governance) NOT staged to Notion. Standing posture: datacenter stays the path; P6 residential confirm triggers only on a 2nd consecutive blocked day.</div></div>
+    <div class="row"><div class="k">Strategic (non-standard)</div><div class="v"><b>Fontana domain-wide AEO seeding — PERSISTS 07-05 &rarr; 07-13, 9th consecutive capture day.</b> The depth-1 lottery again favored Fontana: <b>55 pages, 39 carrying unique sensor-faucet meta descriptions</b> — incl. clearly non-sensor <b>utility/spec-support pages</b> (Company, International Offices, Expertise, Sustainability, plus Fontana's own "BIM Data" s/355 &amp; s/370 and "Technical Data" s/356). The 39-vs-28 count delta vs Jul 12 is <b>lottery-mix composition, not drift</b>: the tracked A&amp;D pages hold <b>byte-identical</b> ("Architectures" s/342 still carries "Sensor faucet controls allow precise adjustment…"; References s/341 keeps its sensor-pricing copy). Re-corroborates the Insights row's assessment; its <b>Last Corroborated was bumped 07-12 &rarr; 07-13</b> this run. Backing Signals rows already logged — not duplicated.</div></div>
+  </div>
+
+  <h2>What changed vs prior snapshot (1-day: Jul 12 &rarr; Jul 13)</h2>
+  <div class="diff">
+    <div class="row"><div class="k">Headline</div><div class="v"><b>No competitor change.</b> Identical explicit-seed config (recovered verbatim from the Jul 12 run INPUT). Total <b>87 &rarr; 87</b> pages (net 0: AmStd 1&rarr;0 no-item block; Sloan 11&rarr;11 identical set; Fontana 54&rarr;55, absorbing the freed lottery slot). <b>Cheerio 77/77 + Sloan 11/11 succeeded, 0 failed</b>. No launch, BIM/CEU, spec-section change, or entrant in 24h. Morning run was blocked (Apify outage) and re-run same-day — no gap in the series.</div></div>
+    <div class="row"><div class="k">Fontana — signal persists (9th day)</div><div class="v">The <b>depth-1 budget stayed with Fontana</b> (55 pages, up 1 from Jul 12), re-confirming the meta-description seeding a <b>9th consecutive day</b>: the A&amp;D quartet (<code>s/446</code> · <code>s/341</code> · <code>s/270</code> · <code>s/342</code>) plus <b>35 more category/utility/spec-support pages</b> each carrying unique sensor-faucet copy (Company, International Offices, Expertise, Sustainability, plus Fontana's own BIM Data &amp; Technical Data category pages). Tracked descriptors <b>byte-identical — no drift</b>. Insights row <b>corroborated 07-12 &rarr; 07-13</b>.</div></div>
+    <div class="row"><div class="k">Sloan</div><div class="v"><b>Stable — identical 11-page set.</b> Full core spec set all 200 (Optima, BASYS, DesignSpec, MasterSpec, Technical Documents, Compliances, Resources hub, Literature, Image Library, Videos, About-Us) — page list identical to Jul 12, titles unchanged. Still <b>no on-site BIM/Revit page</b> (10th consecutive observation). 0.17 CU.</div></div>
+    <div class="row"><div class="k">American Standard — no-item block (day 1)</div><div class="v"><b>No dataset item today — datacenter-proxy no-item block.</b> The collection seed was fetched (in the 77 succeeded requests) but returned readable text below threshold (bot-challenge/JS-shell). Captured cleanly Jul 12, so this is <b>day 1</b>. <b>Capture-side, not a competitor change</b>; not staged to Notion. Zero paid residential confirm spent — held for a 2nd consecutive day.</div></div>
+    <div class="row"><div class="k">Chicago · Zurn · Symmons</div><div class="v">Chicago <b>5/5 spec-critical live</b> (only rival with on-site Revit; BIM Library title confirms Revit families). Zurn Smart Connected 5/5 + press-room &amp; news index stable. Symmons full commercial ecosystem via explicit seeds (still no sensor line).</div></div>
+    <div class="row"><div class="k">Bradley</div><div class="v">All 3 pages <b>[200] via cheerio</b> — titles still render as generic "Bradley Corp" (client-side rendering); headlines unreadable. The 07-04 A&amp;D/CEU ecosystem stays baseline. Playwright headline pass remains the open lever.</div></div>
+    <div class="row"><div class="k">BathSelect</div><div class="v">Home page only again (<b>1 page [200]</b>, same as Jul 12) — the depth-1 budget stayed with Fontana. Positioning unchanged; <b>not a site change</b>.</div></div>
+    <div class="row"><div class="k">New product lines / brands</div><div class="v">None. No new sensor/touchless line, BIM library, or newly <i>published</i> CEU/AIA course; no entrant beyond the watchlist-19.</div></div>
+  </div>
+
+  <h2>Spec-asset benchmark — spec surfaces visible on site</h2>
+  <div class="bench">
+    <div class="brow"><div class="bn">Chicago Faucets</div><div class="bar b-chi"><span style="width:100%"></span></div><div class="bnum">4</div></div>
+    <div class="brow"><div class="bn">Sloan</div><div class="bar b-slo"><span style="width:100%"></span></div><div class="bnum">4</div></div>
+    <div class="brow"><div class="bn">Zurn</div><div class="bar b-zur"><span style="width:50%"></span></div><div class="bnum">2</div></div>
+    <div class="brow"><div class="bn">Symmons</div><div class="bar b-sym"><span style="width:25%"></span></div><div class="bnum">1</div></div>
+    <div class="brow"><div class="bn">WaveCrest / T&amp;S</div><div class="bar b-wc"><span style="width:4%"></span></div><div class="bnum zero">0</div></div>
+    <div class="note">Unchanged run over run. Chicago: BIM Library (Revit) + IGES CAD + Spec Sheets + High-Res Images — all four verified live today via explicit seeds; <b>still the only rival with on-site Revit families</b>. Sloan level on count (DesignSpec, Technical Documents, MasterSpec, Image Library) but no BIM/CAD downloads. Zurn: sensor spec pages + Smart Connected downloads. Symmons: filterable Specification Submittal library. WaveCrest has <b>0</b> on-site downloadable libraries — the gap this monitor exists to close (mirrors the near-zero AI-answer presence in the sibling AI Visibility monitor).</div>
+  </div>
+
+  <h2>Per-brand findings</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Chicago Faucets <span class="pill p-good">5/5 spec-critical live</span></h3>
+      <div class="meta">5 pages · explicit seeds · stable</div>
+      <p>All four downloadable libraries + Specifier Resource Center verified live by direct seeding. BIM Library title confirms on-site Revit families — still the only rival exposing them. No spec-section, BIM, or product change. No on-site newsroom found (Geberit parent newsroom is the likely surface; scope decision pending).</p>
+      <ul class="kpages">
+        <li>BIM Library — Revit families <span class="tag">200 · seed</span></li>
+        <li>IGES CAD · Spec Sheets · High-Res Images <span class="tag">200 · seed</span></li>
+        <li>Specifier Resource Center <span class="tag">200 · seed</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Sloan <span class="pill p-good">Stable · identical set</span></h3>
+      <div class="meta">11 pages · playwright:adaptive · 11/11, 0 failed · 0.17 CU</div>
+      <p>Full spec-critical core reproduced — page set <b>identical to Jul 12</b>, titles unchanged: Optima, BASYS, DesignSpec, MasterSpec, Technical Documents, Compliances, Resources hub, Literature, Image Library, Videos + /company/about-us. Still no dedicated BIM/Revit page (10th consecutive observation). <b>No on-site newsroom or leadership page exists</b> — launch/personnel watch must come from off-site sources.</p>
+      <ul class="kpages">
+        <li>Optima® · BASYS® sensor families <span class="tag">200</span></li>
+        <li>DesignSpec · MasterSpec · Technical Documents <span class="tag">200</span></li>
+        <li>/company/about-us <span class="tag">200</span></li>
+        <li>On-site BIM/Revit page <span class="tag w">still absent</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Zurn <span class="pill p-good">Stable · press room watched</span></h3>
+      <div class="meta">7 pages · cheerio · Smart Connected 5/5 + zurnelkay.com press index</div>
+      <p>Product set stable [200]: sensor faucets, flush valves, retrofit kits, occupancy lights. Zurn Elkay press-room + news index healthy. No individual press children captured this run — depth budget went to Fontana; index titles show no launch/spec-win/personnel headline.</p>
+      <ul class="kpages">
+        <li>Smart Connected set (5 pages) <span class="tag">200 · seed</span></li>
+        <li>zurnelkay.com/news (press hub) <span class="tag">200</span></li>
+        <li>press-room/press-releases index <span class="tag">200</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Symmons <span class="pill p-good">Stable · explicit seeds</span></h3>
+      <div class="meta">5 pages · commercial ecosystem lottery-proof</div>
+      <p>Commercial + Evolution® BMS + Digital Assets Archive + University all [200] via direct seeding. /news/ resolves to the <b>Symmons Blog</b> [200]. Valve-centric — <b>still no sensor/touchless line</b>.</p>
+      <ul class="kpages">
+        <li>Documentation archive <span class="tag">200 · seed</span></li>
+        <li>Evolution® BMS <span class="tag">200</span></li>
+        <li>University · Blog (news surface) <span class="tag">200 · seed</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Fontana Commercial <span class="pill p-new">AEO signal persists · corroborated 07-13</span></h3>
+      <div class="meta">55 pages this run · 9th consecutive persistence day · cheerio</div>
+      <p>Broad Fontana capture again — the domain-wide sensor-faucet meta-description seeding holds a <b>9th consecutive day (07-05 &rarr; 07-13) with zero drift on tracked descriptors</b>. Beyond the A&amp;D quartet, <b>35 more category/utility/spec-support pages</b> each carry a <b>unique</b> sensor-faucet description, including clearly non-sensor <b>utility pages</b> (Company, International Offices, Expertise, Sustainability) and Fontana's own <b>"BIM Data" (s/355, s/370) and "Technical Data" (s/356)</b> category pages — all carrying the generic AEO meta pattern (NOT new BIM capability). Tracked descriptors <b>byte-identical to Jul 12 — no revert or drift</b>. The 39-vs-28 unique-meta count delta vs Jul 12 is lottery-mix composition, not drift. The Insights row's <b>Last Corroborated was bumped to 07-13</b> this run. Color: the home page meta leads with "partnerships with prestigious architectural firms, top designers, and major developers" — A&amp;D-forward positioning.</p>
+      <ul class="kpages">
+        <li>Architectures (s/342) — sensor meta on non-faucet page <span class="tag">signal persists</span></li>
+        <li>References (s/341) — sensor-pricing copy <span class="tag">200 · seed</span></li>
+        <li>A&amp;D quartet (s/446 · s/341 · s/270 · s/342) <span class="tag">200 · seed</span></li>
+        <li>35 category/utility/spec pages w/ unique sensor meta <span class="tag">breadth re-confirmed</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Bradley <span class="pill p-warn">Alive · JS-opaque</span></h3>
+      <div class="meta">3 pages [200] via cheerio · titles unreadable · playwright pass queued</div>
+      <p>Home, /architects-and-designers, and /press-releases all live [200] — but every title renders as generic "Bradley Corp" (client-side rendering), so <b>press headlines are unreadable this run</b>. The 07-04 A&amp;D / Lunch &amp; Learns / Bradley+Watts eLearning ecosystem stays baseline. Fix: small playwright pass (~0.05 CU) to recover headlines.</p>
+      <ul class="kpages">
+        <li>Architects &amp; Designers <span class="tag">200 · seed</span></li>
+        <li>/press-releases <span class="tag">200</span></li>
+        <li>Headlines / depth-1 <span class="tag w">JS-opaque to cheerio</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>American Standard <span class="pill p-warn">No-item block · day 1</span></h3>
+      <div class="meta">0 items · datacenter no-item block · zero paid confirm spent</div>
+      <p><b>No dataset item this run — capture-side, not a change.</b> The commercial collection seed was fetched (counted in the 77 succeeded requests) but returned readable text below the 100-char threshold — the datacenter-proxy bot-challenge/JS-shell signature. Captured cleanly Jul 12, so this is <b>day 1</b> of a block; most likely transient (cf. the 07-08 BIMobject 403 that proved a proxy artifact). No product/spec change asserted; NOT staged to Notion. A clean Jul 14 closes it as transient; a 2nd consecutive block triggers a same-run P6 residential confirm.</p>
+      <ul class="kpages">
+        <li>Commercial Bathroom Faucets collection <span class="tag w">no item · datacenter block</span></li>
+        <li>P6 residential confirm <span class="tag w">triggers on 2nd consecutive block day</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>BathSelect <span class="pill p-flat">Home only (lottery to Fontana)</span></h3>
+      <div class="meta">1 page this run · home only [200] · cheerio · same as Jul 12</div>
+      <p>Home page only again — the depth-1 crawl budget stayed with Fontana. Positioning unchanged: "Luxury Quality Commercial Bathroom Showers and Faucets… Bathroom Touchless Faucets." <b>No new sensor line or dated change.</b></p>
+    </div>
+
+  </div>
+
+  <h2>Next scale-out</h2>
+  <div class="diff">
+    <div class="row"><div class="k">Apify cadence — restored</div><div class="v"><b>The 7:30 AM scheduled run was again blocked by a Claude-side Apify connector lapse and re-run same-day once reconnected (3rd such cycle: 07-09, 07-12, 07-13).</b> Resume the normal daily cadence for Jul 14; if a future morning run finds Apify absent, write a blocked_no_run record and re-run same-day — this keeps the series intact with no missing day.</div></div>
+    <div class="row"><div class="k">American Standard — WATCH tomorrow</div><div class="v"><b>No-item block today (day 1) — captured cleanly Jul 12.</b> Keep <b>datacenter</b> as the standing capture path; a <b>2nd consecutive block on Jul 14</b> triggers a same-run <b>residential-proxy</b> confirm (P6 tier) + content assertions before any flag. A clean Jul 14 capture closes today's block as a transient proxy artifact. The read, not the site, is the variable.</div></div>
+    <div class="row"><div class="k">Sloan cap-10 default</div><div class="v"><b>Standing:</b> keep <code>maxCrawlPages: 10</code> as the Sloan default — captures the full core spec set (videos included most runs) while holding cost near 0.16 CU.</div></div>
+    <div class="row"><div class="k">Bradley headline pass</div><div class="v">Add a ~6-page <code>playwright</code> pass on /press-releases + /architects-and-designers to recover JS-rendered headlines (~0.05 CU) — the only watchlist press surface we can't read today.</div></div>
+    <div class="row"><div class="k">Fontana AEO tracking</div><div class="v">Add <b>meta-description text-hashing</b> to quantify AEO-play drift as a hard indicator — the signal lives in metadata, not page presence. Falsifier: a revert to generic descriptions across the next 2 crawls (Review By 08-03).</div></div>
+    <div class="row"><div class="k">Change hashing</div><div class="v">Hash page text per run for weekly change-diffs surfaced directly in this artifact (carried).</div></div>
+  </div>
+
+  <footer>
+    <div class="frow"><b>Source:</b> apify/website-content-crawler (FREE actor) · Apify Scale plan (Silver) · pull-only, never writes to T&amp;S corporate systems · staged intelligence writes limited to append-only Notion logs per governance v1.0.</div>
+    <div class="frow"><b>Staged writes this run:</b> <b>1</b> — Fontana-AEO Insights row (ds <code>3146edd6…</code>) <b>corroborated 07-12 &rarr; 07-13</b> (idempotency rule 1 date-bump; 9th consecutive capture day; Status left "Proposed", no other field touched). <b>0</b> new Signals rows (competitiveIntel empty; Fontana + Sloan Sourced Facts already logged — verified in Signals this run; AmStd no-item block is a capture artifact, not staged). Canonical DBs untouched. Both schemas verified intact before writing (Signals + Insights property sets match canonical IDs, no drift).</div>
+    <div class="frow"><b>Cheerio run (27 explicit seeds, cap 72):</b> <code>PZtWVSIMhYNe9Ie44</code> · dataset <code>nSedY5R6vdCYtoKha</code> · 76 items · 77/77 requests · 0.093 CU</div>
+    <div class="frow"><b>Sloan playwright run (8 seeds, cap 10):</b> <code>DWjLo79iA5rYmTnJA</code> · dataset <code>TOrSMZK3SvWatv944</code> · 11 pages · 11/11 · 0.169 CU</div>
+    <div class="frow"><b>AmStd:</b> collection seed fetched but returned NO dataset item — datacenter-proxy no-item block (day 1; clean Jul 12). No confirm-retry spent; escalate to P6 residential only on a 2nd consecutive blocked day.</div>
+    <div class="frow"><b>Run cost:</b> &approx;confidential–0.06 compute (0.262 CU total, 2 runs) — inside prepaid confidential bucket; confidential hard cap not approached.</div>
+    <div class="frow"><b>Snapshot:</b> Apify_Monitors/competitive_watch_2026-07-13.json (incl. competitiveIntel[] + strategicSignals[] + stagedWrites[]) · same-day re-run of Jul 13 · 1-day diff vs Jul 12 · next refresh Jul 14, 7:30 AM.</div>
+  </footer>
+
+</div>
+</body>
+</html>
