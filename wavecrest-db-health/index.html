@@ -82,6 +82,8 @@ function isFalsePos(names){const s=names.map(n=>n.trim()).sort().join("|");retur
 async function q(ds,sql){const r=await window.cowork.callMcpTool('mcp__confidential__notion-query-data-sources',{data:{data_source_urls:[ds],query:sql}});const d=r.structuredContent??JSON.parse(r.content[0].text);if(r.isError)throw new Error('q');return d.results||[];}
 function card(cls,n,label,desc){return `<div class="card ${cls}"><div class="n">${n}</div><div class="l">${label}</div><div class="d">${desc}</div></div>`;}
 function sev(n){return n>0?(n>=5?'bad':'warn'):'ok';}
+const LAST=DATA.history[DATA.history.length-1]; // baked fallback for static mirrors (added 2026-07-17)
+let liveFails=0;
 async function run(){
  const today=new Date().toISOString().slice(0,10);
  let cards="", inscards="", detail="";
@@ -102,14 +104,14 @@ async function run(){
   const incomplete=rows.filter(r=>!r.tier||!r.metro||!r.domain).length;
   cards+=card(sev(incomplete),incomplete,"Incomplete firm rows",`Missing Tier ${noTier} · HQ Metro ${noMetro} · Domain ${noDom} (of ${rows.length}).`);
   DATA._live={dupes:dupeCount,incomplete,rows:rows.length};
- }catch(e){cards+=card('idle','—',"A&D checks","Query unavailable — open to retry.");}
+ }catch(e){liveFails++;cards+=card(sev(LAST.dupes??0),LAST.dupes??'—',"Firm duplicate groups",`Snapshot — last audit ${LAST.date} (live query runs internally).`);cards+=card(sev(LAST.incomplete??0),LAST.incomplete??'—',"Incomplete firm rows",`Snapshot — last audit ${LAST.date}.`);}
  // ZZ trash-ready
  try{
   const zz=await q(AND,`SELECT COUNT(*) AS n FROM "${AND}" WHERE "Firm Name" LIKE 'ZZ %'`);
   const n=zz[0]?zz[0].n:0;
   cards+=card(n>0?'warn':'ok',n,"ZZ rows (trash-ready)",n?"Empty duplicates parked for your batch-trash in the Notion UI (connector can't delete).":"None queued.");
   DATA._zz=n;
- }catch(e){cards+=card('idle','—',"ZZ rows","Query unavailable.");}
+ }catch(e){liveFails++;cards+=card((LAST.zz??0)>0?'warn':'ok',LAST.zz??'—',"ZZ rows (trash-ready)",`Snapshot — last audit ${LAST.date}.`);}
  // Signals provenance + stale
  try{
   const sig=await q(SIG,`SELECT "Signal" AS s, "Signal Type" AS stype, "date:Signal Date:start" AS sdate, "date:Review By:start" AS rby FROM "${SIG}"`);
@@ -119,7 +121,7 @@ async function run(){
   cards+=card(stale.length>0?'warn':'ok',stale.length,"Stale signals (re-validate)",stale.length?"Past Review By — re-validate or retire.":"None past Review By.");
   if(stale.length)detail+=`<details><summary>Stale signals (${stale.length})</summary><ul>${stale.map(r=>`<li>${r.s} — due ${r.rby}</li>`).join("")}</ul></details>`;
   DATA._prov=prov.length;DATA._stale=stale.length;
- }catch(e){cards+=card('idle','—',"Signals checks","Query unavailable.");}
+ }catch(e){liveFails++;cards+=card(sev(LAST.prov??0),LAST.prov??'—',"Signal provenance blanks",`Snapshot — last audit ${LAST.date}.`);cards+=card((LAST.stale??0)>0?'warn':'ok',LAST.stale??'—',"Stale signals (re-validate)",`Snapshot — last audit ${LAST.date}.`);}
  // Insights layer (assessments) — rot checks, added 2026-07-06 (staged-write governance v1.0)
  try{
   const ins=await q(INS,`SELECT "Assessment" AS a, "Status" AS st, "Authored By" AS aby, "Evidence (Signals)" AS ev, "date:Review By:start" AS rby, createdTime AS ct FROM "${INS}"`);
@@ -134,9 +136,9 @@ async function run(){
   if(due.length)detail+=`<details open><summary>Insights decisions due (${due.length})</summary><ul>${due.map(r=>`<li>${r.a} — due ${r.rby} (${r.st})</li>`).join("")}</ul></details>`;
   if(noEv.length)detail+=`<details open><summary>Evidence-less assessments (${noEv.length})</summary><ul>${noEv.map(r=>`<li>${r.a}</li>`).join("")}</ul></details>`;
   DATA._insDue=due.length;DATA._insAging=aging.length;DATA._insNoEv=noEv.length;
- }catch(e){inscards+=card('idle','—',"Insights checks","Query unavailable — open to retry.");}
+ }catch(e){liveFails++;inscards+=card((LAST.insDue??0)>0?'warn':'ok',LAST.insDue??'—',"Past Review-By (decision due)",`Snapshot — last audit ${LAST.date}.`);inscards+=card((LAST.insAging??0)>0?'warn':'ok',LAST.insAging??'—',"Aging Proposed (>14d)",`Snapshot — last audit ${LAST.date}.`);inscards+=card((LAST.insNoEv??0)>0?'bad':'ok',LAST.insNoEv??'—',"Evidence-less assessments",`Snapshot — last audit ${LAST.date}.`);}
  $("cards").innerHTML=cards; $("inscards").innerHTML=inscards; $("detail").innerHTML=detail;
- $("status").textContent="Checked "+new Date().toLocaleString()+" · live from Notion";
+ $("status").textContent=liveFails?("Snapshot — last weekly audit "+LAST.date+" · live checks run internally"):("Checked "+new Date().toLocaleString()+" · live from Notion");
  $("hist").querySelector("tbody").innerHTML=DATA.history.map(h=>`<tr><td>${h.date}</td><td>${h.dupes}</td><td>${h.zz}</td><td>${h.incomplete??'—'}</td><td>${h.prov}</td><td>${h.stale}</td><td>${h.insDue??'—'}</td><td>${h.insAging??'—'}</td><td>${h.insNoEv??'—'}</td></tr>`).join("");
 }
 run();
