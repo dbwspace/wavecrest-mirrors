@@ -1,0 +1,144 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Wavecrest Db Health",
+  "schemaVersion": 1,
+  "description": "ABM Data Hygiene board (read-only detector). Live checks over the A&D roster + Signals log + Insights assessment layer: firm-dupes (WATG/Wimberly false-positive suppressed), ZZ-trash-ready count, A&D field completeness, Signals provenance-blanks, stale-signal count, Insights rot (past Review-By / aging Proposed >14d / evidence-less / staged triage-queue depth). Detection only — resolution and promotion are supervised. Weekly audit appends to history (ins* columns added 2026-07-06).",
+  "mcpTools": [
+    "mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources"
+  ],
+  "mcpServerNames": [
+    "Notion"
+  ]
+}
+</script>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaveCrest — ABM Data Health</title>
+<style>
+ :root{color-scheme:light;--tsblue:#004577;--tsblue-lt:#e8f1f8;--ink:#1a2733;--mut:#5b6b7a;--line:#dbe4ec;--ok:#0a7d33;--warn:#b26a00;--bad:#b3261e;}
+ *{box-sizing:border-box;margin:0;padding:0;}
+ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f6f9fc;color:var(--ink);padding:20px;font-size:14px;}
+ .hdr{background:var(--tsblue);color:#fff;border-radius:10px;padding:18px 22px;}
+ .hdr h1{font-size:19px;font-weight:700;}
+ .hdr .sub{font-size:12px;opacity:.9;margin-top:4px;line-height:1.5;}
+ .chip{display:inline-block;background:#ffb81c;color:#33270a;font-weight:700;font-size:11px;padding:3px 10px;border-radius:99px;letter-spacing:.5px;}
+ .note{background:#fff7e6;border:1px solid #f0d9a8;color:#6b4e00;border-radius:8px;padding:10px 14px;margin:14px 0;font-size:12.5px;line-height:1.5;}
+ .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:14px 0;}
+ .card{background:#fff;border:1px solid var(--line);border-left-width:5px;border-radius:10px;padding:14px 16px;}
+ .card .l{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px;}
+ .card .n{font-size:30px;font-weight:800;margin:4px 0 2px;}
+ .card .d{font-size:12px;color:var(--mut);line-height:1.45;}
+ .ok{border-left-color:var(--ok);} .ok .n{color:var(--ok);}
+ .warn{border-left-color:var(--warn);} .warn .n{color:var(--warn);}
+ .bad{border-left-color:var(--bad);} .bad .n{color:var(--bad);}
+ .idle{border-left-color:var(--mut);} .idle .n{color:var(--mut);}
+ details{background:#fff;border:1px solid var(--line);border-radius:8px;margin:8px 0;padding:6px 12px;font-size:12.5px;}
+ summary{cursor:pointer;font-weight:600;color:var(--tsblue);}
+ details ul{margin:8px 0 4px 18px;} details li{margin:3px 0;color:var(--ink);}
+ .foot{font-size:11px;color:var(--mut);margin-top:10px;line-height:1.6;}
+ table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px;}
+ th{text-align:left;color:var(--mut);font-size:11px;text-transform:uppercase;padding:6px 8px;border-bottom:2px solid var(--line);}
+ td{padding:6px 8px;border-bottom:1px solid var(--line);} tr:last-child td{border-bottom:none;}
+ .stamp{font-size:11px;color:var(--mut);margin-top:4px;}
+ .sect{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px;margin:16px 0 -6px;}
+</style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
+window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
+</script>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<body>
+<div class="hdr">
+ <h1>ABM Data Health <span class="chip">DETECTOR · READ-ONLY</span></h1>
+ <div class="sub">Live hygiene checks over the A&amp;D roster, Signals log &amp; the Insights assessment layer. <b>Detection only</b> — merges, trashing, and promotions are done in a supervised session, never here.</div>
+</div>
+<div id="status" class="stamp">Running checks…</div>
+
+<div class="note"><b>How to use:</b> red/amber = something to resolve; open a supervised session and say the word. This board makes <b>zero writes</b>. Weekly audit (Sun) stamps the history; monthly specifier people-dedup runs separately. Insights rot-checks added 2026-07-06 under staged-write governance v1.0.</div>
+
+<div class="grid" id="cards"></div>
+<div class="sect">Insights layer (assessments)</div>
+<div class="grid" id="inscards"></div>
+<div id="detail"></div>
+
+<div class="card" style="border-left-color:var(--tsblue)">
+ <div class="l">Weekly Audit History</div>
+ <table id="hist"><thead><tr><th>Date</th><th>Firm dupes</th><th>ZZ trash-ready</th><th>Incomplete</th><th>Prov. blanks</th><th>Stale</th><th>Ins due</th><th>Ins aging</th><th>Ins no-ev</th></tr></thead><tbody></tbody></table>
+ <div class="foot">
+  <b>Checks:</b> firm-dupes (Apollo-ID / name, WATG≡Wimberly false-positive suppressed) · ZZ-trash-ready rows · A&amp;D completeness (Tier / HQ Metro / Primary Domain) · Signals provenance-blanks (Type / Signal Date / Review By) · stale signals (Review By &lt; today) · <b>Insights rot</b> (past Review-By = decision due · Proposed &gt;14d untriaged · evidence-less rows · agent-auto triage-queue depth). Orphan specifiers + duplicate <i>people</i> = the monthly deeper pass.<br>
+  <b>Sources:</b> <code>ABM Target Firms</code> (e75f81a2…) · <code>Signals — WaveCrest</code> (171e9131…) · <code>Insights — WaveCrest</code> (3146edd6…). Governance: record-of-truth is human-gated; assessment promotion is supervised-only (staged-write governance v1.0, 2026-07-06).
+ </div>
+</div>
+
+<script>
+const AND='collection://confidential';
+const SIG='collection://confidential';
+const INS='collection://confidential';
+const FALSE_POS=[["WATG","Wimberly Interiors"]]; // same Apollo Org ID, legitimately separate (firm + interiors studio)
+const DATA={ history:[
+  {date:"2026-07-05 (build)", dupes:0, zz:20, incomplete:null, prov:0, stale:0},
+  {date:"2026-07-12", dupes:0, zz:0, incomplete:11, prov:2, stale:0, insDue:0, insAging:0, insNoEv:3, hbQuar:38, hbPastGate:0, hbMisfile:2},
+  {date:"2026-07-17", dupes:0, zz:0, incomplete:11, prov:2, stale:0, insDue:3, insAging:0, insNoEv:3, hbQuar:56, hbPastGate:6, hbMisfile:5}
+]};
+const $=id=>document.getElementById(id);
+function isFalsePos(names){const s=names.map(n=>n.trim()).sort().join("|");return FALSE_POS.some(fp=>fp.slice().sort().join("|")===s);}
+async function q(ds,sql){const r=await window.cowork.callMcpTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',{data:{data_source_urls:[ds],query:sql}});const d=r.structuredContent??JSON.parse(r.content[0].text);if(r.isError)throw new Error('q');return d.results||[];}
+function card(cls,n,label,desc){return `<div class="card ${cls}"><div class="n">${n}</div><div class="l">${label}</div><div class="d">${desc}</div></div>`;}
+function sev(n){return n>0?(n>=5?'bad':'warn'):'ok';}
+async function run(){
+ const today=new Date().toISOString().slice(0,10);
+ let cards="", inscards="", detail="";
+ try{
+  const rows=await q(AND,`SELECT "Apollo Org ID" AS oid, "Firm Name" AS name, "Tier" AS tier, "HQ Metro" AS metro, "Primary Domain" AS domain FROM "${AND}" WHERE "Firm Name" NOT LIKE 'ZZ %'`);
+  // firm dupes by apollo id
+  const byOid={};rows.forEach(r=>{const o=(r.oid||'').trim();if(o){(byOid[o]=byOid[o]||[]).push(r.name);}});
+  let dupeGroups=[],fpGroups=0;
+  Object.values(byOid).forEach(names=>{if(names.length>1){if(isFalsePos([...new Set(names)])){fpGroups++;}else{dupeGroups.push(names);}}});
+  // dupes by name (safety net)
+  const byName={};rows.forEach(r=>{(byName[r.name]=byName[r.name]||0);byName[r.name]++;});
+  const nameDupes=Object.entries(byName).filter(([n,c])=>c>1).map(([n,c])=>`${n} ×${c}`);
+  const dupeCount=dupeGroups.length;
+  cards+=card(sev(dupeCount),dupeCount,"Firm duplicate groups",dupeCount?`${dupeGroups.length} Apollo-ID group(s) to merge. (${fpGroups} known false-positive suppressed.)`:`Clean. ${fpGroups} false-positive pair(s) suppressed (WATG≡Wimberly).`);
+  if(dupeCount)detail+=`<details open><summary>Firm dupes to resolve (${dupeCount})</summary><ul>${dupeGroups.map(n=>`<li>${[...new Set(n)].join(" / ")} — ${n.length} rows</li>`).join("")}</ul></details>`;
+  // completeness
+  const noTier=rows.filter(r=>!r.tier).length, noMetro=rows.filter(r=>!r.metro).length, noDom=rows.filter(r=>!r.domain||r.domain==='').length;
+  const incomplete=rows.filter(r=>!r.tier||!r.metro||!r.domain).length;
+  cards+=card(sev(incomplete),incomplete,"Incomplete firm rows",`Missing Tier ${noTier} · HQ Metro ${noMetro} · Domain ${noDom} (of ${rows.length}).`);
+  DATA._live={dupes:dupeCount,incomplete,rows:rows.length};
+ }catch(e){cards+=card('idle','—',"A&D checks","Query unavailable — open to retry.");}
+ // ZZ trash-ready
+ try{
+  const zz=await q(AND,`SELECT COUNT(*) AS n FROM "${AND}" WHERE "Firm Name" LIKE 'ZZ %'`);
+  const n=zz[0]?zz[0].n:0;
+  cards+=card(n>0?'warn':'ok',n,"ZZ rows (trash-ready)",n?"Empty duplicates parked for your batch-trash in the Notion UI (connector can't delete).":"None queued.");
+  DATA._zz=n;
+ }catch(e){cards+=card('idle','—',"ZZ rows","Query unavailable.");}
+ // Signals provenance + stale
+ try{
+  const sig=await q(SIG,`SELECT "Signal" AS s, "Signal Type" AS stype, "date:Signal Date:start" AS sdate, "date:Review By:start" AS rby FROM "${SIG}"`);
+  const prov=sig.filter(r=>!r.stype||!r.sdate||!r.rby);
+  const stale=sig.filter(r=>r.rby&&r.rby<today);
+  cards+=card(sev(prov.length),prov.length,"Signal provenance blanks",prov.length?"Signals missing Type / Signal Date / Review By.":`All ${sig.length} signals fully tagged.`);
+  cards+=card(stale.length>0?'warn':'ok',stale.length,"Stale signals (re-validate)",stale.length?"Past Review By — re-validate or retire.":"None past Review By.");
+  if(stale.length)detail+=`<details><summary>Stale signals (${stale.length})</summary><ul>${stale.map(r=>`<li>${r.s} — due ${r.rby}</li>`).join("")}</ul></details>`;
+  DATA._prov=prov.length;DATA._stale=stale.length;
+ }catch(e){cards+=card('idle','—',"Signals checks","Query unavailable.");}
+ // Insights layer (assessments) — rot checks, added 2026-07-06 (staged-write governance v1.0)
+ try{
+  const ins=await q(INS,`SELECT "Assessment" AS a, "Status" AS st, "Authored By" AS aby, "Evidence (Signals)" AS ev, "date:Review By:start" AS rby, createdTime AS ct FROM "${INS}"`);
+  const cutoff=new Date(Date.now()-14*864e5).toISOString().slice(0,10);
+  const due=ins.filter(r=>r.rby&&r.rby<today);
+  const aging=ins.filter(r=>r.st==='Proposed'&&(r.ct||'').slice(0,10)<cutoff);
+  const noEv=ins.filter(r=>!r.ev||r.ev==='[]');
+  const queue=ins.filter(r=>r.st==='Proposed'&&r.aby==='Agent - auto (staged)').length;
+  inscards+=card(due.length>0?'warn':'ok',due.length,"Past Review-By (decision due)",due.length?"Assessments owing a promote / falsify / extend call — supervised.":"No assessment past its decay checkpoint.");
+  inscards+=card(aging.length>0?'warn':'ok',aging.length,"Aging Proposed (>14d)",`Untriaged assessments older than 14 days. Staged triage queue: ${queue} agent-auto row(s) awaiting your review.`);
+  inscards+=card(noEv.length>0?'bad':'ok',noEv.length,"Evidence-less assessments",noEv.length?"Violates the ≥1-evidence rule — link a Signals row or falsify/supersede.":`All ${ins.length} assessments evidence-linked.`);
+  if(due.length)detail+=`<details open><summary>Insights decisions due (${due.length})</summary><ul>${due.map(r=>`<li>${r.a} — due ${r.rby} (${r.st})</li>`).join("")}</ul></details>`;
+  if(noEv.length)detail+=`<details open><summary>Evidence-less assessments (${noEv.length})</summary><ul>${noEv.map(r=>`<li>${r.a}</li>`).join("")}</ul></details>`;
+  DATA._insDue=due.length;DATA._insAging=aging.length;DATA._insNoEv=noEv.length;
+ }catch(e){inscards+=card('idle','—',"Insights checks","Query unavailable — open to retry.");}
+ $("cards").innerHTML=cards; $("inscards").innerHTML=inscards; $("detail").innerHTML=detail;
+ $("status").textContent="Checked "+new Date().toLocaleString()+" · live from Notion";
+ $("hist").querySelector("tbody").innerHTML=DATA.history.map(h=>`<tr><td>${h.date}</td><td>${h.dupes}</td><td>${h.zz}</td><td>${h.incomplete??'—'}</td><td>${h.prov}</td><td>${h.stale}</td><td>${h.insDue??'—'}</td><td>${h.insAging??'—'}</td><td>${h.insNoEv??'—'}</td></tr>`).join("");
+}
+run();
+</script>
+</body></html>

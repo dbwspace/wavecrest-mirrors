@@ -1,0 +1,231 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Wavecrest Ad Signal Layer",
+  "schemaVersion": 1,
+  "description": "P3 A&D Signal Layer pilot — daily specifier-intent signals from ArchDaily / Architect Magazine / Metropolis / AIA awards / Architizer / Bustler, scored S1/S2/S3 against the ABM Target Firms, with fill-or-kill tracker (review 2026-07-15). Data baked by the wavecrest-ad-signals daily task from Apify crawls."
+}
+</script>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaveCrest — A&D Signal Layer (P3 Pilot)</title>
+<style>
+  :root { color-scheme: light; --tsblue:#004577; --tsblue-lt:#e8f1f8; --ink:#1a2733; --mut:#5b6b7a; --line:#dbe4ec; --s1:#0a7d33; --s2:#b26a00; --s3:#8895a3; --warn:#b3261e; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:#f6f9fc; color:var(--ink); padding:20px; font-size:14px; }
+  .hdr { background:var(--tsblue); color:#fff; border-radius:10px; padding:18px 22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+  .hdr h1 { font-size:19px; font-weight:700; }
+  .hdr .sub { font-size:12px; opacity:.85; margin-top:3px; }
+  .chip { display:inline-block; background:#ffb81c; color:#33270a; font-weight:700; font-size:11px; padding:3px 10px; border-radius:99px; letter-spacing:.5px; }
+  .stamp { font-size:11px; opacity:.8; text-align:right; }
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; margin:16px 0; }
+  .tile { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .tile .n { font-size:26px; font-weight:800; color:var(--tsblue); }
+  .tile .l { font-size:11px; color:var(--mut); text-transform:uppercase; letter-spacing:.6px; margin-top:2px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .card h2 { font-size:14px; color:var(--tsblue); margin-bottom:10px; text-transform:uppercase; letter-spacing:.6px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; color:var(--mut); font-size:11px; text-transform:uppercase; letter-spacing:.5px; padding:6px 8px; border-bottom:2px solid var(--line); }
+  td { padding:7px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  .tag { display:inline-block; font-size:10px; font-weight:700; padding:2px 7px; border-radius:99px; }
+  .t1 { background:#e4f4e9; color:var(--s1); } .t2 { background:#fdf1de; color:var(--s2); } .t3 { background:#eef1f5; color:var(--s3); }
+  a { color:var(--tsblue); text-decoration:none; } a:hover { text-decoration:underline; }
+  .bar-row { display:flex; align-items:center; gap:8px; margin:5px 0; }
+  .bar-lbl { width:150px; font-size:12px; color:var(--mut); flex-shrink:0; }
+  .bar-tr { flex:1; background:var(--tsblue-lt); border-radius:5px; height:16px; overflow:hidden; }
+  .bar-fl { height:100%; background:var(--tsblue); border-radius:5px; }
+  .prog-wrap { margin:8px 0 14px; }
+  .prog-hd { display:flex; justify-content:space-between; font-size:12px; color:var(--mut); margin-bottom:4px; }
+  .prog-tr { background:var(--tsblue-lt); border-radius:6px; height:20px; overflow:hidden; position:relative; }
+  .prog-fl { height:100%; border-radius:6px; }
+  .fill-s1 { background:var(--s1); } .fill-s2 { background:var(--s2); }
+  .note { font-size:12px; color:var(--mut); line-height:1.5; }
+  .foot { font-size:11px; color:var(--mut); margin-top:6px; line-height:1.6; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:820px){ .grid2{grid-template-columns:1fr;} }
+</style>
+</head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
+window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
+</script>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<body>
+<div class="hdr">
+  <div>
+    <h1>A&amp;D Signal Layer <span class="chip">P3 · PILOT</span></h1>
+    <div class="sub">Specifier intent signals from A&amp;D pubs, awards &amp; project boards → ABM prioritization · daily ~3 PM · fill-or-kill review <b>Jul 15, 2026</b></div>
+  </div>
+  <div class="stamp" id="stamp"></div>
+</div>
+
+<div class="tiles" id="tiles"></div>
+
+<div class="card">
+  <h2>Fill-or-Kill Tracker <span style="float:right;font-weight:400;text-transform:none;letter-spacing:0" id="fok-days"></span></h2>
+  <div class="prog-wrap">
+    <div class="prog-hd"><span><b>S1 — ACT</b> signals (target firm × relevant vertical), cumulative</span><span id="s1-lbl"></span></div>
+    <div class="prog-tr"><div class="prog-fl fill-s1" id="s1-bar"></div></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-hd"><span><b>S2 — WATCH</b> signals (candidate firms/projects), cumulative</span><span id="s2-lbl"></span></div>
+    <div class="prog-tr"><div class="prog-fl fill-s2" id="s2-bar"></div></div>
+  </div>
+  <div class="note">FILL if ≥5 S1 <i>or</i> ≥15 S2 with ≥3 net-new ABM-worthy firms by Jul 15 · KILL if S1&lt;5 and S2 mostly duplicates/noise. Verdict = Daniel's call.</div>
+</div>
+
+<div class="card">
+  <h2>S1 — Target-Firm Intent Signals</h2>
+  <table id="s1-tbl"><thead><tr><th>Firm</th><th>Tier</th><th>Project / Signal</th><th>Src</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <h2>S2 — Watchlist (candidate adds · dedupe-first)</h2>
+    <table id="s2-tbl"><thead><tr><th>Firm</th><th>Project / Signal</th><th>Src</th></tr></thead><tbody></tbody></table>
+  </div>
+  <div class="card">
+    <h2>Source Yield (pages this run)</h2>
+    <div id="src-bars"></div>
+    <h2 style="margin-top:16px">Market Context (S3 notable)</h2>
+    <div id="s3-list" class="note"></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Daily History</h2>
+  <table id="hist-tbl"><thead><tr><th>Date</th><th>Pages</th><th>New URLs</th><th>S1</th><th>S2</th><th>CU</th></tr></thead><tbody></tbody></table>
+  <div class="foot">
+    <b>Pipeline:</b> apify/website-content-crawler (FREE) → diff vs snapshot → score → this board. Snapshots: <code>Apify_Monitors/ad_signals_*.json</code> · Config: <code>ad_signals_config.md</code> · Task: <code>wavecrest-ad-signals</code> (~3 PM daily).<br>
+    <b>Guardrails:</b> pull-only · confidential hard cap · NO Notion/corporate writes during pilot · S2 adds require dedupe vs Apollo + Notion first · matcher uses word-boundary core names ("Populus Seattle" hotel ≠ firm "<span data-tf>confidential</span>").
+  </div>
+</div>
+
+<script>
+const DATA = {
+  updated: "2026-07-16 · run 24 (r24) — HEADLESS RESILIENCE PROVEN: first fully-unattended scheduled fire via the remote Apify connector (no NO-RUN, no manual recovery) · 7 net-new of 150 (frontier 203→210) · S1 1: Perkins&Will T1, 17th distinct firm — Enchanted Hills Camp, Napa CA, explicit ADA content → STAGED (39f44503) · S2 4: Stirling 2026 shortlist, all UK (UK-weighted; <span data-tf>confidential</span> the only major US practice) · NO award-burst (1 award URL of ≥8 needed; no target firm on shortlist) · fill-or-kill CLOSED (FILL decided 07-12)",
+  reviewDate: "2026-07-15",
+  runsToDate: 24,
+  cost: { cuLastRun: 0.93, usdLastRun: 0.14, estMonthlyUsd: 4.2 },
+  pagesLastRun: 150,
+  s1Cumulative: 21,
+  s2Cumulative: 28,
+  s1: [
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 1", proj:"Enchanted Hills Camp &amp; Retreat rebuild, Mount Veeder, Napa CA — 30 structures / ~29k sf for Lighthouse for the Blind &amp; Visually Impaired (2017 wildfire recovery; welcome pavilion, dining hall, bunkhouses + offseason retreat-center revenue model). Inclusive/universal design with explicit <b>ADA</b> references → Confidence High · Jul 16 r24: NET-NEW S1 firm (17th distinct; Notion A&amp;D Tier 1, live match) — STAGED to Signal Staging (39f44503, Promote To linked, dedupe Pending). Hospitality/retreat, US.", url:"https://metropolismag.com/projects/perkinswill-rebuilds-the-westcoasts-first-camp-for-the-blind/" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 1", proj:"LACMA (David Geffen Galleries), Los Angeles — AIA|LA 2026 <b>Building Team Award</b>: <span data-tf>confidential</span> = collaborating architect + structural engineering (design architect Atelier Peter Zumthor; <span data-tf>confidential</span> MEP/LEED → S2 below). Civic/cultural museum, US · Jul 14 r22: repeat S1 firm, NEW US project — STAGED to Signal Staging (39e44503, Promote To linked, dedupe Pending).", url:"https://bustler.net/news/11046/here-are-the-winners-of-the-2026-aia-los-angeles-board-of-directors-awards" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 3", proj:"Lee monument transformation — 'Swords Into Plowshares' civic landscape, Charlottesville VA (civic/cultural · public memory, US) · Jul 11 r19: NET-NEW S1 firm (16th distinct; Notion A&amp;D Tier 3, live targeted match). Editorial via Architect Magazine /design. No product kw in title/description.", url:"https://www.architectmagazine.com/design/the-last-confederate-monument" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 3", proj:"Theodore Roosevelt Presidential Library, Medora ND — regenerative 'living building' / Living Building Challenge, civic/cultural (US) · Jul 7 r15: fresh Architect Magazine coverage of the same project first flagged Jul 4 r8 (Metropolis). REPEAT S1 — already-counted distinct firm, not net-new. Notion A&amp;D Tier 3 (live match).", url:"https://www.architectmagazine.com/design/americas-greenest-presidential-library-has-no-interest-in-being-a-monument" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 1", proj:"Benjamin Banneker Academic HS, Washington DC — Net Zero Energy education building · AIA COTE Top Ten 2026 · Jul 6 r13: NET-NEW S1 firm (Notion A&amp;D Tier 1). Award-recognition / firm-momentum signal, not a live RFP. Education, US.", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 2", proj:"Land's Sake Farm, Weston MA — non-profit community/education farm (8,000 children/yr) · AIA Small Project 2026 · Jul 6 r13: NET-NEW S1 firm (Notion A&amp;D Tier 2). Small project, firm-momentum. Education, US.", url:"https://bustler.net/news/11020/best-small-projects-chosen-at-aia-small-project-award-2026" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 1", proj:"Marlboro Music Reich Hall, VT — geothermal rehearsal/performance hall, exceeds AIA 2030 · COTE Top Ten 2026 · Jul 6 r13: NET-NEW S1 firm (Notion Tier 1). Cultural, US.", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 3", proj:"Seattle Convention Center Summit Building, WA — largest LEED Platinum convention center in US, 1.5M sf · COTE Top Ten 2026 · Jul 6 r13: NET-NEW S1 firm (Notion Tier 3). Civic/convention, US.", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 2", proj:"Volta Studio, Portland OR — adaptive-reuse Design Lab/workshop, low-carbon · COTE Top Ten 2026 · Jul 6 r13: NET-NEW S1 firm (Notion Tier 2). Workplace, US.", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 3", proj:"Kapuso at the Upper Yard, San Francisco — 131 all-electric affordable homes at Balboa Park transit hub · COTE Top Ten 2026 · Jul 6 r13: NET-NEW S1 firm (Notion Tier 3). Housing/transit-oriented (vertical soft); firm-momentum.", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 3", proj:"Trinity University Business &amp; Humanities District, San Antonio TX — mass-timber Dicke Hall; captures 100% of condensate to eliminate potable water use for toilets · COTE Top Ten 2026 · Jul 6 r13: existing S1 firm, NEW project. Education + water/plumbing efficiency, US — strongest of the batch.", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 1", proj:"WeBank HQ, Shenzhen — 'breathing building', porous facade tuned to occupant health &amp; comfort (workplace; non-US, firm-momentum) · Jul 6 r12: net-new PROJECT for an existing S1 firm. Notion match skipped (503); tier from prior snapshot", url:"https://metropolismag.com/projects/webank-som-creates-a-breathing-building/" },
+    { firm:"<span data-tf>confidential</span> + <span data-tf>confidential</span>", tier:"Tier 1", proj:"M&amp;A: <span data-tf>confidential</span> now practices as '<span data-tf>confidential</span>, a <span data-tf>confidential</span> company' — explicit education + healthcare portfolio overlap (MSK Koch Cancer Center, Caltech Resnick, CHUM Montréal); 8th <span data-tf>confidential</span> acquisition in 2 yrs · Jul 2 r5, verified from text", url:"https://architizer.com/blog/inspiration/industry/cannondesign-acquisition-of-ennead/" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 1", proj:"Pittsburgh Int'l Airport landside terminal, confidentialB, 811k sf, LEED Gold pursuit (transport, US) — design JV w/ <span data-tf>confidential</span> · Jul 2 r3: verification upgrade from day-1 S2", url:"https://metropolismag.com/projects/pittsburgh-reinvents-airport/" },
+    { firm:"<span data-tf>confidential</span>", tier:"Tier 1", proj:"Pittsburgh Int'l Airport landside terminal (transport, US) — design JV w/ <span data-tf>confidential</span> · Jul 2 r3: verification upgrade of day-1 S2", url:"https://metropolismag.com/projects/pittsburgh-reinvents-airport/" }
+  ],
+  s2: [
+    { firm:"<span data-tf>confidential</span>", proj:"Pembroke College Mill Lane, Cambridge UK — largest college expansion since the 14th c.; 6 retrofits + 6 new passive-design buildings (education/campus) · 2026 <b>Stirling Prize shortlist</b> · Jul 16 r24 — UK firm, minimal US practice: UK-weighted weak add, dedupe req", url:"https://bustler.net/news/11078/six-projects-make-2026-stirling-prize-shortlist-for-uk-s-best-new-building" },
+    { firm:"<span data-tf>confidential</span>", proj:"River Wing, Clare College, Cambridge UK — dining wing for Grade I-listed college (education/campus) · Stirling 2026 shortlist · Jul 16 r24 — UK-weighted weak add, dedupe req", url:"https://bustler.net/news/11078/six-projects-make-2026-stirling-prize-shortlist-for-uk-s-best-new-building" },
+    { firm:"<span data-tf>confidential</span>", proj:"BEAM, Hertford UK — council-led arts venue/cinema retrofit of 1970s theatre, CLT + all-electric (civic/cultural) · Stirling 2026 shortlist · Jul 16 r24 — UK-weighted weak add, dedupe req", url:"https://bustler.net/news/11078/six-projects-make-2026-stirling-prize-shortlist-for-uk-s-best-new-building" },
+    { firm:"<span data-tf>confidential</span> (+ <span data-tf>confidential</span>)", proj:"Paddington Square, London — workplace/retail + step-free transit-interchange public realm · Stirling 2026 shortlist · Jul 16 r24 — strongest of the four (<span data-tf>confidential</span> major US practice, NY); non-US project = firm-momentum only, dedupe req", url:"https://bustler.net/news/11078/six-projects-make-2026-stirling-prize-shortlist-for-uk-s-best-new-building" },
+    { firm:"<span data-tf>confidential</span>", proj:"LACMA — MEP engineering, lighting, sustainability/<b>LEED</b> on the AIA|LA 2026 Building Team Award team (cultural, US). Major global MEP w/ big US practice, NOT in MEP Target DB — strongest add of the batch · Jul 14 r22, dedupe req", url:"https://bustler.net/news/11046/here-are-the-winners-of-the-2026-aia-los-angeles-board-of-directors-awards" },
+    { firm:"<span data-tf>confidential</span> + <span data-tf>confidential</span>", proj:"Class of 1986 Fitness &amp; Wellness Center — WAF 2026 shortlist (education/campus + sports/wellness; restroom-dense program). <span data-tf>confidential</span> Philadelphia, <span data-tf>confidential</span> Toronto · Jul 14 r22, dedupe req", url:"https://bustler.net/news/11072/world-architecture-festival-explore-the-shortlisted-finalists-for-2026" },
+    { firm:"<span data-tf>confidential</span>", proj:"Conjunctive Points/Hayden Tract, Culver City — AIA|LA 25-Year Award (workplace, US; retrospective — weak recency, <span data-tf>confidential</span>/STV precedent) · Jul 14 r22, dedupe req", url:"https://bustler.net/news/11046/here-are-the-winners-of-the-2026-aia-los-angeles-board-of-directors-awards" },
+    { firm:"<span data-tf>confidential</span> + <span data-tf>confidential</span>", proj:"205 North Quay, Brisbane — WAF 2026 shortlist (workplace; non-US project, both firms US-active: <span data-tf>confidential</span> NYC, <span data-tf>confidential</span> SF) · Jul 14 r22, dedupe req", url:"https://bustler.net/news/11072/world-architecture-festival-explore-the-shortlisted-finalists-for-2026" },
+    { firm:"<span data-tf>confidential</span>", proj:"Marie Selby Botanical Gardens Ph1, Sarasota FL — regenerative Net-Positive-Energy campus, Living Building Challenge targets · COTE Top Ten 2026 · Jul 6 r13, non-target, dedupe req", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", proj:"Health Sciences Education Building, UW Seattle — mass-timber, sustainable finishes for occupant health &amp; wellness · COTE Top Ten 2026 · Jul 6 r13, non-target, dedupe req (also US Embassy Niamey, non-US)", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", proj:"Marion Fire Station No. 1, IA — all-electric civic building, biophilic · COTE Top Ten 2026 · Jul 6 r13, non-target, dedupe req", url:"https://bustler.net/news/11019/10-standout-sustainable-projects-honored-at-aia-cote-top-ten-award-2026" },
+    { firm:"<span data-tf>confidential</span>", proj:"Augusta Quarry, Knoxville TN — City-operated swimming hole w/ vendor kiosk, restrooms &amp; changing room (restroom kw) · AIA Small Project 2026 · Jul 6 r13, non-target, dedupe req", url:"https://bustler.net/news/11020/best-small-projects-chosen-at-aia-small-project-award-2026" },
+    { firm:"<span data-tf>confidential</span>", proj:"Brooklyn Bridge Park Pier 1 Entry Pavilion, NY — park's first private family/gender-neutral restrooms (restroom kw), net-zero · AIA Small Project 2026 · Jul 6 r13, non-target, dedupe req", url:"https://bustler.net/news/11020/best-small-projects-chosen-at-aia-small-project-award-2026" },
+    { firm:"<span data-tf>confidential</span> + <span data-tf>confidential</span>", proj:"Spedali Civili Main &amp; Children's Hospital, Brescia IT — won int'l competition; integrated healthcare campus, healing gardens · Jul 6 r13, non-target NON-US, low ABM priority, dedupe req", url:"https://bustler.net/news/11039/carlo-ratti-and-park-associati-to-redevelop-italian-hospital-by-linking-architecture-and-healing" },
+    { firm:"<span data-tf>confidential</span>", proj:"Newark Liberty Terminal A, confidentialB, LEED Gold (transport, US) — design architect (w/ STV exec architect); completed 2023 · Jul 2", url:"https://architizer.com/blog/practice/materials/seeing-the-light-newark-liberty-terminal-a-acuity-brands-lighting/" },
+  ],
+  s3Notable: [
+    { note:"Jul 16 r24: FIRST fully-unattended headless fire via the remote Apify connector (mcp.apify.com) — the recurring slot NO-RUN pattern (Apify DXT absent 07-12/14/15) did NOT recur; migration validated, no manual recovery. 7 net-new of 150 (frontier 203→210; 4 Bustler / 2 Architect Mag / 1 Metropolis). S1: <span data-tf>confidential</span> T1 (17th distinct firm) — Enchanted Hills Camp &amp; Retreat, Napa CA, explicit ADA/inclusive-design content → Confidence High, STAGED (39f44503, Promote To linked). S2 ×4 from one URL — 2026 Stirling Prize shortlist (all UK): <span data-tf>confidential</span> + Witherford Watson Mann (Cambridge colleges, education), <span data-tf>confidential</span> (BEAM civic), <span data-tf>confidential</span>+Adamson (Paddington Sq workplace/transit); all UK-weighted weak adds, dedupe req; winner Oct 15 → recheck that cycle. NO award burst (1 award URL &lt; 8; no target firm on shortlist). ArchDaily: 0 article pages captured at the 150 cap (index URLs only) — standing source skew; consider dedicated ArchDaily start-URLs if its yield matters.", url:"https://bustler.net/news/11078/six-projects-make-2026-stirling-prize-shortlist-for-uk-s-best-new-building" },
+    { note:"Jul 15 r23: QUIET — only 1 net-new URL of 150 crawled (frontier 202→203); the ArchDaily / Architect Magazine / Metropolis / Architizer / Bustler feeds barely rotated in ~24h since the r22 full-depth capture. Lone new item = a follow-on RIBA National Awards 2026 roundup on Bustler /news (UK's best new architecture honored) — same cycle already logged r22; UK-domestic, no US project, no target firm nameable → S3, no ABM action. Award-signature present but BELOW burst threshold (1 of a needed ≥8 net-new award URLs; no target-firm award) → NO burst escalation. 0 new S1 → Notion Signal Staging write a correct no-op; cumulative holds S1 20 / S2 24 / 16 distinct firms. Slot NO-RAN on Apify-MCP absence → Daniel forced re-run ~7:40 PM ET; diff chain intact.", url:"https://bustler.net/news/11071/uk-s-best-new-architecture-honored-at-2026-riba-national-awards" },
+    { note:"Jul 14 r22: 🔔 AWARD BURST — 15 net-new (frontier 187→202), 7 of them Bustler /news award pages in one window: RIBA National Awards 2026 (32 UK winners — healthcare/education/cultural cluster; UK-domestic firms held OUT of S2 under US-weighting), AIA Chicago Firm Award, AIA|LA BoD Awards (→ <span data-tf>confidential</span> S1 + 2 S2), WAF 2026 shortlist (→ 2 S2; Fort Lauderdale in November — US-hosted cycle), Davidson + Wheelwright prizes. TARGET-FIRM MOMENTUM (held S3 by precedent — no project vertical): <span data-tf>confidential</span> T3 = AIA Chicago Firm Award for 'conceptual rigor'; <span data-tf>confidential</span> T1 (A&amp;D + MEP) on RIBA-winning Kepax Footbridge (infra, outside taxonomy); <span data-tf>confidential</span> T3 named a WAF-shortlist 'heavyweight' (no project given). First 150-cap run to reach Bustler /news in depth — burst is partly surface-unlock, partly cycle timing (newly-visible ≠ newly-present). Building-team award pages = richest ABM structure yet: the LACMA listing names client/architect/MEP/landscape/contractor in one block — treat as a high-value source class. Scheduled 3:10 PM slot MISSED (Apify MCP absent from session); this snapshot = Daniel's forced manual run ~10 PM ET — diff chain intact.", url:"https://bustler.net/news/11046/here-are-the-winners-of-the-2026-aia-los-angeles-board-of-directors-awards" },
+    { note:"Jul 13 r21: 28 net-new URLs — frontier 159→187, a Monday editorial drop that breaks the 07-08/09/10/12 weekend zero-streak (07-11 Sat was +3). Signal quality LOW: S1 0 / S2 0. All 28 net-new = Architizer editorial + A+Awards-cycle roundups (13), Bustler competitions/events (14: Buildner Unbuilt Award, Kinderspace, Re:Form, 13 White Houses, Portugal Long Table, Valli Wine Tasting Room), and one Architect Magazine editorial (Tezuka). Programmatic scan: 0 product keywords; vertical hits all false positives ('spa' in space/Kinderspace; 'office' = an art exhibition). NO AWARD BURST (award-regex 7 &lt; 8; no Bustler /news award page naming a target firm). FILL mode: 0 S1 → 0 Notion Staging writes; Notion firm-match skipped by design (no firm×vertical pairing). 0.65 CU (~confidential), 0 failed, 150 banked (155/173 crawled). A+Awards 2026 editorial cycle ramping on Architizer — watch Bustler /news for the firm-specific award drops that historically yield S1.", url:"https://architizer.com/blog/inspiration/collections/best-in-craft-aawards-2026/" },
+    { note:"Jul 12 r20: 0 net-new URLs — frontier holds 159. Sunday zero-day (4th zero-net-new in the last 5 runs). The ~3 PM scheduled run could NOT fire — the Apify + Desktop Commander MCP connectors were detached from the session (logged in Apify_Monitors/RUN-BLOCKED_2026-07-12_ad-signals_no-apify-connector.md); re-run executed same day on Daniel's instruction once restored. Diff chain intact — only the 07-12 run timing shifted, no missed days. Notion match skipped (0 new items). Cost 0.556 CU (~confidential), 0 failed.", url:"https://bustler.net/news" },
+    { note:"Jul 11 r19: 3 net-new URLs (frontier 156→159) — zero-streak broken after 3 days. 1×S1 (<span data-tf>confidential</span>, above) + 2×S3: Machado Silvetti + OJB's seven-acre NC Research Triangle civic park/town center (non-target firms, no product kw/award → below S2 bar; park project, low plumbing relevance) and an Architect Magazine residential design-trend essay (not a target vertical). Notion pull deferred until after diff, then one targeted 4-name query (1 read, 1 match) — recommend as standing pattern.", url:"https://metropolismag.com/projects/in-north-carolina-an-iconic-park-completes-a-community/" },
+    { note:"Jul 10 r18: 0 net-new URLs — THIRD consecutive zero-net-new day (r16–r18; last net-new was 3 on Jul 7 r15). Crawler banked 70 pages (75 requests, maxResults cap); every one already in the 156-URL frontier. Notion firm lists refreshed live (504 targets: A&amp;D 389 · MEP 62 · O/D 53) but zero items to match. With the FILL gate 5 days out and both bars long-cleared, the FILL + cadence-throttle (every 2–3 days / event-trigger on award drops) + maxResults-bump package is now strongly supported by the yield pattern.", url:"https://bustler.net/news" },
+    { note:"Jul 8–9 (r16, r17): 0 net-new both days — crawler banked 70 pages each run, all already in the 156-URL frontier; no fresh editorial; distinct-firm count holds at 15.", url:"https://bustler.net/news" },
+    { note:"Jul 7 r15: 3 net-new URLs (frontier 153→156) — all civic/cultural. <span data-tf>confidential</span> TR Presidential Library = repeat S1 (new pub); the other 2 = museums scored S3 (below). A slow editorial trickle vs the r13 award burst. Multi-pub coverage of one project inflates raw S1 counts — distinct-firm/project is the truer FILL signal.", url:"https://www.architectmagazine.com/design" },
+    { note:"S3 — Leers Weinzapfel Associates: National Conservation Legacy Center (National Museum of Forest Service History), Missoula MT — civic/cultural + education, mass timber. Non-target firm, no product-kw/award → NOT an S2 add. Light ABM watch only; dedupe vs Apollo + Notion if ever promoted.", url:"https://metropolismag.com/projects/in-missoula-a-museum-leers-weinzapfel-associates-grows-from-timber-and-memory/" },
+    { note:"S3 — Herzog &amp; de Meuron (design) + Archimania (AOR): Memphis Art Museum, TN — civic/cultural museum, mass timber. Non-target firms, no product-kw/award → NOT an S2 add. H&amp;dM is a non-US starchitect (low US-specifier fit); Archimania is Memphis-local.", url:"https://www.architectmagazine.com/design/americas-next-great-museum-isnt-opening-in-new-york-or-los-angeles-its-opening-in-memphis" },
+    { note:"METHODOLOGY (r13): the AIA 2026 award cycle (COTE Top Ten, Small Project, Architecture/Interior/Housing Awards) landed via Bustler /news — 33 net-new URLs → 7 S1 + 6 S2. Bustler /news is the highest-yield target-firm vein; yield comes from episodic award bursts, not daily re-crawls.", url:"https://bustler.net/news" },
+    { note:"A+Product Awards 2026 'Product of the Year' call for entries OPEN — direct WaveCrest entry vehicle ('Be Seen, Be Specified'); flag for W## calendar.", url:"https://architizer.com/blog/for-manufacturers/call-for-entries-product-of-the-year/" },
+    { note:"ABI fell to 44.5 — billings recovery collapsed again (macro headwind for spec pipelines); only 3% of architects are under 30 — pipeline/succession context.", url:"https://www.architectmagazine.com/design/architectures-recovery-just-collapsed-again" }
+  ],
+  sourceYield: [
+    { src:"Architizer", n:44 },
+    { src:"Metropolis", n:37 },
+    { src:"Bustler", n:35 },
+    { src:"Architect Magazine", n:21 },
+    { src:"AIA awards", n:11 },
+    { src:"ArchDaily", n:2 }
+  ],
+  history: [
+    { date:"2026-07-02", pages:70, newUrls:70, s1:3, s2:11, cu:0.508 },
+    { date:"2026-07-02 · r2", pages:70, newUrls:35, s1:2, s2:4, cu:0.561 },
+    { date:"2026-07-02 · r3 (PIT S2→2×S1)", pages:70, newUrls:0, s1:0, s2:0, cu:0.624 },
+    { date:"2026-07-02 · r4", pages:70, newUrls:0, s1:0, s2:0, cu:0.782 },
+    { date:"2026-07-02 · r5 (<span data-tf>confidential</span>×<span data-tf>confidential</span> M&A → S1)", pages:70, newUrls:11, s1:1, s2:0, cu:0.625 },
+    { date:"2026-07-02 · r6", pages:70, newUrls:0, s1:0, s2:0, cu:0.541 },
+    { date:"2026-07-02 · r7", pages:70, newUrls:0, s1:0, s2:0, cu:0.65 },
+    { date:"2026-07-04 · r8 (<span data-tf>confidential</span> S1)", pages:70, newUrls:3, s1:1, s2:0, cu:0.707 },
+    { date:"2026-07-05 · r9 (0 new — frontier saturated)", pages:70, newUrls:0, s1:0, s2:0, cu:0.71 },
+    { date:"2026-07-05 · r10 (0 new — 2nd same-day zero-yield)", pages:70, newUrls:0, s1:0, s2:0, cu:0.72 },
+    { date:"2026-07-06 · r11 (0 new — 3rd straight zero-yield)", pages:70, newUrls:0, s1:0, s2:0, cu:0.507 },
+    { date:"2026-07-06 · r12 (<span data-tf>confidential</span> WeBank S1 — 1 new)", pages:70, newUrls:1, s1:1, s2:0, cu:0.621 },
+    { date:"2026-07-06 · r13 (AIA award cycle → 7×S1, 6×S2)", pages:70, newUrls:33, s1:7, s2:6, cu:0.608 },
+    { date:"2026-07-07 · r14 (0 new — redundant; Architizer-heavy frontier)", pages:70, newUrls:0, s1:0, s2:0, cu:0.726 },
+    { date:"2026-07-07 · r15 (3 new · <span data-tf>confidential</span> TR Library repeat S1)", pages:70, newUrls:3, s1:1, s2:0, cu:0.672 },
+    { date:"2026-07-08 · r16 (0 net-new — frontier holds 156)", pages:70, newUrls:0, s1:0, s2:0, cu:0.704 },
+    { date:"2026-07-09 · r17 (0 net-new — 2nd straight; frontier holds 156)", pages:70, newUrls:0, s1:0, s2:0, cu:0.401 },
+    { date:"2026-07-10 · r18 (0 net-new — 3rd straight; frontier holds 156)", pages:70, newUrls:0, s1:0, s2:0, cu:0.53 },
+    { date:"2026-07-11 · r19 (3 new · <span data-tf>confidential</span> S1 — 16th distinct firm)", pages:70, newUrls:3, s1:1, s2:0, cu:0.287 },
+    { date:"2026-07-12 · r20 (0 net-new — connector-outage re-run; frontier holds 159)", pages:70, newUrls:0, s1:0, s2:0, cu:0.556 },
+    { date:"2026-07-13 · r21 (28 net-new — Monday editorial drop; S1 0/S2 0; frontier 159→187)", pages:150, newUrls:28, s1:0, s2:0, cu:0.654 },
+    { date:"2026-07-14 · r22 (🔔 AWARD BURST · <span data-tf>confidential</span> S1 staged + 4 S2 · slot missed → forced PM run; frontier 187→202)", pages:150, newUrls:15, s1:1, s2:4, cu:0.654 },
+    { date:"2026-07-15 · r23 (quiet · 1 net-new RIBA → S3 · slot NO-RAN → forced re-run; frontier 202→203)", pages:150, newUrls:1, s1:0, s2:0, cu:0.661 },
+    { date:"2026-07-16 · r24 (7 net-new · <span data-tf>confidential</span> S1 staged — 17th distinct · 4 UK S2 (Stirling) · FIRST unattended headless fire via remote connector; frontier 203→210)", pages:150, newUrls:7, s1:1, s2:4, cu:0.933 }
+  ]
+};
+
+const $ = id => document.getElementById(id);
+$("stamp").innerHTML = "Updated " + DATA.updated + "<br>Run " + DATA.runsToDate + " · " + DATA.cost.cuLastRun + " CU ≈ $" + DATA.cost.usdLastRun.toFixed(2);
+
+$("tiles").innerHTML = [
+  ["S1 signals", DATA.s1Cumulative], ["S2 watchlist", DATA.s2Cumulative],
+  ["Pages / run", DATA.pagesLastRun], ["Cost / run", "$" + DATA.cost.usdLastRun.toFixed(2)],
+  ["Est. monthly", "$" + DATA.cost.estMonthlyUsd.toFixed(2)], ["Runs to date", DATA.runsToDate]
+].map(t => `<div class="tile"><div class="n">${t[1]}</div><div class="l">${t[0]}</div></div>`).join("");
+
+const days = Math.max(0, Math.ceil((new Date(DATA.reviewDate) - new Date()) / 86400000));
+$("fok-days").textContent = days > 0 ? days + " days to review" : "REVIEW DUE — verdict needed";
+$("s1-lbl").textContent = DATA.s1Cumulative + " / 5 (FILL)";
+$("s1-bar").style.width = Math.min(100, DATA.s1Cumulative/5*100) + "%";
+$("s2-lbl").textContent = DATA.s2Cumulative + " / 15 (FILL)";
+$("s2-bar").style.width = Math.min(100, DATA.s2Cumulative/15*100) + "%";
+
+$("s1-tbl").querySelector("tbody").innerHTML = DATA.s1.map(r =>
+  `<tr><td><b>${r.firm}</b></td><td><span class="tag ${r.tier==="Tier 1"?"t1":r.tier==="Tier 2"?"t2":"t3"}">${r.tier}</span></td><td>${r.proj}</td><td><a href="${r.url}" target="_blank">↗</a></td></tr>`).join("") || "<tr><td colspan=4>None yet</td></tr>";
+
+$("s2-tbl").querySelector("tbody").innerHTML = DATA.s2.map(r =>
+  `<tr><td>${r.firm}</td><td>${r.proj}</td><td><a href="${r.url}" target="_blank">↗</a></td></tr>`).join("");
+
+const mx = Math.max(...DATA.sourceYield.map(s => s.n));
+$("src-bars").innerHTML = DATA.sourceYield.map(s =>
+  `<div class="bar-row"><div class="bar-lbl">${s.src}</div><div class="bar-tr"><div class="bar-fl" style="width:${s.n/mx*100}%"></div></div><div style="width:26px;text-align:right;font-size:12px">${s.n}</div></div>`).join("");
+
+$("s3-list").innerHTML = DATA.s3Notable.map(s => `• ${s.note} <a href="${s.url}" target="_blank">↗</a>`).join("<br>");
+
+$("hist-tbl").querySelector("tbody").innerHTML = DATA.history.map(h =>
+  `<tr><td>${h.date}</td><td>${h.pages}</td><td>${h.newUrls}</td><td><b style="color:var(--s1)">${h.s1}</b></td><td><b style="color:var(--s2)">${h.s2}</b></td><td>${h.cu}</td></tr>`).join("");
+</script>
+</body>
+</html>

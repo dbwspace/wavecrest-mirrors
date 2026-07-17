@@ -1,8 +1,8 @@
 <!doctype html><script type="application/json" id="cowork-artifact-meta">
 {
-  "name": "Qsi Specifier Funnel Scorecard",
+  "name": "Rep Enablement Lead Tracker",
   "schemaVersion": 1,
-  "description": "WaveCrest North-Star scorecard: QSI composite weighting (CRM-unavailable reweight), the L1.1-L1.6 indicator stack with pre-launch status, and the specifier funnel mapped to live target-account counts from Notion.",
+  "description": "WaveCrest rep-enablement lead tracker: live counts + triage/signal breakdowns from the Notion Rep-Reported Leads intake system (New→Reviewed→QSI-qualified→routed), with an empty-state until the first field submission, plus how the intake system works.",
   "mcpTools": [
     "mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources"
   ],
@@ -11,7 +11,7 @@
   ]
 }
 </script>
-<html lang=en><head><meta name="robots" content="noindex,nofollow"><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>WaveCrest · QSI Scorecard</title><script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script><style>
+<html lang=en><head><meta name="robots" content="noindex,nofollow"><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>WaveCrest · Rep-Enablement Lead Tracker</title><script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script><style>
 :root{color-scheme:light;
 --brand:#004577;--brand2:#0a6ea8;--teal:#5cb8b2;--ink:#12233a;--muted:#5b7089;
 --bg:#eef2f6;--card:#ffffff;--line:#dbe4ec;--chip:#eef4f9;
@@ -85,28 +85,36 @@ a.btn.alt{background:#fff;color:var(--brand);border:1px solid var(--brand)}
 </style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap><header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div><div class=hmeta><div class=aname>QSI / Specifier-Funnel Scorecard</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
- <div class="grid" style="grid-template-columns:.8fr 1.2fr;gap:14px">
-   <div class=card><div class=hero style=justify-content:center>
-     <div class=gauge><canvas id=g></canvas><div class=lab><div class=big style=font-size:18px>Pre-launch</div><div class=cap>QSI baseline</div></div></div>
-   </div>
-   <div class=note style=text-align:center;margin-top:4px>North Star = <b>Qualified Specification Intent</b>. Spec-intent signals activate at Stage 3 launch; today the score reflects audience readiness, not live intent.</div>
-   </div>
-   <div class=card>
-     <div class=k style="font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600">QSI composite weights (CRM-unavailable reweight)</div>
-     <div class=chartbox><canvas id=weights></canvas></div>
-     <div class=note style=margin-top:6px>L1.6 Pipeline (HubSpot) redistributed → L1.3 Spec-Intent 40% · L1.5 Target-Account 30%.</div>
-   </div>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap><header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div><div class=hmeta><div class=aname>Rep-Enablement Lead Tracker</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
+ <div class="grid g4">
+   <div class="card tile"><div class=k>Rep-reported leads</div><div class=v id=total>0</div><div class=d id=totd>intake form live</div></div>
+   <div class="card tile"><div class=k>Qualified (QSI)</div><div class=v id=qual>0</div><div class=d>QSI-relevant</div></div>
+   <div class="card tile"><div class=k>Est. pipeline</div><div class=v id=val>$0</div><div class=d>sum of reported value</div></div>
+   <div class="card tile"><div class=k>Routed to rep</div><div class=v id=routed>0</div><div class=d>follow-up in progress</div></div>
  </div>
 
- <h2 class=sec>L1 health indicators</h2>
- <div class="grid g3" id=l1grid></div>
-
- <h2 class=sec>Specifier funnel — current state</h2>
- <div class=card><div class=chartbox sm><canvas id=funnel></canvas></div>
-   <div class=note style=margin-top:8px>Awareness→Consideration→Spec-Intent→Conversion replaces the consumer purchase funnel. Audience of 3,146 specifiers / ~547 firms is built; movement begins when Stage 3 nurture + web analytics (GA/Amplitude) go live.</div>
+ <div id=empty class=card style=margin-top:14px>
+   <div class=row><span class="pill good">System live</span><span class=note>Rep intake → triage → QSI-qualify → route to rep follow-up. Awaiting first field submission — live-confirmed 0 submissions as of Jul 17, 2026.</span></div>
  </div>
- <div class=foot>Framework: WaveCrest QSI / L1 stack (specifier-funnel-report). Live target-account + funnel counts via Notion. Reach/engagement/pipeline activate at launch.<br>Static mirror · snapshot data as of July 17, 2026 · T&amp;S Brass · WaveCrest: Specifying the Next Wave</div></div><script>
+
+ <div class="grid g2" style=margin-top:14px>
+   <div class=card><div class=k style="font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600">Triage status</div>
+     <div class="chartbox sm"><canvas id=triage></canvas></div></div>
+   <div class=card><div class=k style="font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:600">Signal type</div>
+     <div class="chartbox sm"><canvas id=signal></canvas></div></div>
+ </div>
+
+ <h2 class=sec>How the intake system works</h2>
+ <div class=card><table><thead><tr><th>Field</th><th>Captures</th></tr></thead><tbody>
+   <tr><td>Signal Type</td><td>Verbal interest · Sample / Spec-sheet / BIM-CAD / Quote request · Project sighting · Competitor displacement</td></tr>
+   <tr><td>Project Stage</td><td>Concept → Design dev → Spec writing → Bid → Construction</td></tr>
+   <tr><td>Series / Finish interest</td><td>Holden · Stafford · Litchfield · Sanibel · Seabrook · Tybee · full collection</td></tr>
+   <tr><td>Triage Status</td><td>New → Reviewed → Qualified (QSI) → Routed to rep → Closed</td></tr>
+   <tr><td>Links</td><td>Firm (A&amp;D DB) · Specifier contact · Est. value · Rep + region</td></tr>
+ </tbody></table>
+ <div class=note style=margin-top:8px>Relationship Bridges DB maps rep ↔ specifier ↔ firm connections that shorten the path to a spec.</div>
+ </div>
+ <div class=foot>Data: Notion 'Rep-Reported Leads — WaveCrest' (form-driven intake + triage board) — live via MCP.<br>Static mirror · snapshot data as of July 17, 2026 · T&amp;S Brass · WaveCrest: Specifying the Next Wave</div></div><script>
 const COWORK=(typeof window!=='undefined'&&window.cowork)?window.cowork:null;
 async function callTool(name,args){
  if(!COWORK||!COWORK.callMcpTool)throw new Error('offline');
@@ -131,32 +139,28 @@ const NOTION={spec:'confidential',ad:'confidential',
 const APOLLO_ARGS={_conversation_ref:'wcart0701',_rationale:'dashboard credit refresh'};
 
 
- const L1=[['L1.1','Qualified A&D Reach','Pending','mut','Activates at launch'],
-   ['L1.2','Product Engagement','Pending','mut','Web analytics not yet wired'],
-   ['L1.3','Specification Intent','Baseline','warn','0 spec DLs (pre-launch) · weight 40%'],
-   ['L1.4','Qualified Conversion','Pending','mut','Rep-locator / forms at launch'],
-   ['L1.5','Target-Account Engagement','Built','good','285 firms · 3,146 specifiers · weight 30%'],
-   ['L1.6','Pipeline / Revenue','N/A','mut','HubSpot not connected (pull-only)']];
- const W={data:[40,30,15,10,5],labels:['L1.3 Spec-Intent','L1.5 Target-Acct','L1.2 Engagement','L1.4 Conversion','L1.1 Reach']};
- const F={Awareness:1003,Consideration:0,'Spec-Intent':0,Conversion:0};
- function cards(){document.getElementById('l1grid').innerHTML=L1.map(r=>
-   '<div class=card><div class=spread><b>'+r[0]+'</b><span class="pill '+r[3]+'">'+r[2]+'</span></div>'+
-   '<div style=font-weight:600;margin:4px 0>'+r[1]+'</div><div class=note>'+r[4]+'</div></div>').join('');}
+ const R={total:0,qual:0,routed:0,val:0,triage:{},signal:{}};
+ let cT,cS;
  function build(){
-   new Chart(document.getElementById('g'),{type:'doughnut',data:{datasets:[{data:[30,70],backgroundColor:['#5cb8b2','#e7eef4'],borderWidth:0}]},
-     options:{cutout:'76%',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false}}}});
-   new Chart(document.getElementById('weights'),{type:'bar',data:{labels:W.labels,datasets:[{data:W.data,backgroundColor:'#004577'}]},
-     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:45,ticks:{callback:v=>v+'%'}}}}});
-   window._f=new Chart(document.getElementById('funnel'),{type:'bar',data:{labels:Object.keys(F),datasets:[{data:Object.values(F),backgroundColor:['#0a6ea8','#c9d7e2','#c9d7e2','#c9d7e2']}]},
-     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});}
+   cT=new Chart(document.getElementById('triage'),{type:'doughnut',data:{labels:['awaiting data'],datasets:[{data:[1],backgroundColor:['#e7eef4'],borderWidth:0}]},
+     options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:11}}}}}});
+   cS=new Chart(document.getElementById('signal'),{type:'bar',data:{labels:['awaiting data'],datasets:[{data:[0],backgroundColor:'#0a6ea8'}]},
+     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});}
+ function money(n){return '$'+(n>=1000?(Math.round(n/100)/10)+'k':Math.round(n));}
+ function paint(){setEl('total',fmt(R.total));setEl('qual',fmt(R.qual));setEl('routed',fmt(R.routed));setEl('val',money(R.val));
+   setEl('totd',R.total?'reported by field reps':'intake form live · awaiting first');
+   document.getElementById('empty').style.display=R.total?'none':'block';
+   const tk=Object.keys(R.triage);if(tk.length){cT.data.labels=tk;cT.data.datasets[0].data=tk.map(k=>R.triage[k]);cT.data.datasets[0].backgroundColor=['#cf4141','#e08a2b','#2f8f5b','#0a6ea8','#9fb2c4'];cT.update();}
+   const sk=Object.keys(R.signal);if(sk.length){cS.data.labels=sk;cS.data.datasets[0].data=sk.map(k=>R.signal[k]);cS.update();}}
  async function refresh(){try{
-   const[sp,eng]=await Promise.all([
-     sql(NOTION.spec,'SELECT COUNT(*) AS n FROM "collection://'+NOTION.spec+'"'),
-     sql(NOTION.spec,'SELECT "Engagement State" AS k, COUNT(*) AS n FROM "collection://'+NOTION.spec+'" GROUP BY "Engagement State"')]);
-   const e=mapc(eng);const total=one(sp);
-   F.Awareness=total;F.Consideration=(e.Engaged||0)+(e.Considering||0);
-   F['Spec-Intent']=e['Spec-Intent']||0;F.Conversion=(e['Conversion Action']||0)+(e['In-Pipeline']||0)+(e['Spec-Captured']||0);
-   if(window._f){window._f.data.datasets[0].data=Object.values(F);window._f.update();}
-   setStamp(true);}catch(e){setStamp(false);}}
- cards();build();refresh();
+   const[c,tr,sg,q,rt,vl]=await Promise.all([
+     sql(NOTION.rep,'SELECT COUNT(*) AS n FROM "collection://'+NOTION.rep+'"'),
+     sql(NOTION.rep,'SELECT "Triage Status" AS k, COUNT(*) AS n FROM "collection://'+NOTION.rep+'" GROUP BY "Triage Status"'),
+     sql(NOTION.rep,'SELECT "Signal Type" AS k, COUNT(*) AS n FROM "collection://'+NOTION.rep+'" GROUP BY "Signal Type" ORDER BY n DESC'),
+     sql(NOTION.rep,'SELECT COUNT(*) AS n FROM "collection://'+NOTION.rep+'" WHERE "Triage Status"=\'Qualified \u2014 QSI-relevant\''),
+     sql(NOTION.rep,'SELECT COUNT(*) AS n FROM "collection://'+NOTION.rep+'" WHERE "Triage Status"=\'Routed to rep follow-up\''),
+     sql(NOTION.rep,'SELECT SUM("Est. Value") AS n FROM "collection://'+NOTION.rep+'"')]);
+   R.total=one(c)||0;R.triage=mapc(tr);R.signal=mapc(sg);R.qual=one(q)||0;R.routed=one(rt)||0;R.val=one(vl)||0;
+   paint();setStamp(true);}catch(e){paint();setStamp(false);}}
+ build();paint();refresh();
  </script></body></html>

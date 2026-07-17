@@ -1,0 +1,688 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Wavecrest Competitive Battlecards",
+  "schemaVersion": 1,
+  "description": "WaveCrest competitive battlecards for the A&D sensor-faucet fight — 12 competitor cards (Sloan, Zurn/Elkay, American Standard, Chicago, Symmons, TOTO, Moen, Delta, Bradley, Bobrick, Fontana/BathSelect) plus a WaveCrest cheat-sheet, an AI share-of-voice chart, and an honesty-guardrails panel. Dual-truth voice, QSI-laddered, A&D specifiers only. Verified 2026-07-09. Reopen and update quarterly or after any competitor move.",
+  "mcpTools": [],
+  "mcpServerNames": []
+}
+</script>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="hz:canvas-width" content="1120">
+<title>WaveCrest Competitive Battlecards — A&D Sensor Faucets</title>
+<style>
+  :root{
+    --ink:#14243d; --ink-soft:#3a4a63; --brass:#a97f3d; --brass-2:#c8a366;
+    --bg:#f5f4f0; --card:#ffffff; --line:#e4e1d8; --line-2:#eeece5;
+    --good:#2f7d4f; --good-bg:#eaf4ee;
+    --warn:#a8641a; --warn-bg:#f8f0e4;
+    --risk:#a3242b; --risk-bg:#f8eaea;
+    --info:#1f4e79; --info-bg:#eaf0f7;
+    --shadow:0 1px 2px rgba(20,36,61,.06),0 6px 18px rgba(20,36,61,.06);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px; margin:0 auto; padding:0 22px 80px;}
+  h1,h2,h3,h4{line-height:1.2; margin:0;}
+  a{color:var(--info); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* Cover */
+  .cover{
+    background:linear-gradient(135deg,#12203a 0%,#1c3350 60%,#26425f 100%);
+    color:#fff; border-radius:0 0 14px 14px; padding:40px 40px 34px; box-shadow:var(--shadow);
+    position:relative; overflow:hidden;
+  }
+  .cover:before{content:""; position:absolute; inset:0; background:
+    radial-gradient(700px 220px at 90% -10%, rgba(200,163,102,.28), transparent 70%);}
+  .kicker{font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--brass-2); font-weight:700;}
+  .cover h1{font-size:30px; margin:8px 0 6px; letter-spacing:-.01em;}
+  .cover .sub{font-size:15.5px; color:#cfd8e6; max-width:760px;}
+  .cover .meta{margin-top:18px; font-size:12.5px; color:#aebbcd; display:flex; flex-wrap:wrap; gap:6px 18px;}
+  .cover .meta b{color:#e7edf5; font-weight:600;}
+
+  /* Dual-truth strip */
+  .dual{display:flex; gap:14px; margin-top:20px; flex-wrap:wrap;}
+  .dual div{flex:1 1 300px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14);
+    border-radius:10px; padding:12px 14px;}
+  .dual h4{font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--brass-2); margin-bottom:4px;}
+  .dual p{margin:0; font-size:13.5px; color:#dbe3ef;}
+
+  section{margin-top:34px;}
+  .sec-head{display:flex; align-items:baseline; gap:12px; border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:18px;}
+  .sec-head h2{font-size:20px;}
+  .sec-head span{font-size:12.5px; color:var(--ink-soft);}
+
+  /* SOV chart */
+  .sov{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; box-shadow:var(--shadow);}
+  .sov h3{font-size:15px; margin-bottom:2px;}
+  .sov .cap{font-size:12.5px; color:var(--ink-soft); margin-bottom:14px;}
+  .bar{display:grid; grid-template-columns:150px 1fr 44px; align-items:center; gap:10px; margin:5px 0; font-size:13px;}
+  .bar .nm{text-align:right; color:var(--ink-soft);}
+  .bar .track{background:var(--line-2); border-radius:5px; height:16px; position:relative; overflow:hidden;}
+  .bar .fill{position:absolute; left:0; top:0; bottom:0; border-radius:5px; background:linear-gradient(90deg,#3a5f86,#28486a);}
+  .bar .val{font-variant-numeric:tabular-nums; color:var(--ink); font-weight:600;}
+  .bar.us .fill{background:linear-gradient(90deg,var(--brass-2),var(--brass));}
+  .bar.us .nm{color:var(--brass); font-weight:700;}
+  .bar.parent .fill{background:linear-gradient(90deg,#6b7f99,#51678a);}
+  .sov .foot{font-size:11.5px; color:var(--ink-soft); margin-top:12px; border-top:1px dashed var(--line); padding-top:10px;}
+
+  /* Guardrails callout */
+  .guard{background:var(--warn-bg); border:1px solid #e8d3ad; border-left:4px solid var(--warn); border-radius:10px; padding:16px 18px;}
+  .guard h3{color:var(--warn); font-size:14px; text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px;}
+  .guard ul{margin:0; padding-left:18px;}
+  .guard li{margin:5px 0; font-size:13.5px;}
+
+  /* Contents */
+  .toc{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:8px; margin-top:6px;}
+  .toc a{display:flex; justify-content:space-between; gap:8px; background:var(--card); border:1px solid var(--line);
+    border-radius:8px; padding:9px 12px; font-size:13.5px; color:var(--ink);}
+  .toc a:hover{border-color:var(--brass); text-decoration:none;}
+  .toc a .s{font-variant-numeric:tabular-nums; color:var(--ink-soft); font-size:12px;}
+  .toc .tier-label{grid-column:1/-1; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-top:10px; font-weight:700;}
+
+  /* Cards */
+  .card{background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow);
+    margin:16px 0; overflow:hidden; break-inside:avoid;}
+  .card .top{display:flex; align-items:center; gap:14px; padding:15px 20px; border-bottom:1px solid var(--line);
+    border-top:4px solid var(--brass);}
+  .card .top.threat{border-top-color:var(--risk);}
+  .card .top.system{border-top-color:var(--info);}
+  .card .top.dtc{border-top-color:#6b21a8;}
+  .card .top h3{font-size:18px;}
+  .card .top .one{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+  .card .top .badges{margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+  .pill{font-size:11px; font-weight:700; letter-spacing:.03em; padding:4px 9px; border-radius:20px; white-space:nowrap;}
+  .pill.sov{background:var(--info-bg); color:var(--info);}
+  .pill.sov.hi{background:#fbe9e9; color:var(--risk);}
+  .pill.sov.lo{background:var(--good-bg); color:var(--good);}
+  .pill.tier{background:#f0ede5; color:var(--ink-soft);}
+
+  .card .body{padding:6px 20px 18px;}
+  .block{padding:12px 0; border-bottom:1px solid var(--line-2);}
+  .block:last-child{border-bottom:none;}
+  .lbl{font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--brass); margin-bottom:6px;}
+  .lbl.good{color:var(--good);} .lbl.warn{color:var(--warn);} .lbl.risk{color:var(--risk);} .lbl.info{color:var(--info);}
+  .block p{margin:0 0 6px;}
+  .block ul{margin:0; padding-left:17px;}
+  .block li{margin:4px 0;}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:720px){.two{grid-template-columns:1fr;}}
+
+  table.obj{width:100%; border-collapse:collapse; font-size:13.5px;}
+  table.obj td{border:1px solid var(--line); padding:8px 10px; vertical-align:top;}
+  table.obj td.q{width:42%; background:#faf9f6; color:var(--ink-soft);}
+  table.obj td.q b{color:var(--ink);}
+
+  .land{background:#faf9f6; border:1px solid var(--line-2); border-radius:8px; padding:10px 12px;}
+  .land .lbl{margin-bottom:4px;}
+  .diff b{color:var(--ink);}
+  .proof{font-size:12px; color:var(--good); font-weight:600;}
+  .honest{font-size:12.5px; color:var(--warn); background:var(--warn-bg); border-radius:6px; padding:3px 8px; display:inline-block;}
+
+  .footer{margin-top:40px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-soft);}
+  .footer a{color:var(--info);}
+  @media print{
+    body{background:#fff; font-size:11.5px;}
+    .cover{border-radius:0;}
+    .card,.sov,.guard{box-shadow:none;}
+    a{color:var(--ink);}
+    .toc{display:none;}
+  }
+</style>
+</head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
+window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
+</script>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<body>
+<div class="wrap">
+
+  <header class="cover">
+    <div class="kicker">WaveCrest · Specifying the Next Wave</div>
+    <h1>Competitive Battlecards — Architectural Sensor Faucets</h1>
+    <p class="sub">Sales-ready cards for the commercial A&amp;D specification fight. Every card is written to the dual-truth rule — T&amp;S reliability <em>and</em> A&amp;D design/spec-workflow credibility — and laddered to Qualified Specification Intent (QSI). Audience: architects, interior designers, MEP/plumbing engineers, and spec writers. Never consumer/DIY.</p>
+    <div class="dual">
+      <div><h4>Truth 1 — Reliability Built In</h4><p>~80-year U.S. commercial faucet manufacturer. Serviceable AC/DC module, temp-mixing valve, vandal-resistant 0.5 GPM platform, full cert stack on every SKU.</p></div>
+      <div><h4>Truth 2 — Designed to be Specified</h4><p>A true architectural finish range — Brushed Brass &amp; Polished Graphite among five finishes — on a commercial-duty sensor platform. Holden Brushed Brass is the flagship aesthetic moment.</p></div>
+    </div>
+    <div class="meta">
+      <span><b>Prepared by</b> Daniel B Washburn, VP of Creative Strategy &amp; Planning — Campaign Owner &amp; Creative Strategy Lead</span>
+      <span><b>Date</b> 2026-07-09 · v1.0</span>
+      <span><b>Basis</b> Ahrefs Brand Radar (ChatGPT) + live spec-asset verification</span>
+    </div>
+  </header>
+
+  <!-- SOV -->
+  <section id="sov">
+    <div class="sec-head"><h2>The battlefield: AI share of voice</h2><span>Ahrefs Brand Radar · ChatGPT · tracked A&amp;D prompts · 2026-07-09</span></div>
+    <div class="sov">
+      <h3>Who AI answers name when specifiers ask A&amp;D questions</h3>
+      <p class="cap">Share of voice = visibility in AI answers on tracked A&amp;D prompts. It is <b>not</b> sales or physical spec presence — Bradley and Bobrick under-index here despite real spec strength (a visibility gap, not a product gap).</p>
+
+      <div class="bar threat"><div class="nm">Sloan</div><div class="track"><div class="fill" style="width:86%"></div></div><div class="val">0.86</div></div>
+      <div class="bar threat"><div class="nm">Zurn</div><div class="track"><div class="fill" style="width:86%"></div></div><div class="val">0.86</div></div>
+      <div class="bar"><div class="nm">American Standard</div><div class="track"><div class="fill" style="width:78%"></div></div><div class="val">0.78</div></div>
+      <div class="bar"><div class="nm">Chicago Faucets</div><div class="track"><div class="fill" style="width:69%"></div></div><div class="val">0.69</div></div>
+      <div class="bar"><div class="nm">TOTO</div><div class="track"><div class="fill" style="width:65%"></div></div><div class="val">0.65</div></div>
+      <div class="bar"><div class="nm">Moen</div><div class="track"><div class="fill" style="width:65%"></div></div><div class="val">0.65</div></div>
+      <div class="bar"><div class="nm">Delta</div><div class="track"><div class="fill" style="width:61%"></div></div><div class="val">0.61</div></div>
+      <div class="bar"><div class="nm">Symmons</div><div class="track"><div class="fill" style="width:61%"></div></div><div class="val">0.61</div></div>
+      <div class="bar parent"><div class="nm">T&amp;S Brass (parent)</div><div class="track"><div class="fill" style="width:22%"></div></div><div class="val">0.22</div></div>
+      <div class="bar us"><div class="nm">WaveCrest</div><div class="track"><div class="fill" style="width:12%"></div></div><div class="val">0.12</div></div>
+      <div class="bar"><div class="nm">Elkay</div><div class="track"><div class="fill" style="width:6%"></div></div><div class="val">0.06</div></div>
+      <div class="bar"><div class="nm">Bradley</div><div class="track"><div class="fill" style="width:4%"></div></div><div class="val">0.04</div></div>
+      <div class="bar"><div class="nm">Bobrick</div><div class="track"><div class="fill" style="width:2%"></div></div><div class="val">0.02</div></div>
+
+      <p class="foot">Reps won't quote SOV to a specifier — but know what it means: WaveCrest is under-found in AI research today because of a fixable visibility gap (AI-crawler block + buried spec assets), not because the product is weaker. That gap is being closed in parallel (robots.txt brief + spec-ecosystem roadmap). Fontana &amp; BathSelect are not tracked brands here — they win AI answers through sheer volume of thin comparison content (see their card).</p>
+    </div>
+  </section>
+
+  <!-- Guardrails -->
+  <section id="guardrails">
+    <div class="sec-head"><h2>Read first: honesty guardrails</h2><span>Say these wrong and you hand the specifier a reason to doubt everything else</span></div>
+    <div class="guard">
+      <h3>Four things not to overclaim</h3>
+      <ul>
+        <li><b>Do NOT say competitors "have no BIM."</b> Sloan, Zurn, Chicago, Moen, and American Standard all publish Revit/BIM (verified 2026-07-09). Today WaveCrest's BIM is the <em>weaker</em> asset — live on BIMobject as "WaveCrest Touchless Faucets," but buried on-site and token-based. Compete on <b>design + duty + finish + reliability</b>, not on BIM availability.</li>
+        <li><b>Buy-American is real but narrow.</b> T&amp;S manufactures in the U.S. (Travelers Rest, SC) — a credible Made-in-USA story — but formal Buy American Act certification currently sits on a limited set of SKUs. Confirm per-SKU before citing BAA in a federal/GSA spec.</li>
+        <li><b>The Holden Brushed Brass Revit family is not yet downloadable.</b> If a specifier asks for the flagship's Revit token, we can't hand it over today (P0 fix in flight). Don't promise it live; offer the spec sheet and the BIMobject collection.</li>
+        <li><b>Warranty is parity, not an edge.</b> 3-year limited — standard for sensor electronics. Don't lead with it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contents -->
+  <section id="contents">
+    <div class="sec-head"><h2>The cards</h2><span>12 competitors · grouped by how they actually threaten a spec</span></div>
+    <div class="toc">
+      <div class="tier-label">Direct sensor-faucet threats</div>
+      <a href="#sloan"><span>Sloan</span><span class="s">SOV 0.86</span></a>
+      <a href="#zurn"><span>Zurn / Elkay</span><span class="s">0.86 / 0.06</span></a>
+      <a href="#amstd"><span>American Standard</span><span class="s">SOV 0.78</span></a>
+      <a href="#chicago"><span>Chicago Faucets</span><span class="s">SOV 0.69</span></a>
+      <a href="#symmons"><span>Symmons</span><span class="s">SOV 0.61</span></a>
+      <div class="tier-label">Design-aware &amp; brand-crossover</div>
+      <a href="#toto"><span>TOTO</span><span class="s">SOV 0.65</span></a>
+      <a href="#moen"><span>Moen</span><span class="s">SOV 0.65</span></a>
+      <a href="#delta"><span>Delta</span><span class="s">SOV 0.61</span></a>
+      <div class="tier-label">System-level / adjacent division</div>
+      <a href="#bradley"><span>Bradley</span><span class="s">SOV 0.04</span></a>
+      <a href="#bobrick"><span>Bobrick</span><span class="s">SOV 0.02</span></a>
+      <div class="tier-label">AEO occupiers (DTC)</div>
+      <a href="#fontana"><span>Fontana / BathSelect</span><span class="s">untracked</span></a>
+      <div class="tier-label">Our own card</div>
+      <a href="#wavecrest"><span>WaveCrest cheat-sheet</span><span class="s">0.12 → up</span></a>
+    </div>
+  </section>
+
+  <!-- ============ SLOAN ============ -->
+  <section id="sloan"><div class="card">
+    <div class="top threat">
+      <div><h3>Sloan</h3><div class="one">The commercial restroom incumbent — the unspoken default spec.</div></div>
+      <div class="badges"><span class="pill sov hi">AI SOV 0.86</span><span class="pill tier">Primary head-to-head</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>"The most specified commercial restroom brand." Water efficiency, hygiene, and the complete BASYS / Optima / AER-DEC system — faucet, flush, soap, and sink coordinated as one. EcoPower self-generating power as the sustainability proof point.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>Default incumbent — often specced by habit; huge installed base and facilities-team familiarity.</li>
+          <li>Complete restroom <em>system</em>, not just a faucet — hard to displace on integrated jobs.</li>
+          <li>Strongest AI/answer-engine visibility in the category (0.86).</li>
+          <li><b>Does</b> publish BIM — native BIM Models page + Optima families on BIMobject.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Utilitarian aesthetic — finish range is engineered, not architectural; no true brushed-brass design story.</li>
+          <li>Positions on efficiency/hygiene, rarely on design — cedes the design-forward, guest-facing restroom.</li>
+          <li>System lock-in cuts both ways: heavy where the job only needs a well-specified faucet.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Design finishes on a commercial-duty platform.</b> Brushed Brass &amp; Polished Graphite on a vandal-resistant, 0.5 GPM, ADA/NSF sensor faucet — a combination Sloan's utility range doesn't offer. <span class="proof">Proof: Holden ECW-3156-BB; five-finish range.</span></li>
+        <li><b>Specialist reliability + serviceability.</b> ~80-year commercial faucet maker; serviceable AC/DC module and temp-mixing valve standard. <span class="proof">Proof: full cert stack on all 31 SKUs.</span></li>
+        <li><b>Focus is the feature.</b> When the spec is the faucet — not the whole flush system — a purpose-built sensor line specs cleaner.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"Sloan is the standard — why switch?"</b></td><td>"For back-of-house, it's a fine default. For guest-facing and design-forward restrooms where finish coordinates to the palette, Sloan's range is utilitarian. WaveCrest gives you Brushed Brass or Polished Graphite on the same commercial-duty, 0.5 GPM, ADA/NSF platform."</td></tr>
+          <tr><td class="q"><b>"Sloan has EcoPower / a full system."</b></td><td>"Right — for a fully integrated flush+faucet system, that's their strength. Where the specification calls for a discrete deck-mount sensor faucet with a specified architectural finish, that's exactly where WaveCrest is purpose-built."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"How important is finish and aesthetic coordination in your guest-facing restrooms?" — surfaces the design gap early.</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"Does WaveCrest have a full restroom system like BASYS?" → "WaveCrest is a focused sensor-faucet line, not a flush system — which is the advantage when the faucet is what's being specified for its design and duty." <span class="honest">Never claim Sloan lacks BIM.</span></p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> on design-forward, hospitality, and higher-ed front-of-house where finish is specified. <b>We lose</b> on pure integrated-system retrofits and habitual back-of-house specs. <b>Favors them:</b> facilities-driven, system-first buyers. <b>Favors us:</b> architect/ID-driven, finish-first buyers.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ ZURN / ELKAY ============ -->
+  <section id="zurn"><div class="card">
+    <div class="top threat">
+      <div><h3>Zurn / Elkay</h3><div class="one">The spec-ecosystem benchmark. Zurn is the real sensor-faucet threat; Elkay is the sister brand (sinks, bottle fillers).</div></div>
+      <div class="badges"><span class="pill sov hi">Zurn 0.86</span><span class="pill sov lo">Elkay 0.06</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>Zurn: connected, engineered water management — Cumberland &amp; Serio sensor faucets inside the "Zurn One" coordinated systems, with best-in-class specifier tooling. Elkay: sinks, ezH2O bottle fillers, and commercial water delivery.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li><b>The ecosystem to beat.</b> Live on <em>both</em> BIMobject and BIMsmith; CSI/MasterFormat spec tooling; connected-product data. This is why Zurn's SOV ties Sloan's.</li>
+          <li>Engineering credibility with MEP/plumbing engineers.</li>
+          <li>Strong, current BIM (2024 BIM refresh).</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Engineering-first, not design-first — sensor faucet aesthetics are limited.</li>
+          <li>Interior designers rarely reach for Zurn on finish; it reads "utility," not "architectural."</li>
+          <li>Elkay's sensor-faucet answer-engine presence is negligible (0.06) — the family is not a design-faucet force.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Design range Zurn's sensor line can't match.</b> If the palette calls for Brushed Brass or Polished Graphite, WaveCrest specs it; Zurn's sensor finishes don't go there. <span class="proof">Proof: Stafford 3159 &amp; Holden 3156 full BB+PG range.</span></li>
+        <li><b>We're on BIMobject too.</b> The WaveCrest Touchless Faucets collection is live — so "are you even in the ecosystem?" has a yes. <span class="proof">Proof: bimobject.com WaveCrest collection.</span></li>
+        <li><b>Reliability heritage + U.S. service.</b> 80-year specialist with serviceable modules.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"Zurn's BIM and spec tools are better."</b></td><td>"Their spec tooling is strong — we're actively expanding ours, and the WaveCrest collection is already on BIMobject. Where WaveCrest wins outright is the finish and design range on a commercial-duty sensor platform. Zurn's sensor line can't deliver Brushed Brass or Polished Graphite."</td></tr>
+          <tr><td class="q"><b>"We standardize on Zurn One for coordination."</b></td><td>"Makes sense for fully coordinated MEP packages. On the faucet line item specifically, where design finish is called out, WaveCrest is the design-forward, commercial-duty choice that still meets every cert."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Which of your sensor faucets can you actually get in the finish the designer specified?" — Zurn's honest answer is narrow.</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"Is WaveCrest even on BIMobject / in the spec ecosystem?" → "Yes — the WaveCrest Touchless Faucets collection is live on BIMobject, and our spec-authority build is underway." <span class="honest">Don't out-claim Zurn on ecosystem breadth — acknowledge and pivot to design.</span></p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> when the interior designer/architect owns the finish decision. <b>We lose</b> to Zurn on engineer-led, coordination-first specs that value the connected system. <b>Favors them:</b> MEP-driven; <b>favors us:</b> design-driven.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ AMERICAN STANDARD ============ -->
+  <section id="amstd"><div class="card">
+    <div class="top threat">
+      <div><h3>American Standard</h3><div class="one">Mainstream commercial ubiquity — and it owns generic "BIM download" search intent.</div></div>
+      <div class="badges"><span class="pill sov hi">AI SOV 0.78</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>The safe, everywhere brand — broad commercial catalog, deep distribution, "BIM available" as a discovery magnet. Trusted, familiar, priced for volume.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>Brand ubiquity and distribution depth — easy to source, hard to fault on availability.</li>
+          <li>Owns generic BIM-download discovery intent (a real AEO asset).</li>
+          <li>Price-competitive on volume specs.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Commodity perception — not a design-forward or specialist-commercial signal for A&amp;D.</li>
+          <li>Consumer+commercial breadth dilutes spec-workflow credibility with architects.</li>
+          <li>No architectural finish story on the commercial sensor line.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Specialist, not generalist.</b> T&amp;S is a dedicated commercial faucet manufacturer — the sensor line is engineered and certified for the spec, not adapted from a consumer catalog.</li>
+        <li><b>Design + duty.</b> Architectural finishes on a vandal-resistant commercial platform; American Standard's commercial sensor line is utilitarian.</li>
+        <li><b>Serviceability &amp; reliability heritage</b> lower lifecycle risk on the spec.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"American Standard is everywhere and cheaper."</b></td><td>"For a commodity restroom, that's a reasonable default. For a specified A&amp;D project where finish, commercial-duty serviceability, and a specialist manufacturer matter, WaveCrest is purpose-built for the spec — not a mainstream line stretched to fit."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Is this project being valued on lowest first cost, or on design and lifecycle serviceability?"</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"They have BIM ready to download." → "So do we — the WaveCrest collection is on BIMobject. The question is which line matches the finish and duty the project actually specified."</p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> on design intent and specialist credibility. <b>We lose</b> on pure first-cost, high-volume commodity specs.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ CHICAGO FAUCETS ============ -->
+  <section id="chicago"><div class="card">
+    <div class="top threat">
+      <div><h3>Chicago Faucets</h3><div class="one">The institutional workhorse — and the "Chicago-EQ alternative" lane is wide open.</div></div>
+      <div class="badges"><span class="pill sov">AI SOV 0.69</span><span class="pill tier">Open lane: vol-250 query</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>Rugged, reliable, institution-grade — the EQ sensor line for schools, labs, and healthcare. "Built to last in the toughest commercial environments," with a native BIM Library.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>Deep reliability reputation in education, healthcare, and lab specs.</li>
+          <li>Native BIM Library (Revit families on their own site).</li>
+          <li>The "Chicago EQ alternatives" query (vol ~250) currently returns only Chicago — they own the term by default.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Institutional/utilitarian aesthetic — no architectural finish range.</li>
+          <li>Rarely the interior designer's choice for a design-forward space.</li>
+          <li>The unclaimed "alternative to Chicago" lane is a first-mover opening for WaveCrest.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Same reliability posture, with design.</b> Match the commercial-duty spec (0.5 GPM, vandal-resistant, ADA/NSF) and add the architectural finish range Chicago doesn't offer — from an 80-year commercial manufacturer. <span class="proof">Proof: shared cert baseline across 31 SKUs.</span></li>
+        <li><b>The design-forward alternative</b> for projects that need institutional toughness <em>and</em> a specified finish.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"We always spec Chicago EQ for reliability."</b></td><td>"Chicago's reliability is real for institutional work. WaveCrest meets the same commercial-duty spec and adds a finish range Chicago doesn't — so on the design-forward areas of the same project, you don't have to trade toughness for aesthetics."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Is this a purely institutional space, or are there design-forward areas where finish is specified?" — splits the spec in our favor.</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"Chicago has its own BIM library." → "So does WaveCrest, on BIMobject. Reliability and BIM are table stakes here — finish range is the differentiator."</p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> on mixed institutional/design projects and anywhere finish is called out. <b>We lose</b> on deeply entrenched lab/healthcare standardization. Strategic: pursue the "Chicago-EQ alternative" content lane.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ SYMMONS ============ -->
+  <section id="symmons"><div class="card">
+    <div class="top threat">
+      <div><h3>Symmons</h3><div class="one">The closest peer — another U.S. commercial manufacturer with a reliability heritage.</div></div>
+      <div class="badges"><span class="pill sov">AI SOV 0.61</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>American-made commercial plumbing with a temperature-control/safety heritage; strong in hospitality and multifamily. Reliability and code-compliance as the throughline.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>U.S. manufacturer with a genuine reliability reputation — a peer, not a pushover.</li>
+          <li>Entrenched in hospitality and multifamily specs.</li>
+          <li>Temperature/safety engineering credibility.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Narrower architectural finish range than WaveCrest.</li>
+          <li>Smaller design-forward profile with interior designers.</li>
+          <li>Sensor-faucet design story is thinner than the reliability story.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Fuller architectural finish range</b> — Brushed Brass &amp; Polished Graphite on commercial-duty; the design edge over a like-minded U.S. peer. <span class="proof">Proof: Holden BB flagship.</span></li>
+        <li><b>Scale and category heritage</b> of an ~80-year specialist faucet manufacturer.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"Symmons is also U.S.-made and reliable."</b></td><td>"True — both of us are U.S. commercial manufacturers, and that's a strong shared story. The difference is WaveCrest's architectural finish range. If the project specifies a design finish, that's our edge; if it's a pure reliability call, we're at parity and it comes down to service and relationship."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Does the design team have a specified finish, or is any commercial chrome acceptable?"</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"Symmons has the reliability heritage too." → "Agreed — this is a design-and-service decision, not a reliability doubt. On finish range and design intent, WaveCrest leads." <span class="honest">Respect Symmons as a genuine peer; don't disparage.</span></p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> on finish/design and breadth. <b>We lose</b> where Symmons has an incumbent hospitality relationship and finish is unspecified.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ TOTO ============ -->
+  <section id="toto"><div class="card">
+    <div class="top system">
+      <div><h3>TOTO</h3><div class="one">The design-credible sensor competitor — EcoPower self-generating faucets with real aesthetic cachet.</div></div>
+      <div class="badges"><span class="pill sov">AI SOV 0.65</span><span class="pill tier">Legit design rival</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>Japanese design excellence meets commercial sensor technology — EcoPower (self-powered) faucets, clean minimalist aesthetics, strong in premium hospitality and high-design commercial.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>Genuine design credibility — the one rival that out-designs on brand cachet.</li>
+          <li>EcoPower self-generating tech is a real sustainability differentiator.</li>
+          <li>Entrenched in premium hospitality; designers trust the name.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Premium price and import lead times.</li>
+          <li>Minimalist finish palette — limited warm/architectural finishes like Brushed Brass.</li>
+          <li>Less U.S.-service/Buy-American story for domestic commercial specs.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Broader architectural finish range</b> — Brushed Brass &amp; Polished Graphite for warm, design-forward palettes TOTO's minimalism doesn't cover. <span class="proof">Proof: five-finish range; Holden BB.</span></li>
+        <li><b>U.S. manufacturer</b> — service, lead time, and a domestic-manufacturing story that matters on U.S. commercial specs.</li>
+        <li><b>Accessible commercial-duty spec</b> without the premium-import cost.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"TOTO has the design and EcoPower."</b></td><td>"TOTO's design is legitimately strong — no argument. WaveCrest matches the design intent with a broader architectural finish range and adds a U.S.-manufacturer's service, lead time, and domestic-manufacturing story, at a more accessible commercial spec cost."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"What are your lead-time and service expectations on this package?" — surfaces import friction.</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"TOTO is the design leader." → "For minimalist palettes, they're excellent. For warm architectural finishes and domestic service, WaveCrest is the design-forward choice built for U.S. commercial specs." <span class="honest">Don't dismiss TOTO's design — match it, then add.</span></p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> on warm finishes, cost, lead time, and domestic service. <b>We lose</b> on trophy premium-hospitality projects where the TOTO brand is itself specified.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ MOEN ============ -->
+  <section id="moen"><div class="card">
+    <div class="top system">
+      <div><h3>Moen (Commercial / M-POWER)</h3><div class="one">Consumer-brand strength crossing into commercial sensor — recognizable, on BIMsmith.</div></div>
+      <div class="badges"><span class="pill sov">AI SOV 0.65</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>A trusted household name brought to commercial — M-POWER sensor faucets, broad distribution, and consumer-grade brand comfort for the facilities buyer.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>High brand recognition and distribution reach.</li>
+          <li>BIM presence (on BIMsmith) for specifier download.</li>
+          <li>Comfortable, low-risk choice for non-specialist buyers.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Consumer-brand perception in a commercial A&amp;D spec — "residential name" skepticism.</li>
+          <li>Commercial finish range is limited vs. an architectural palette.</li>
+          <li>Not read as a commercial-specialist by discerning specifiers.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Commercial-specialist pedigree.</b> T&amp;S is purpose-built for commercial — not a residential brand extended into the space.</li>
+        <li><b>Architectural finishes on commercial-duty</b> — the design range Moen's commercial line doesn't reach.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"Moen is a trusted name."</b></td><td>"Trusted — in residential. For a commercial A&amp;D spec, WaveCrest is a purpose-built commercial sensor line from a specialist commercial manufacturer, with architectural finishes and the full commercial cert stack on every SKU."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Do you want a commercial-specialist manufacturer standing behind this spec, or a residential brand's commercial line?"</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"Everyone knows Moen." → "Recognition isn't the spec question — commercial duty, finish, and serviceability are, and that's where a specialist leads."</p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> on commercial credibility and finish. <b>We lose</b> where a non-specialist buyer defaults to the familiar name.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ DELTA ============ -->
+  <section id="delta"><div class="card">
+    <div class="top system">
+      <div><h3>Delta (Commercial)</h3><div class="one">Big-brand commercial division — distribution muscle, consumer-brand crossover.</div></div>
+      <div class="badges"><span class="pill sov">AI SOV 0.61</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>Commercial sensor faucets backed by the Delta brand and distribution — reliability messaging, Touch2O/electronic heritage, broad availability.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>Brand strength and distribution depth.</li>
+          <li>Established electronic/sensor engineering.</li>
+          <li>Easy to source; low procurement friction.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Consumer-brand crossover perception in A&amp;D specs.</li>
+          <li>Commercial finish range limited; design story lives in their separate premium brand, not the commercial line.</li>
+          <li>Not a commercial-specialist signal.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Commercial specialist + architectural finishes</b> — the same "purpose-built for the spec, with design finishes" edge as vs. Moen.</li>
+        <li><b>Serviceable, certified platform</b> across every SKU.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"Delta is a strong, safe brand."</b></td><td>"Safe for procurement, yes. For the design and commercial-duty demands of this spec, WaveCrest is a specialist commercial line with an architectural finish range — built for the specification, not adapted to it."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Is the finish specified by the design team, or open to substitution?"</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"Delta has BIM and distribution." → "Table stakes we also meet. The differentiator is design finish on a commercial-specialist platform."</p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> on design intent and specialist credibility. <b>We lose</b> on procurement-led, brand-comfort specs.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ BRADLEY ============ -->
+  <section id="bradley"><div class="card">
+    <div class="top system">
+      <div><h3>Bradley</h3><div class="one">Restroom-system specialist (WashBar) that quietly holds the CSI lavatory/faucet spec high ground.</div></div>
+      <div class="badges"><span class="pill sov lo">AI SOV 0.04</span><span class="pill tier">Low SOV, real spec strength</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>The integrated handwashing experience — WashBar combines soap, water, and dryer in one fixture — backed by genuine specification credibility: downloadable CSI 3-part guide specs for commercial lavatories and faucets (Verge, Advocate).</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>WashBar integrated basin is a design-and-function story architects like.</li>
+          <li><b>Holds CSI 22 42 16 lavatory/faucet 3-part specs</b> — real spec-authority we don't yet match.</li>
+          <li>Strong architect relationships in the restroom-system space.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Very low AI answer-engine visibility (0.04) — a discoverability gap.</li>
+          <li>WashBar is a fixed <em>system</em> — less flexible than a discrete faucet spec with a chosen finish.</li>
+          <li>Premium; heavy where the job needs just a faucet.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>Discrete-faucet finish flexibility.</b> When the spec calls for a deck-mount sensor faucet in a specific architectural finish, WashBar's integrated fixture can't flex the way WaveCrest's finish range does.</li>
+        <li><b>Design finishes on commercial-duty</b> — Brushed Brass/Polished Graphite where WashBar is a fixed aesthetic.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"We're speccing Bradley WashBar for the integrated basin."</b></td><td>"WashBar is elegant for a full basin system. When the specification calls for a discrete deck-mount sensor faucet with a specified architectural finish, WaveCrest gives finish flexibility the fixed WashBar system doesn't — on a fully certified commercial platform."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Is this a full integrated-basin decision, or a faucet line item where finish and layout flexibility matter?"</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>"Does T&amp;S have a CSI 3-part guide spec like Bradley?" → Be honest: "Our CSI guide spec for the sensor line is in development; today I'll provide the full submittal and cert package." <span class="honest">Real gap — Bradley has this, we don't yet (roadmap item).</span></p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> on discrete-faucet specs where finish/layout flex matters. <b>We lose</b> where the architect has committed to the integrated WashBar basin.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ BOBRICK ============ -->
+  <section id="bobrick"><div class="card">
+    <div class="top system">
+      <div><h3>Bobrick</h3><div class="one">Restroom accessories/systems (Div 10) — adjacent to us, not head-to-head on faucets.</div></div>
+      <div class="badges"><span class="pill sov lo">AI SOV 0.02</span><span class="pill tier">Adjacent division</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their pitch</div><p>The complete restroom — partitions, dispensers, accessories, and integrated handwashing systems — with deep architect relationships in Division 10 restroom design.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Honest strengths</div><ul>
+          <li>Entrenched restroom-system and Div 10 accessory relationships with architects.</li>
+          <li>Whole-restroom design perspective and spec presence.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Where they're vulnerable</div><ul>
+          <li>Not a sensor-faucet specialist — faucets appear only inside integrated systems.</li>
+          <li>Negligible sensor-faucet answer-engine presence (0.02).</li>
+          <li>Different CSI division (Div 10 accessories vs. our Div 22 42 16 faucets).</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our dual-truth differentiators</div><ul>
+        <li><b>We are the faucet spec.</b> Bobrick's strength is accessories; when the line item is a sensor faucet with a specified finish and commercial duty, that's WaveCrest's category, not theirs.</li>
+        <li><b>Coexist, don't collide</b> — position WaveCrest as the faucet within a Bobrick-accessorized restroom where relevant.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"We're standardized on Bobrick for the restroom."</b></td><td>"Great for partitions and accessories — that's their strength. The sensor faucet is a separate Division 22 line item, and that's exactly where WaveCrest fits, alongside a Bobrick-accessorized restroom."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Who owns the faucet spec on this job — the same team as the accessories, or the plumbing designer?"</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>Rare head-to-head; if it arises, clarify division scope rather than compete on their turf.</p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> the faucet line item by default (their category is accessories). Treat as a partner-adjacent brand, not a rival.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ FONTANA / BATHSELECT ============ -->
+  <section id="fontana"><div class="card">
+    <div class="top dtc">
+      <div><h3>Fontana &amp; BathSelect</h3><div class="one">DTC e-commerce AEO occupiers — they win AI answers with volume, not spec credibility.</div></div>
+      <div class="badges"><span class="pill tier" style="background:#f0e6f8;color:#6b21a8;">Untracked · AEO threat</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Their play (not a "pitch")</div><p>Direct-to-consumer import faucet sites that flood the web with thin "T&amp;S Brass vs. [X]" comparison pages and squat the ARCAT CSI <b>22 42 16.13</b> envelope — engineering their way into AI answers and branded searches through sheer content volume and cheap SEO.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl warn">Why they're a threat</div><ul>
+          <li>Aggressive AEO/SEO — they intercept "T&amp;S Brass vs…" and "best sensor faucet" queries.</li>
+          <li>High page volume defines the CSI 22 42 16.13 ARCAT space by default.</li>
+          <li>Cheap, fast, and unbothered by spec accuracy.</li>
+        </ul></div>
+        <div class="block"><div class="lbl risk">Their fatal weakness</div><ul>
+          <li><b>Not a spec-grade commercial manufacturer.</b> DTC import channel — no verified commercial cert depth, serviceability, rep network, or A&amp;D spec credibility.</li>
+          <li>Comparison pages are self-published marketing, not independent sources.</li>
+          <li>Zero standing with real specifiers once scrutinized.</li>
+        </ul></div>
+      </div>
+      <div class="block diff"><div class="lbl">Our counter (this is an AEO fight, not a product fight)</div><ul>
+        <li><b>Out-authorize them.</b> Publish T&amp;S-hosted, spec-grade comparison and specification content that AI engines prefer to cite — anchored by the real cert stack and CSI data. <span class="proof">Proof: favorable trade-press (ASPE, phcppros, CCR-Mag, Buildings).</span></li>
+        <li><b>Claim the ARCAT 22 42 16.13 envelope</b> with a legitimate manufacturer listing — displace the DTC squatters.</li>
+        <li><b>Credibility beats volume</b> at the spec stage: verified certs, serviceability, and rep support win the actual project.</li>
+      </ul></div>
+      <div class="block"><div class="lbl info">Objection handling</div>
+        <table class="obj">
+          <tr><td class="q"><b>"I saw a comparison online saying [DTC brand] beats T&amp;S."</b></td><td>"Those are DTC e-commerce comparison pages the seller wrote about itself — not independent spec sources. For a commercial A&amp;D specification you need verified certifications, serviceability, and rep-supported delivery. Fontana and BathSelect are consumer import channels, not spec-grade commercial manufacturers. Here's the actual cert and submittal package."</td></tr>
+        </table>
+      </div>
+      <div class="two">
+        <div class="land"><div class="lbl">Landmine to set</div><p>"Where did that comparison come from — an independent source, or the seller's own store page?"</p></div>
+        <div class="land"><div class="lbl">Landmine to defuse</div><p>Branded comparison-jacking. Counter with authoritative T&amp;S-hosted content + third-party trade-press citations; never amplify their page by name to the specifier.</p></div>
+      </div>
+      <div class="block"><div class="lbl">Win / loss themes</div><p><b>We win</b> every real spec on credibility. <b>We "lose"</b> only in the AI-answer layer — a marketing/AEO problem solved by the spec-ecosystem roadmap, not by the sales rep.</p></div>
+    </div>
+  </div></section>
+
+  <!-- ============ WAVECREST SELF ============ -->
+  <section id="wavecrest"><div class="card">
+    <div class="top" style="border-top-color:var(--brass);">
+      <div><h3>WaveCrest — our own cheat-sheet</h3><div class="one">Lead with this. The dual-truth position, the open lanes, and the honest edges.</div></div>
+      <div class="badges"><span class="pill sov lo">AI SOV 0.12 → climbing</span></div>
+    </div>
+    <div class="body">
+      <div class="block"><div class="lbl">Our one-line position</div><p style="font-size:16px;color:var(--ink);"><b>The commercial sensor faucet you don't have to design around.</b> Architectural finishes — including Brushed Brass and Polished Graphite — on a vandal-resistant, 0.5 GPM, fully certified commercial platform, from an 80-year U.S. manufacturer.</p></div>
+      <div class="two">
+        <div class="block"><div class="lbl good">Where we genuinely win</div><ul>
+          <li><b>Design + duty in one line</b> — few commercial sensor lines offer a true architectural finish range on a vandal-resistant commercial platform.</li>
+          <li><b>The finish story</b> — Holden Brushed Brass as the flagship; Stafford &amp; Holden carry the full BB+PG range.</li>
+          <li><b>Cert baseline on every SKU</b> — ASME A112.18.1 · CSA B125.1 · NSF 372 · NSF 61 · UL 1951 · ADA · RoHS.</li>
+          <li><b>Specialist reliability + U.S. manufacturing</b> — serviceable modules, temp-mixing valve, 18" SS hoses standard.</li>
+        </ul></div>
+        <div class="block"><div class="lbl warn">Honest edges to manage</div><ul>
+          <li><b>BIM is our weak asset today</b> — live on BIMobject but buried on-site; the Holden BB Revit family isn't downloadable yet (P0 fix in flight).</li>
+          <li><b>No CSI 3-part guide spec yet</b> — Bradley has one; ours is in development.</li>
+          <li><b>Buy-American is narrow</b> — U.S.-made story is real; formal BAA cert is on limited SKUs. Verify before a federal spec.</li>
+          <li><b>Low AI visibility (0.12)</b> — a fixable discoverability gap, not a product gap.</li>
+        </ul></div>
+      </div>
+      <div class="block"><div class="lbl info">The four open lanes to steer toward</div><ul>
+        <li><b>Designer + commercial-duty</b> — our earned press hook ("designer aesthetics + commercial-duty construction"); own the "designer sensor faucet for architectural projects" conversation.</li>
+        <li><b>The Chicago-EQ / Sloan alternative</b> — an unclaimed, real-volume lane (the "Chicago EQ alternatives" query returns only Chicago).</li>
+        <li><b>Made-in-USA, spec-grade</b> — credible T&amp;S manufacturing story (scoped honestly on BAA).</li>
+        <li><b>The Holden Brushed Brass finish moment</b> — the aesthetic proof point for design-forward specs.</li>
+      </ul></div>
+      <div class="block"><div class="lbl">The three questions that qualify a WaveCrest fit</div><p>1) "Is a finish specified by the design team?" · 2) "Does this space need commercial-duty <em>and</em> design?" · 3) "Who owns the faucet line item — the designer or the plumbing engineer?" If finish matters and design owns it, WaveCrest is the strongest card on the table.</p></div>
+    </div>
+  </div></section>
+
+  <div class="footer">
+    <p><b>Freshness &amp; verification.</b> AI share-of-voice from Ahrefs Brand Radar (ChatGPT), report <code>confidential-…368d4b08</code>, pulled 2026-07-09. Competitor spec-asset and BIM claims verified live 2026-07-09 via web search and direct fetch — including the correction that Sloan, Zurn, Chicago, Moen, and American Standard all publish BIM/Revit. Product facts from the WaveCrest canonical brief (31 SKUs / 6 series). Cards marked with an amber "honest" note flag claims reps must scope carefully. Roster note (2026-07-17): the tracked competitive set was extended to 19 brands in Competitive Brief v2.1 (2026-07-16) — Fontana &amp; BathSelect included per standing annotation; per-card verification dates unchanged (2026-07-09).</p>
+    <p><b>Maintenance.</b> Review quarterly and immediately after a competitor move. Re-verify the Sloan/Zurn BIM and Bradley CSI positions on the next Apify "Competitive Watch" crawl. Feed win/loss notes back into objection handling.</p>
+    <p><b>Sources:</b>
+      <a href="https://www.bimobject.com/en-us/t-and-s-brass-and-bronze-works/t-and-s-brass-wavecrest-touchless-faucets">WaveCrest Touchless Faucets on BIMobject</a> ·
+      <a href="https://www.sloan.com/design/innovations/innovations-design/sloan-bim-models">Sloan BIM Models</a> ·
+      <a href="https://www.bimobject.com/en-us/zurnindustries">Zurn on BIMobject</a> ·
+      <a href="https://market.bimsmith.com/product/Zurn-Industries-LLC/revit-bim-Z6930XL--Faucet-29453">Zurn on BIMsmith</a> ·
+      <a href="https://site.bradleycorp.com/3partspec/Bradley_224216-03-COMMERCIAL_LAVATORIES_AND_FAUCETS_Verge">Bradley CSI 22 42 16 spec</a> ·
+      <a href="https://www.chicagofaucets.com/bim-library">Chicago Faucets BIM Library</a>
+    </p>
+    <p style="margin-top:10px;color:#9a978d;">WaveCrest · Specifying the Next Wave — Daniel B Washburn. Dual-truth voice · QSI North Star · A&amp;D specifiers only. Not for consumer/DIY distribution.</p>
+  </div>
+
+</div>
+</body>
+</html>

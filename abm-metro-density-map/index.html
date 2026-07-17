@@ -85,7 +85,7 @@ tr.oth td{color:var(--muted);font-style:italic}
 </style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 14, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap>
 <header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div>
 <div class=hmeta><div class=aname>ABM Metro Density Map</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
 
@@ -181,7 +181,7 @@ async function callTool(name,args){
  let d=r.structuredContent;
  if(d==null&&r.content&&r.content[0]&&r.content[0].text){try{d=JSON.parse(r.content[0].text);}catch(e){}}
  if(d==null)throw new Error('nodata');return d;}
-const DS={ad:'e75f81a2-70f2-4f8b-b233-345bacc0e084',mep:'1e4da428-346c-4314-aa75-1baeb38b7307',own:'d15f2e57-0a0d-4a1a-90c9-dd24042737d0'};
+const DS={ad:'confidential',mep:'confidential',own:'confidential'};
 function sql(ds,q){return callTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',
  {data:{mode:'sql',data_source_urls:['collection://'+ds],query:q}});}
 

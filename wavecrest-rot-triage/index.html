@@ -1,0 +1,164 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Wavecrest Rot Triage",
+  "schemaVersion": 1,
+  "description": "Layer-4 Return-on-Time triage prototype (read-only). Ranks A&D intent signals by signal × tier × recency × confidence off the live Signals — WaveCrest Notion log. A prior to weigh, never a verdict — writes nothing. Falls back to the session snapshot if the live query is unavailable.",
+  "mcpTools": [
+    "mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources"
+  ],
+  "mcpServerNames": [
+    "Notion"
+  ]
+}
+</script>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaveCrest — Return-on-Time Triage (Layer 4 · read-only)</title>
+<style>
+ :root{color-scheme:light;--tsblue:#004577;--tsblue-lt:#e8f1f8;--ink:#1a2733;--mut:#5b6b7a;--line:#dbe4ec;--hi:#0a7d33;--md:#b26a00;--lo:#8895a3;--warn:#b3261e;}
+ *{box-sizing:border-box;margin:0;padding:0;}
+ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:#f6f9fc;color:var(--ink);padding:20px;font-size:14px;}
+ .hdr{background:var(--tsblue);color:#fff;border-radius:10px;padding:18px 22px;}
+ .hdr h1{font-size:19px;font-weight:700;}
+ .hdr .sub{font-size:12px;opacity:.9;margin-top:4px;line-height:1.5;}
+ .chip{display:inline-block;background:#ffb81c;color:#33270a;font-weight:700;font-size:11px;padding:3px 10px;border-radius:99px;letter-spacing:.5px;}
+ .prior{background:#fff7e6;border:1px solid #f0d9a8;color:#6b4e00;border-radius:8px;padding:10px 14px;margin:14px 0;font-size:12.5px;line-height:1.5;}
+ .legend{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
+ .legend div{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:11.5px;color:var(--mut);}
+ .legend b{color:var(--ink);}
+ .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 4px;margin-bottom:14px;overflow-x:auto;}
+ table{width:100%;border-collapse:collapse;font-size:13px;}
+ th{text-align:left;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:8px;border-bottom:2px solid var(--line);white-space:nowrap;}
+ td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top;}
+ tr:last-child td{border-bottom:none;}
+ .rank{font-weight:800;color:var(--tsblue);font-size:15px;}
+ .rot{font-weight:800;font-size:15px;}
+ .bar{height:6px;border-radius:4px;background:var(--tsblue);margin-top:3px;}
+ .t1{color:#b3261e;font-weight:700;} .t2{color:#b26a00;font-weight:700;} .t3{color:#3059b3;font-weight:700;}
+ .pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;}
+ .p-hi{background:#e4f4e9;color:var(--hi);} .p-md{background:#fdf1de;color:var(--md);} .p-lo{background:#eef1f5;color:var(--lo);}
+ a{color:var(--tsblue);text-decoration:none;} a:hover{text-decoration:underline;}
+ .foot{font-size:11px;color:var(--mut);margin-top:6px;line-height:1.6;}
+ .src{font-size:11px;padding:4px 10px;border-radius:99px;font-weight:700;display:inline-block;}
+ .live{background:#e4f4e9;color:var(--hi);} .cached{background:#fdf1de;color:var(--md);}
+ .sub2{font-size:11px;color:var(--mut);}
+</style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
+window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
+</script>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<body>
+<div class="hdr">
+ <h1>Return-on-Time Triage <span class="chip">LAYER 4 · READ-ONLY</span></h1>
+ <div class="sub">Ranks A&amp;D intent signals for the next supervised burn — <b>signal × tier × recency × confidence</b> off the live <i>Signals — WaveCrest</i> log. Writes nothing.</div>
+</div>
+
+<div class="prior"><b>A prior to weigh, never a verdict.</b> Equal starting weights; the score earns trust only once the conversion feedback loop (did the flagged firm take a QSI action?) has data. Until then, treat the ranking as a hypothesis. Ladders to the North Star — Qualified Specification Intent.</div>
+
+<div style="margin:8px 0 12px"><span id="src" class="src cached">loading…</span> <span class="sub2" id="meta"></span></div>
+
+<div class="legend">
+ <div><b>Signal</b> Sourced Fact 1.0 · Derived Inference 0.8 · Hypothesis 0.5</div>
+ <div><b>Tier</b> T1 1.0 · T2 0.75 · T3 0.55</div>
+ <div><b>Recency</b> linear decay over 90d (floor 0.15)</div>
+ <div><b>Confidence</b> High 1.0 · Med 0.6 · Low 0.3</div>
+</div>
+
+<div class="card">
+ <table id="tbl"><thead><tr>
+  <th>#</th><th>RoT</th><th>Signal</th><th>Firm(s)</th><th>Tier</th><th>Conf</th><th>Age</th><th>Vertical</th><th>Promotion</th><th></th>
+ </tr></thead><tbody><tr><td colspan="10" style="padding:16px;color:var(--mut)">Scoring…</td></tr></tbody></table>
+</div>
+
+<div class="foot">
+ <b>Model:</b> RoT = signalStrength × tierScore × recencyScore × confidenceScore (×100). Recency reads the decay clock (Layer 2); confidence reads the provenance tag (Layer 1). Source: <code>Signals — WaveCrest</code> (ds 171e9131…) joined to <code>ABM Target Firms</code> tier. <b>Governance:</b> this board never writes Notion; promotion of a signal into a firm's Engagement State is human-gated.
+</div>
+
+<script>
+const SIG='collection://confidential';
+const AND='collection://confidential';
+const confS={High:1,Medium:.6,Low:.3}, typeS={'Sourced Fact':1,'Derived Inference':.8,'Hypothesis':.5}, tierS={'Tier 1':1,'Tier 2':.75,'Tier 3':.55};
+const tierCls={'Tier 1':'t1','Tier 2':'t2','Tier 3':'t3'};
+// Baked 2026-07-17 from the live Signals log (31 rows) — used when the live query is unavailable (e.g., static mirrors).
+// Target/roster firm names carry <span data-tf> markers for the public-mirror confidential register; competitor names stay plain.
+const BAKED=[
+ {Signal:"Pittsburgh Int'l Airport Terminal — <span data-tf>confidential</span>",firms:[["<span data-tf>confidential</span>","Tier 1"]],Confidence:"High",type:"Derived Inference",date:"2026-07-02",Vertical:"Transport / Aviation",prom:"Candidate",url:"https://metropolismag.com/projects/pittsburgh-reinvents-airport/"},
+ {Signal:"Pittsburgh Int'l Airport Terminal — <span data-tf>confidential</span>",firms:[["<span data-tf>confidential</span>","Tier 1"]],Confidence:"High",type:"Derived Inference",date:"2026-07-02",Vertical:"Transport / Aviation",prom:"Candidate",url:"https://metropolismag.com/projects/pittsburgh-reinvents-airport/"},
+ {Signal:"<span data-tf>confidential</span> × <span data-tf>confidential</span> — M&A",firms:[["<span data-tf>confidential</span>","Tier 1"],["<span data-tf>confidential</span>","Tier 2"]],Confidence:"High",type:"Derived Inference",date:"2026-07-02",Vertical:"Other",prom:"Candidate",url:"https://architizer.com/blog/inspiration/industry/cannondesign-acquisition-of-ennead/"},
+ {Signal:"LG Corporation HQ, Seoul (A+Award) — <span data-tf>confidential</span>",firms:[["<span data-tf>confidential</span>","Tier 1"]],Confidence:"Medium",type:"Derived Inference",date:"2026-07-02",Vertical:"Workplace / Office",prom:"Candidate",url:"https://architizer.com/blog/inside-architizer/updates/2026-aawards-winners-announcement/"},
+ {Signal:"New Seattle Office — <span data-tf>confidential</span>",firms:[["<span data-tf>confidential</span>","Tier 1"]],Confidence:"Medium",type:"Derived Inference",date:"2026-07-02",Vertical:"Workplace / Office",prom:"Candidate",url:"https://metropolismag.com/projects/at-its-new-seattle-office-ia-aims-for-harmony/"},
+ {Signal:"Baltimore Public Aquatic Centers — <span data-tf>confidential</span>",firms:[["<span data-tf>confidential</span>","Tier 1"]],Confidence:"Medium",type:"Derived Inference",date:"2026-07-02",Vertical:"Civic / Cultural",prom:"Candidate",url:"https://metropolismag.com/projects/cannondesign-baltimore-reclaims-the-public-pool/"},
+ {Signal:"Theodore Roosevelt Presidential Library — <span data-tf>confidential</span>",firms:[["<span data-tf>confidential</span>","Tier 3"]],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Civic / Cultural",prom:"Candidate",url:"https://metropolismag.com/projects/the-theodore-roosevelt-presidential-library/"},
+ {Signal:"Fourth Ward Office, Atlanta (A+Award) — <span data-tf>confidential</span>",firms:[["<span data-tf>confidential</span>","Tier 3"]],Confidence:"Medium",type:"Derived Inference",date:"2026-07-02",Vertical:"Workplace / Office",prom:"Candidate",url:"https://architizer.com/blog/inside-architizer/updates/2026-aawards-winners-announcement/"},
+ {Signal:"Ryerson Woods Education Facility — <span data-tf>confidential</span>",firms:[["<span data-tf>confidential</span>","Tier 3"]],Confidence:"Medium",type:"Derived Inference",date:"2026-07-02",Vertical:"Education",prom:"Candidate",url:"https://metropolismag.com/projects/an-ecological-education-center-that-goes-beyond-net-zero/"},
+ {Signal:"<span data-tf>confidential</span> → interiors on JEM Private Residences (Miami Worldcenter) — active Miami project",firms:[["<span data-tf>confidential</span>","Tier 3"]],Confidence:"High",type:"Derived Inference",date:"2026-07-07",Vertical:"Multifamily",prom:"Corroborated",url:"https://floridayimby.com/category/miami"},
+ {Signal:"<span data-tf>confidential</span> → architect on JEM Private Residences (Miami Worldcenter) — active Miami project",firms:[["<span data-tf>confidential</span>","Tier 2"]],Confidence:"High",type:"Derived Inference",date:"2026-07-07",Vertical:"Multifamily",prom:"Corroborated",url:"https://floridayimby.com/category/miami"},
+ {Signal:"T&S absent from ARCAT; 22 42 16.13 spec envelope defined by Fontana/BathSelect — 9 consecutive audit runs",firms:[],Confidence:"High",type:"Sourced Fact",date:"2026-07-06",Vertical:null,prom:"Corroborated",url:"https://www.arcat.com/"},
+ {Signal:"Sloan: no on-site BIM/Revit page — 7 consecutive daily crawls",firms:[],Confidence:"High",type:"Sourced Fact",date:"2026-07-06",Vertical:null,prom:"Corroborated",url:"https://www.sloan.com/resources"},
+ {Signal:"Fontana: domain-wide sensor-faucet meta-description seeding observed (~38 of 41 captured pages)",firms:[],Confidence:"High",type:"Sourced Fact",date:"2026-07-06",Vertical:null,prom:"Candidate",url:"https://www.fontanacommercial.com/"},
+ {Signal:"Fontana staffs a dedicated SEO Specialist (Apollo index) — resourcing behind the AEO play",firms:[],Confidence:"High",type:"Sourced Fact",date:"2026-07-06",Vertical:null,prom:"Candidate",url:"https://www.fontanashowers.com/"},
+ {Signal:"<span data-tf>confidential</span> — confidentialB healthcare/senior-REIT acquisition juggernaut",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-06-29",Vertical:"Senior Living",prom:"Candidate",url:"https://therealdeal.com/national/2026/06/29/welltowers-821m-ceo-payday-sparks-backlash-despite-big-run/"},
+ {Signal:"<span data-tf>confidential</span> — former-Holiday senior-living portfolio transformation (owner-momentum)",firms:[],Confidence:"High",type:"Sourced Fact",date:"2026-07-06",Vertical:"Senior Living",prom:"Candidate",url:"http://seniorhousingnews.com/2026/07/02/atria-puts-turnaround-skills-to-work-in-transformation-of-former-holiday-portfolio/?itm_source=parsely-api"},
+ {Signal:"<span data-tf>confidential</span> — <span data-tf>confidential</span> Creekside Center (Disabled Students' Program)",firms:[],Confidence:"High",type:"Sourced Fact",date:"2026-07-06",Vertical:"Education",prom:"Candidate",url:"https://www.bdcnetwork.com/building-sector-reports/education-facilities/university-buildings/article/55388506/uc-berkeley-turns-a-modest-campus-building-into-a-new-home-for-its-disabled-students-program"},
+ {Signal:"<span data-tf>confidential</span> — debut of <span data-tf>confidential</span> Resort & Marina (US/FL)",firms:[],Confidence:"High",type:"Sourced Fact",date:"2026-07-06",Vertical:"Hospitality",prom:"Candidate",url:"https://lodgingmagazine.com/hilton-announces-debut-of-hilton-key-west-resort-marina/"},
+ {Signal:"<span data-tf>confidential</span> — dual-branded <span data-tf>confidential</span>, Universal Orlando (US/FL)",firms:[],Confidence:"High",type:"Sourced Fact",date:"2026-07-06",Vertical:"Hospitality",prom:"Candidate",url:"https://lodgingmagazine.com/dual-branded-even-hotel-and-staybridge-suites-opens-near-universal-orlando-resort/"},
+ {Signal:"0704 AI research — Hansgrohe pricing/positioning",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Kohler Commercial pricing/positioning",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Symmons pricing/positioning (10-yr warranty wedge)",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Chicago Faucets pricing/positioning",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — TOTO ECOPOWER pricing/positioning",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Bobrick pricing/positioning",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Sloan pricing/positioning (premium anchor)",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Bradley pricing/positioning",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Haws pricing/positioning",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Oasis International (channel/rep intel only)",firms:[],Confidence:"Low",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null},
+ {Signal:"0704 AI research — Zurn Elkay pricing/positioning",firms:[],Confidence:"Medium",type:"Derived Inference",date:"2026-07-04",Vertical:"Other",prom:"Candidate",url:null}
+];
+function idOf(u){if(!u)return"";const m=String(u).replace(/-/g,"").match(/[0-9a-f]{32}/i);return m?m[0].toLowerCase():"";}
+function recency(d){if(!d)return .5;const days=(Date.now()-new Date(d).getTime())/864e5;return Math.max(.15,Math.min(1,1-days/90));}
+function ageDays(d){if(!d)return"—";return Math.max(0,Math.round((Date.now()-new Date(d).getTime())/864e5))+"d";}
+function score(r){const ss=typeS[r.type]||.8;const ts=r.firms.length?Math.max(...r.firms.map(f=>tierS[f[1]]||.6)):.6;const rc=recency(r.date);const cf=confS[r.Confidence]||.6;return{rot:Math.round(ss*ts*rc*cf*100),ss,ts,rc,cf};}
+async function q(ds,sql){const r=await window.cowork.callMcpTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',{data:{data_source_urls:[ds],query:sql}});const d=r.structuredContent??JSON.parse(r.content[0].text);if(r.isError)throw new Error('query error');return d.results||[];}
+function render(rows,mode){
+ rows.forEach(r=>{const s=score(r);r._s=s;});
+ rows.sort((a,b)=>b._s.rot-a._s.rot);
+ const mx=rows.length?rows[0]._s.rot:1;
+ const bestT=r=>r.firms.reduce((b,f)=>{const o={'Tier 1':1,'Tier 2':2,'Tier 3':3}[f[1]]||9;return o<b.o?{o,t:f[1]}:b;},{o:9,t:"—"}).t;
+ document.querySelector('#tbl tbody').innerHTML=rows.map((r,i)=>{
+  const t=bestT(r),cls=tierCls[t]||'';const pc=r.prom==='Promoted'?'p-hi':r.prom==='Dismissed'?'p-lo':'p-md';
+  const cc=r.Confidence==='High'?'p-hi':r.Confidence==='Low'?'p-lo':'p-md';
+  return `<tr>
+   <td class="rank">${i+1}</td>
+   <td><div class="rot" style="color:var(--tsblue)">${r._s.rot}</div><div class="bar" style="width:${Math.round(r._s.rot/mx*60)}px"></div></td>
+   <td>${r.Signal}</td>
+   <td>${r.firms.map(f=>f[0]).join(', ')||'—'}</td>
+   <td class="${cls}">${t}</td>
+   <td><span class="pill ${cc}">${r.Confidence||'—'}</span></td>
+   <td>${ageDays(r.date)}</td>
+   <td class="sub2">${r.Vertical||'—'}</td>
+   <td><span class="pill ${pc}">${r.prom||'—'}</span></td>
+   <td>${r.url?`<a href="${r.url}" target="_blank">↗</a>`:''}</td>
+  </tr>`;}).join('');
+ const sb=document.getElementById('src');
+ sb.className='src '+(mode==='live'?'live':'cached');
+ sb.textContent=mode==='live'?'LIVE — Signals log':'CACHED — session snapshot';
+ document.getElementById('meta').textContent=` · ${rows.length} signals ranked · updated ${new Date().toLocaleString()}`;
+}
+async function load(){
+ try{
+  const [sigs,firms]=await Promise.all([
+   q(SIG,`SELECT "Signal","Firm","Signal Type","Confidence","Vertical","Signal Note","Signal URL","Promotion Status","date:Signal Date:start" FROM "${SIG}"`),
+   q(AND,`SELECT url,"Firm Name","Tier" FROM "${AND}"`)
+  ]);
+  if(!sigs.length) throw new Error('no live rows');
+  const map={};firms.forEach(f=>{map[idOf(f.url)]={name:f['Firm Name'],tier:f['Tier']};});
+  const rows=sigs.map(s=>{
+   let fu=s.Firm;try{fu=JSON.parse(s.Firm);}catch(e){fu=s.Firm?[s.Firm]:[];}
+   if(!Array.isArray(fu))fu=fu?[fu]:[];
+   const firmsArr=fu.map(u=>{const m=map[idOf(u)];return m?[m.name,m.tier]:null;}).filter(Boolean);
+   return {Signal:s.Signal,firms:firmsArr.length?firmsArr:[["(unresolved)","Tier 2"]],Confidence:s.Confidence,type:s['Signal Type'],date:s['date:Signal Date:start'],Vertical:s.Vertical,prom:s['Promotion Status'],url:s['Signal URL']};
+  });
+  render(rows,'live');
+ }catch(e){ render(BAKED.map(b=>({...b})),'cached'); }
+}
+load();
+</script>
+</body></html>
