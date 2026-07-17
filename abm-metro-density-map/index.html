@@ -5,7 +5,7 @@
   "schemaVersion": 1,
   "description": "Live US metro density map for WaveCrest ABM — replaces the Felt map (trial lapsed Jul 2026). Proportional bubbles per metro, tier-colored (A/B/C), Miami priority ring, discipline filter (All / A&D / MEP / Owner-Dev), sortable metro detail table, unmapped/national buckets. Refreshes from Notion firm DBs (A&D, MEP, Owner/Dev) via live SQL on open; offline-embedded Albers USA basemap, no vendor dependency.",
   "mcpTools": [
-    "mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources"
+    "mcp__confidential__notion-query-data-sources"
   ],
   "mcpServerNames": [
     "Notion"
@@ -182,7 +182,7 @@ async function callTool(name,args){
  if(d==null&&r.content&&r.content[0]&&r.content[0].text){try{d=JSON.parse(r.content[0].text);}catch(e){}}
  if(d==null)throw new Error('nodata');return d;}
 const DS={ad:'confidential',mep:'confidential',own:'confidential'};
-function sql(ds,q){return callTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',
+function sql(ds,q){return callTool('mcp__confidential__notion-query-data-sources',
  {data:{mode:'sql',data_source_urls:['collection://'+ds],query:q}});}
 
 function groupToCounts(res){const o={};let other=0;

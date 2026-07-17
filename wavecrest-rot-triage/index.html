@@ -4,7 +4,7 @@
   "schemaVersion": 1,
   "description": "Layer-4 Return-on-Time triage prototype (read-only). Ranks A&D intent signals by signal × tier × recency × confidence off the live Signals — WaveCrest Notion log. A prior to weigh, never a verdict — writes nothing. Falls back to the session snapshot if the live query is unavailable.",
   "mcpTools": [
-    "mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources"
+    "mcp__confidential__notion-query-data-sources"
   ],
   "mcpServerNames": [
     "Notion"
@@ -116,7 +116,7 @@ function idOf(u){if(!u)return"";const m=String(u).replace(/-/g,"").match(/[0-9a-
 function recency(d){if(!d)return .5;const days=(Date.now()-new Date(d).getTime())/864e5;return Math.max(.15,Math.min(1,1-days/90));}
 function ageDays(d){if(!d)return"—";return Math.max(0,Math.round((Date.now()-new Date(d).getTime())/864e5))+"d";}
 function score(r){const ss=typeS[r.type]||.8;const ts=r.firms.length?Math.max(...r.firms.map(f=>tierS[f[1]]||.6)):.6;const rc=recency(r.date);const cf=confS[r.Confidence]||.6;return{rot:Math.round(ss*ts*rc*cf*100),ss,ts,rc,cf};}
-async function q(ds,sql){const r=await window.cowork.callMcpTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',{data:{data_source_urls:[ds],query:sql}});const d=r.structuredContent??JSON.parse(r.content[0].text);if(r.isError)throw new Error('query error');return d.results||[];}
+async function q(ds,sql){const r=await window.cowork.callMcpTool('mcp__confidential__notion-query-data-sources',{data:{data_source_urls:[ds],query:sql}});const d=r.structuredContent??JSON.parse(r.content[0].text);if(r.isError)throw new Error('query error');return d.results||[];}
 function render(rows,mode){
  rows.forEach(r=>{const s=score(r);r._s=s;});
  rows.sort((a,b)=>b._s.rot-a._s.rot);

@@ -4,9 +4,9 @@
   "schemaVersion": 1,
   "description": "Top-level WaveCrest command center: one-glance tiles (specifiers, firms, Apollo credits, AI SOV, funnel), 6-stage campaign map (Stage 1 pre-launch), and open flags / next actions from Runbook §14-16. Live from Apollo + Notion + Brand Radar.",
   "mcpTools": [
-    "mcp__2b71d530-eb54-48a6-9c4f-19baa6a2e520__apollo_usage_stats_credit_usage_stats",
-    "mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources",
-    "mcp__20375104-d398-41f2-af7a-59ad4536cfce__brand-radar-sov-overview"
+    "mcp__confidential__apollo_usage_stats_credit_usage_stats",
+    "mcp__confidential__notion-query-data-sources",
+    "mcp__confidential__brand-radar-sov-overview"
   ],
   "mcpServerNames": [
     "Apollo.io",
@@ -134,7 +134,7 @@ async function callTool(name,args){
  let d=r.structuredContent;
  if(d==null&&r.content&&r.content[0]&&r.content[0].text){try{d=JSON.parse(r.content[0].text);}catch(e){}}
  if(d==null)throw new Error('nodata');return d;}
-function sql(ds,q){return callTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',
+function sql(ds,q){return callTool('mcp__confidential__notion-query-data-sources',
  {data:{mode:'sql',data_source_urls:['collection://'+ds],query:q}});}
 function one(res){try{return res.results[0].n;}catch(e){return null;}}
 function mapc(res){const o={};(res.results||[]).forEach(r=>o[r.k]=r.n);return o;}
@@ -157,7 +157,7 @@ const APOLLO_ARGS={_conversation_ref:'wcart0701',_rationale:'dashboard credit re
    setEl('specd',fmt(C.verif)+' verified emails · '+pct(C.verif,C.spec)+'%');
    setEl('sov',C.sov);setEl('reached',fmt(C.reached));}
  async function refresh(){
-   try{const a=await callTool('mcp__2b71d530-eb54-48a6-9c4f-19baa6a2e520__apollo_usage_stats_credit_usage_stats',APOLLO_ARGS);
+   try{const a=await callTool('mcp__confidential__apollo_usage_stats_credit_usage_stats',APOLLO_ARGS);
      const lc=a.credit_usage_stats.lead_credit;C.left=lc.left_over;C.limit=lc.limit;}catch(e){}
    let liveN=false;
    try{const[sp,ad,mep,own,mail,eng]=await Promise.all([
@@ -169,7 +169,7 @@ const APOLLO_ARGS={_conversation_ref:'wcart0701',_rationale:'dashboard credit re
      sql(NOTION.spec,'SELECT "Engagement State" AS k, COUNT(*) AS n FROM "collection://'+NOTION.spec+'" GROUP BY "Engagement State"')]);
      C.spec=one(sp);C.ad=one(ad);C.mep=one(mep);C.own=one(own);
      C.verif=mapc(mail).Verified||C.verif;C.reached=mapc(eng).Reached||C.reached;liveN=true;}catch(e){}
-   try{const s=await callTool('mcp__20375104-d398-41f2-af7a-59ad4536cfce__brand-radar-sov-overview',{data_source:'chatgpt',report_id:'confidential'});
+   try{const s=await callTool('mcp__confidential__brand-radar-sov-overview',{data_source:'chatgpt',report_id:'confidential'});
      const w=(s.metrics||[]).find(m=>/wavecrest/i.test(m.brand));if(w)C.sov=Math.round(w.share_of_voice*1000)/10;}catch(e){}
    paint();setStamp(liveN);}
  if(window.mermaid){try{mermaid.initialize({startOnLoad:true,securityLevel:'strict',theme:'neutral'});}catch(e){}}

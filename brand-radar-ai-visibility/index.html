@@ -4,8 +4,8 @@
   "schemaVersion": 1,
   "description": "WaveCrest AI visibility via Ahrefs Brand Radar (ChatGPT): share-of-voice vs the 19-brand watchlist (07-13: +Fontana Showers +BathSelect), WaveCrest rank, and mentions-over-time. Live from Brand Radar on open.",
   "mcpTools": [
-    "mcp__20375104-d398-41f2-af7a-59ad4536cfce__brand-radar-sov-overview",
-    "mcp__20375104-d398-41f2-af7a-59ad4536cfce__brand-radar-mentions-history"
+    "mcp__confidential__brand-radar-sov-overview",
+    "mcp__confidential__brand-radar-mentions-history"
   ],
   "mcpServerNames": [
     "Ahrefs",
@@ -111,7 +111,7 @@ async function callTool(name,args){
  let d=r.structuredContent;
  if(d==null&&r.content&&r.content[0]&&r.content[0].text){try{d=JSON.parse(r.content[0].text);}catch(e){}}
  if(d==null)throw new Error('nodata');return d;}
-function sql(ds,q){return callTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',
+function sql(ds,q){return callTool('mcp__confidential__notion-query-data-sources',
  {data:{mode:'sql',data_source_urls:['collection://'+ds],query:q}});}
 function one(res){try{return res.results[0].n;}catch(e){return null;}}
 function mapc(res){const o={};(res.results||[]).forEach(r=>o[r.k]=r.n);return o;}
@@ -143,10 +143,10 @@ const APOLLO_ARGS={_conversation_ref:'wcart0701',_rationale:'dashboard credit re
    const wr=rankOf('wavecrest');if(wr)setEl('wrank','#'+wr+' / '+SOV.length);
    setEl('ment',MTL.data.reduce((a,b)=>a+b,0));}
  async function refresh(){try{
-   const s=await callTool('mcp__20375104-d398-41f2-af7a-59ad4536cfce__brand-radar-sov-overview',{data_source:'chatgpt',report_id:RID});
+   const s=await callTool('mcp__confidential__brand-radar-sov-overview',{data_source:'chatgpt',report_id:RID});
    if(s.metrics&&s.metrics.length){SOV.length=0;s.metrics.forEach(m=>SOV.push([m.brand,Math.round(m.share_of_voice*1000)/10]));SOV.sort((a,b)=>b[1]-a[1]);
      cS.data.labels=SOV.map(r=>r[0]);cS.data.datasets[0].data=SOV.map(r=>r[1]);cS.data.datasets[0].backgroundColor=colors();cS.update();}
-   const h=await callTool('mcp__20375104-d398-41f2-af7a-59ad4536cfce__brand-radar-mentions-history',{data_source:'chatgpt',report_id:RID,brand:'WaveCrest',date_from:'2026-05-01',date_to:'2026-07-01'});
+   const h=await callTool('mcp__confidential__brand-radar-mentions-history',{data_source:'chatgpt',report_id:RID,brand:'WaveCrest',date_from:'2026-05-01',date_to:'2026-07-01'});
    if(h.metrics&&h.metrics.length){const m=h.metrics.filter(x=>x.mentions>0);
      MTL.labels=m.map(x=>new Date(x.date).toLocaleDateString('en-US',{month:'short',day:'numeric'}));MTL.data=m.map(x=>x.mentions);
      cM.data.labels=MTL.labels;cM.data.datasets[0].data=MTL.data;cM.update();

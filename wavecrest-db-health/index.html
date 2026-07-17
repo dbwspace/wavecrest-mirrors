@@ -4,7 +4,7 @@
   "schemaVersion": 1,
   "description": "ABM Data Hygiene board (read-only detector). Live checks over the A&D roster + Signals log + Insights assessment layer: firm-dupes (WATG/Wimberly false-positive suppressed), ZZ-trash-ready count, A&D field completeness, Signals provenance-blanks, stale-signal count, Insights rot (past Review-By / aging Proposed >14d / evidence-less / staged triage-queue depth). Detection only — resolution and promotion are supervised. Weekly audit appends to history (ins* columns added 2026-07-06).",
   "mcpTools": [
-    "mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources"
+    "mcp__confidential__notion-query-data-sources"
   ],
   "mcpServerNames": [
     "Notion"
@@ -79,7 +79,7 @@ const DATA={ history:[
 ]};
 const $=id=>document.getElementById(id);
 function isFalsePos(names){const s=names.map(n=>n.trim()).sort().join("|");return FALSE_POS.some(fp=>fp.slice().sort().join("|")===s);}
-async function q(ds,sql){const r=await window.cowork.callMcpTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',{data:{data_source_urls:[ds],query:sql}});const d=r.structuredContent??JSON.parse(r.content[0].text);if(r.isError)throw new Error('q');return d.results||[];}
+async function q(ds,sql){const r=await window.cowork.callMcpTool('mcp__confidential__notion-query-data-sources',{data:{data_source_urls:[ds],query:sql}});const d=r.structuredContent??JSON.parse(r.content[0].text);if(r.isError)throw new Error('q');return d.results||[];}
 function card(cls,n,label,desc){return `<div class="card ${cls}"><div class="n">${n}</div><div class="l">${label}</div><div class="d">${desc}</div></div>`;}
 function sev(n){return n>0?(n>=5?'bad':'warn'):'ok';}
 async function run(){

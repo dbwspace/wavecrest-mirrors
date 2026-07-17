@@ -4,7 +4,7 @@
   "schemaVersion": 1,
   "description": "Live WaveCrest ABM intelligence: specifier + firm counts across A&D/MEP/Owner-Dev, 8-stage engagement funnel, role/email-quality/metro breakdowns, and a companion live metro density map artifact. Refreshes from Notion (live SQL) on open.",
   "mcpTools": [
-    "mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources"
+    "mcp__confidential__notion-query-data-sources"
   ],
   "mcpServerNames": [
     "Notion"
@@ -125,7 +125,7 @@ async function callTool(name,args){
  let d=r.structuredContent;
  if(d==null&&r.content&&r.content[0]&&r.content[0].text){try{d=JSON.parse(r.content[0].text);}catch(e){}}
  if(d==null)throw new Error('nodata');return d;}
-function sql(ds,q){return callTool('mcp__85fc1bd5-076d-4ecf-8387-5c8a453bd677__notion-query-data-sources',
+function sql(ds,q){return callTool('mcp__confidential__notion-query-data-sources',
  {data:{mode:'sql',data_source_urls:['collection://'+ds],query:q}});}
 function one(res){try{return res.results[0].n;}catch(e){return null;}}
 function mapc(res){const o={};(res.results||[]).forEach(r=>o[r.k]=r.n);return o;}
