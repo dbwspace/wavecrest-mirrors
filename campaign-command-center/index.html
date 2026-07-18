@@ -2,7 +2,7 @@
 {
   "name": "Campaign Command Center",
   "schemaVersion": 1,
-  "description": "Top-level WaveCrest command center: one-glance tiles (specifiers, firms, Apollo credits, AI SOV, funnel), 6-stage campaign map (Stage 1 pre-launch), and open flags / next actions from Runbook §14-16. Live from Apollo + Notion + Brand Radar.",
+  "description": "Top-level WaveCrest command center: one-glance tiles (specifiers, firms, Apollo credits, AI SOV, funnel), 6-stage campaign map (Stage 1 pre-launch), and open flags / next actions. Live from Apollo + Notion + Brand Radar. Baked snapshot refreshed 2026-07-18 post D-B Tier A metro burn (3,977 / 713 incl. D-B tier / current credits / Jul-17 flags + open items); D-B count added to the live pull; numeric tiles now re-baked by the Sunday abm-weekly-pulse.",
   "mcpTools": [
     "mcp__confidential__apollo_usage_stats_credit_usage_stats",
     "mcp__confidential__notion-query-data-sources",
@@ -91,11 +91,11 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
 </script>
 <div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 18, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap><header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div><div class=hmeta><div class=aname>Campaign Command Center</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
  <div class="grid g3">
-   <div class="card tile"><div class=k>Specifiers built</div><div class=v id=spec>3,146</div><div class=d id=specd>3,075 verified emails · 97.7%</div></div>
-   <div class="card tile"><div class=k>Target firms</div><div class=v id=firms>547</div><div class=d>391 A&amp;D · 66 MEP · 53 Owner/Dev · 37 D-B</div></div>
-   <div class="card tile"><div class=k>Apollo credits left</div><div class=v id=cred>3,541</div><div class=d id=credd>of 4,530 · cycle ends Aug 5</div></div>
+   <div class="card tile"><div class=k>Specifiers built</div><div class=v id=spec>3,977</div><div class=d id=specd>3,906 verified emails · 98.2%</div></div>
+   <div class="card tile"><div class=k>Target firms</div><div class=v id=firms>713</div><div class=d>391 A&amp;D · 66 MEP · 53 Owner/Dev · 203 D-B</div></div>
+   <div class="card tile"><div class=k>Apollo credits left</div><div class=v id=cred>2,521</div><div class=d id=credd>of 4,530 · cycle ends Aug 5</div></div>
    <div class="card tile"><div class=k>AI share-of-voice</div><div class=v id=sov>5.1<small> idx</small></div><div class=d>ChatGPT · Brand Radar set (07-18)</div></div>
-   <div class="card tile"><div class=k>Engagement funnel</div><div class=v id=reached>327</div><div class=d>Reached · 2,402 Unaware · 417 unstamped (pre-launch)</div></div>
+   <div class="card tile"><div class=k>Engagement funnel</div><div class=v id=reached>327</div><div class=d>Reached · 2,878 Unaware · 772 unstamped (pre-launch · 2026-07-18 post D-B Tier A metro burn)</div></div>
    <div class="card tile"><div class=k>North Star</div><div class=v style=font-size:18px;padding-top:10px>QSI</div><div class=d>Qualified Specification Intent</div></div>
  </div>
 
@@ -109,7 +109,7 @@ flowchart LR
 
  <div class="grid g2" style=margin-top:14px>
    <div class=card><h2 class=sec style=margin-top:0>Open flags &amp; next actions</h2>
-     <div class=flag><span class="pill warn">burn</span><div><div class=t>Apollo cycle ends Aug 5 — 3,541 credits in play</div><div class=s>Aug rebuild is activation-first per the credit-burn runbook; daily steering read ~7:45a.</div></div></div>
+     <div class=flag><span class="pill warn">burn</span><div><div class=t>Apollo cycle ends Aug 5 — 2,521 credits in play</div><div class=s>Aug rebuild is activation-first per the credit-burn runbook; daily steering read ~7:45a.</div></div></div>
      <div class=flag><span class="pill mut">decide</span><div><div class=t>Apify plan decision by ~Jul 29</div><div class=s>Cycle lapses month-end — keep/kill scope across the P1–P9 ladder; burn plan staged, call is Daniel's.</div></div></div>
      <div class=flag><span class="pill warn">gate</span><div><div class=t>Gate cluster Jul 19–20</div><div class=s>P5 specifier value-gate + P7 backfill gate (Jul 19) · Owner-Dev + MEP fill-or-kill (Jul 20) — verdicts are Daniel's.</div></div></div>
      <div class=flag><span class="pill bad">flag</span><div><div class=t>T&amp;S absent from ARCAT</div><div class=s>22 42 16.13 spec envelope currently defined by Fontana/BathSelect; offense package ready — submissions on Daniel.</div></div></div>
@@ -151,7 +151,7 @@ const NOTION={spec:'confidential',ad:'confidential',
 const APOLLO_ARGS={_conversation_ref:'wcart0701',_rationale:'dashboard credit refresh'};
 
 
- const C={spec:3146,verif:3075,ad:391,mep:66,own:53,dbf:37,left:3541,limit:4530,sov:5.1,reached:327};
+ const C={spec:3977,verif:3906,ad:391,mep:66,own:53,dbf:203,left:2521,limit:4530,sov:5.1,reached:327};
  function paint(){
    setEl('spec',fmt(C.spec));setEl('firms',fmt(C.ad+C.mep+C.own+(C.dbf||0)));
    setEl('cred',fmt(C.left));setEl('credd','of '+fmt(C.limit)+' · cycle ends Aug 5');

@@ -89,11 +89,11 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
 <div class=hmeta><div class=aname>ABM Metro Density Map</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
 
 <div class="grid g4" style="margin-top:14px">
-  <div class="card tile"><div class=k>Target firms</div><div class=v id=tTot>547</div><div class=d id=tTotd>across 4 discipline DBs</div></div>
-  <div class="card tile"><div class=k>A&amp;D firms</div><div class=v id=tAd>311</div><div class=d id=tAdd>283 mapped · 28 other</div></div>
-  <div class="card tile"><div class=k>MEP firms</div><div class=v id=tMep>62</div><div class=d id=tMepd>29 mapped · 33 other</div></div>
-  <div class="card tile"><div class=k>Owner / Dev</div><div class=v id=tOwn>37</div><div class=d id=tOwnd>22 mapped · 15 national</div></div>
-  <div class="card tile"><div class=k>Design-Build</div><div class=v id=tDbf>37</div><div class=d id=tDbfd>22 mapped · 15 other</div></div>
+  <div class="card tile"><div class=k>Target firms</div><div class=v id=tTot>713</div><div class=d id=tTotd>across 4 discipline DBs · as of 2026-07-18 (post D-B Tier A metro burn)</div></div>
+  <div class="card tile"><div class=k>A&amp;D firms</div><div class=v id=tAd>391</div><div class=d id=tAdd>361 mapped · 30 other</div></div>
+  <div class="card tile"><div class=k>MEP firms</div><div class=v id=tMep>66</div><div class=d id=tMepd>31 mapped · 35 other</div></div>
+  <div class="card tile"><div class=k>Owner / Dev</div><div class=v id=tOwn>53</div><div class=d id=tOwnd>33 mapped · 20 national</div></div>
+  <div class="card tile"><div class=k>Design-Build</div><div class=v id=tDbf>203</div><div class=d id=tDbfd>129 mapped · 74 other</div></div>
 </div>
 
 <h2 class=sec>Target firm density by metro</h2>
@@ -163,19 +163,21 @@ const ALIAS={"New York":"NYC","NY":"NYC","New York City":"NYC","Washington DC":"
 "Minneapolis–St Paul":"Minneapolis","Salt Lake":"Salt Lake City","Raleigh":"Raleigh-Durham","Durham":"Raleigh-Durham"};
 function normM(s){if(s==null)return null;s=String(s).trim();return ALIAS[s]||s;}
 
-/* Baked snapshot — live values 2026-07-04 · Design-Build tier baked 2026-07-18 (from the 2026-07-17 D-B build, 37 firms) */
+/* Baked snapshot — live values 2026-07-18 (post D-B Tier A metro burn) · all four discipline tables re-baked from live SQL 2026-07-18; D-B baked ZZ-filtered (203 live firms) */
 const B={
- ad:{"NYC":53,"Dallas":19,"SF Bay Area":17,"San Diego":15,"Miami":15,"Atlanta":14,"Houston":13,"Chicago":12,
- "Portland":10,"Boston":10,"Minneapolis":9,"LA":9,"Salt Lake City":8,"Philadelphia":8,"Detroit":8,"DC":8,
- "Denver":7,"Austin":7,"Nashville":6,"Tampa":5,"Seattle":5,"Raleigh-Durham":5,"Phoenix":5,"Orlando":5,
- "Las Vegas":5,"Charlotte":5},
- adOther:28,
- mep:{"NYC":15,"DC":4,"LA":3,"Boston":3,"Seattle":2,"SF Bay Area":1,"Dallas":1},
- mepOther:33,
- own:{"DC":6,"NYC":4,"Dallas":3,"SF Bay Area":3,"Boston":2,"Chicago":2,"Atlanta":1,"LA":1},
- ownNational:15,ownOther:0,
- dbf:{"Chicago":4,"Boston":3,"Dallas":3,"Minneapolis":3,"NYC":2,"DC":2,"SF Bay Area":2,"Atlanta":1,"Detroit":1,"Salt Lake City":1},
- dbfOther:15};
+ ad:{"NYC":62,"SF Bay Area":31,"Dallas":30,"Chicago":26,"Miami":24,"Boston":23,"DC":21,"LA":17,"Atlanta":14,
+ "San Diego":12,"Portland":10,"Minneapolis":9,"Salt Lake City":8,"Houston":7,"Detroit":7,"Denver":7,"Austin":7,
+ "Nashville":6,"Tampa":5,"Seattle":5,"Raleigh-Durham":5,"Phoenix":5,"Philadelphia":5,"Orlando":5,"Las Vegas":5,
+ "Charlotte":5},
+ adOther:30,
+ mep:{"NYC":15,"DC":4,"Seattle":3,"LA":3,"Boston":3,"SF Bay Area":1,"Dallas":1,"Atlanta":1},
+ mepOther:35,
+ own:{"Miami":8,"DC":7,"NYC":5,"Dallas":3,"SF Bay Area":3,"Boston":2,"Atlanta":2,"Chicago":2,"LA":1},
+ ownNational:20,ownOther:0,
+ dbf:{"Chicago":26,"SF Bay Area":17,"NYC":13,"Dallas":12,"Houston":12,"Atlanta":10,"DC":6,"LA":6,"Miami":5,"Seattle":5,
+ "Boston":3,"Minneapolis":3,"Denver":2,"Phoenix":2,"Portland":2,"Detroit":1,"Las Vegas":1,"Philadelphia":1,
+ "Raleigh-Durham":1,"Salt Lake City":1},
+ dbfOther:74};
 
 const COWORK=(typeof window!=='undefined'&&window.cowork)?window.cowork:null;
 async function callTool(name,args){
