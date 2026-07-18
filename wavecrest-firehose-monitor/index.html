@@ -55,27 +55,27 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
 
 <script>
 const DATA = {
-  "stamp": "built 2026-07-11 · last drain 2026-07-17 19:37 ET (run 14 PM)",
-  "phase": "PHASE A — DETECTION-ONLY",
+  "stamp": "built 2026-07-11 · last drain 2026-07-18 02:58 ET (run 15 AM, off-slot fire) · v1.4 excludes applied 07-18",
+  "phase": "PHASE A + URL-WATCH PILOT (armed 07-18)",
   "taps_live": 3,
-  "watches_live": 85,
+  "watches_live": 89,
   "watch_cap": 250,
-  "matches_cuml": 4022,
-  "diffs_cuml": 15,
-  "clean_runs": 13,
+  "matches_cuml": 4169,
+  "diffs_cuml": 17,
+  "clean_runs": 14,
   "drain_rows": [
-    ["Tap · wavecrest-brand", "7 matches", "harvest run 14 PM (19:37 ET 07-17; single drain, SUMMARY clean first attempt) · 0 errors · BAU foodservice distributor republication: zepole ×3 (B-2282-01-F05, B-0655-BSTP, B-0320), feinbrothers ×2 (B-0970-FE, B-0972), tifoodservice (B-10K pre-rinse), caprara — newly-VISIBLE BAU, zero WaveCrest/sensor/A&D"],
-    ["Tap · competitor-moves", "59 matches", "harvest run 14 PM · 0 errors · diffuse consumer/DIY + spam tail: plumberspares ×4, velkorakitchen ×4, willvandervaart ×3 (persisting DIY); job-spam cluster (skillvault.online ×3, skillroute.online ×3, virtcareers ×2); accio ×2 (persisting exclude candidate); v1.2/v1.3 excludes holding"],
-    ["Tap · spec-ecosystem", "4 matches", "harvest run 14 PM · 0 errors · all consumer best-faucet/filter listicles: lakecountryswimming.com ×2 (content-farm family persists — top exclude candidate), thereelshot, faucettaps — NOT A&D-spec register, quarantined"],
-    ["URL Watch · 85 pages", "4 new diffs", "4 changed URLs: bathselect.com, bobrick.com, deltafaucet.com/commercial, symmons.com — competitor pages, each a Candidate observation (quarantined, not promoted) · 0 paused (absence ≠ pages unchanged)"]
+    ["Tap · wavecrest-brand", "3 matches", "harvest run 15 AM (02:58 ET 07-18 off-slot fire, cursor-resumed ~7.4h window; single drain, SUMMARY clean first attempt) · 0 errors · BAU foodservice distributor republication: caprara ×3 (incl. B-CVH3-8) — newly-VISIBLE BAU, zero WaveCrest/sensor/A&D"],
+    ["Tap · competitor-moves", "142 matches", "harvest run 15 AM · 0 errors · ELEVATED count = one noise family: lakecountryswimming.com content-farm ×68 (consumer faucet listicles; family migrated from SPEC tap — top exclude candidate, 3rd consecutive day); accio ×5 (6th consecutive family read); spam rotation: job (hiredafar ×3, NEW corvajobs.online ×3), NEW gambling (riversgreenhouseandgarden ×3), real-estate leak ×6; v1.2/v1.3 excludes holding (moenselect + wiseguyreports absent)"],
+    ["Tap · spec-ecosystem", "2 matches", "harvest run 15 AM · 0 errors · ledphotometer.com IPX waterproof-testing guide (consumer-guide framing, not A&D-spec register) + 1 lakecountryswimming listicle — quarantined"],
+    ["URL Watch · 89 pages", "2 new diffs", "2 changed URLs: bathselect.com (4th consecutive window) + fontanashowers.com — both Comp-Brief v2.1 extension brands; BOTH staged to Signals — WaveCrest as quarantined Candidates (pilot first-writes, supervised 07-18) · 4 watches added under v1.4 (accio reroute, BathSelect category+blog, Fontana category) · 0 paused (absence ≠ pages unchanged)"]
   ],
   "week1": [
-    {"t": "Per-tag noise review (distinct-commercial, toto, hidr-title)", "done": false},
-    {"t": "Capture real ARCAT / Kohler / AmStd / Chicago / Moen deep URLs → add watches (target ~80)", "done": false},
-    {"t": "BIMobject crawlability experiment (1 watch, observe via dashboard)", "done": false},
-    {"t": "Recall seed-test: confirm stream catches a known published item", "done": false},
-    {"t": "Stage taps 4–6 (ad-pubs, metro-projects, regulatory-codes)", "done": false},
-    {"t": "30-day keep/kill review vs Wiring Plan §8 (~Aug 10)", "done": false}
+    {"t": "Per-tag noise review — DONE as v1.4 exclude pass 07-18 (14 domains; Change Record in workspace root)", "done": true},
+    {"t": "Competitor deep URLs → watches — DONE 07-16 (30→85: sensor/commercial/newsroom + ARCAT 22 42 16 + spec platforms) + 4 targeted adds 07-18 (→89)", "done": true},
+    {"t": "BIMobject crawlability experiment — DONE 07-16 (brand pages in watch set)", "done": true},
+    {"t": "Recall seed-test — ARMED 07-18 (BathSelect A&D blog seed + retrospective genre proof); confirm by ~Jul 20", "done": false},
+    {"t": "Stage taps 4–6 (ad-pubs, metro-projects, regulatory-codes) — HELD until v1.4 settles + Aug-10 review", "done": false},
+    {"t": "30-day keep/kill review vs Wiring Plan §8 (~Aug 10) — now judges a TUNED tool; Phase B pilot yield review ~Jul 25", "done": false}
   ]
 };
 document.getElementById("stamp").textContent = DATA.stamp;
