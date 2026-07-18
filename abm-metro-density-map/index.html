@@ -1,5 +1,4 @@
-<!doctype html>
-<script type="application/json" id="cowork-artifact-meta">
+<!doctype html><script type="application/json" id="cowork-artifact-meta">
 {
   "name": "Abm Metro Density Map",
   "schemaVersion": 1,
@@ -85,15 +84,16 @@ tr.oth td{color:var(--muted);font-style:italic}
 </style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 18, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap>
 <header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div>
 <div class=hmeta><div class=aname>ABM Metro Density Map</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
 
 <div class="grid g4" style="margin-top:14px">
-  <div class="card tile"><div class=k>Target firms</div><div class=v id=tTot>410</div><div class=d id=tTotd>across 3 discipline DBs</div></div>
+  <div class="card tile"><div class=k>Target firms</div><div class=v id=tTot>547</div><div class=d id=tTotd>across 4 discipline DBs</div></div>
   <div class="card tile"><div class=k>A&amp;D firms</div><div class=v id=tAd>311</div><div class=d id=tAdd>283 mapped · 28 other</div></div>
   <div class="card tile"><div class=k>MEP firms</div><div class=v id=tMep>62</div><div class=d id=tMepd>29 mapped · 33 other</div></div>
   <div class="card tile"><div class=k>Owner / Dev</div><div class=v id=tOwn>37</div><div class=d id=tOwnd>22 mapped · 15 national</div></div>
+  <div class="card tile"><div class=k>Design-Build</div><div class=v id=tDbf>37</div><div class=d id=tDbfd>22 mapped · 15 other</div></div>
 </div>
 
 <h2 class=sec>Target firm density by metro</h2>
@@ -103,6 +103,7 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
     <button class=chipbtn data-f=ad>A&amp;D</button>
     <button class=chipbtn data-f=mep>MEP</button>
     <button class=chipbtn data-f=own>Owner / Dev</button>
+    <button class=chipbtn data-f=dbf>Design-Build</button>
   </div>
   <div class=mapwrap id=mapwrap>
     <svg class=usmap viewBox="0 0 975 610" xmlns="http://www.w3.org/2000/svg" aria-label="US metro density map">
@@ -132,14 +133,15 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
       <th class="n sortable" data-c=ad>A&amp;D</th>
       <th class="n sortable" data-c=mep>MEP</th>
       <th class="n sortable" data-c=own>Owner/Dev</th>
+      <th class="n sortable" data-c=dbf>D-B</th>
       <th class="n sortable" data-c=tot>Total</th>
     </tr></thead>
     <tbody id=tbody></tbody>
   </table>
-  <div class=note style="margin-top:8px">A&amp;D and MEP counted by HQ metro. Owner/Dev counted by first mapped primary metro; national-footprint organizations listed separately. Click a column to sort.</div>
+  <div class=note style="margin-top:8px">A&amp;D, MEP and Design-Build counted by HQ metro. Owner/Dev counted by first mapped primary metro; national-footprint organizations listed separately. Click a column to sort.</div>
 </div>
 
-<div class=foot>Data: Notion ABM databases (A&amp;D / MEP / Owner-Dev firms), live via SQL on open.<br>
+<div class=foot>Data: Notion ABM databases (A&amp;D / MEP / Owner-Dev / Design-Build firms), live via SQL on open.<br>
 Successor to the Felt density map (Felt trial lapsed Jul 2026 — geometry preserved offline, zero vendor dependency).<br>
 Live Cowork artifact · T&amp;S Brass · WaveCrest: Specifying the Next Wave</div>
 </div><script>
@@ -161,7 +163,7 @@ const ALIAS={"New York":"NYC","NY":"NYC","New York City":"NYC","Washington DC":"
 "Minneapolis–St Paul":"Minneapolis","Salt Lake":"Salt Lake City","Raleigh":"Raleigh-Durham","Durham":"Raleigh-Durham"};
 function normM(s){if(s==null)return null;s=String(s).trim();return ALIAS[s]||s;}
 
-/* Baked snapshot — live values 2026-07-04 */
+/* Baked snapshot — live values 2026-07-04 · Design-Build tier baked 2026-07-18 (from the 2026-07-17 D-B build, 37 firms) */
 const B={
  ad:{"NYC":53,"Dallas":19,"SF Bay Area":17,"San Diego":15,"Miami":15,"Atlanta":14,"Houston":13,"Chicago":12,
  "Portland":10,"Boston":10,"Minneapolis":9,"LA":9,"Salt Lake City":8,"Philadelphia":8,"Detroit":8,"DC":8,
@@ -171,7 +173,9 @@ const B={
  mep:{"NYC":15,"DC":4,"LA":3,"Boston":3,"Seattle":2,"SF Bay Area":1,"Dallas":1},
  mepOther:33,
  own:{"DC":6,"NYC":4,"Dallas":3,"SF Bay Area":3,"Boston":2,"Chicago":2,"Atlanta":1,"LA":1},
- ownNational:15,ownOther:0};
+ ownNational:15,ownOther:0,
+ dbf:{"Chicago":4,"Boston":3,"Dallas":3,"Minneapolis":3,"NYC":2,"DC":2,"SF Bay Area":2,"Atlanta":1,"Detroit":1,"Salt Lake City":1},
+ dbfOther:15};
 
 const COWORK=(typeof window!=='undefined'&&window.cowork)?window.cowork:null;
 async function callTool(name,args){
@@ -181,7 +185,7 @@ async function callTool(name,args){
  let d=r.structuredContent;
  if(d==null&&r.content&&r.content[0]&&r.content[0].text){try{d=JSON.parse(r.content[0].text);}catch(e){}}
  if(d==null)throw new Error('nodata');return d;}
-const DS={ad:'confidential',mep:'confidential',own:'confidential'};
+const DS={ad:'confidential',mep:'confidential',own:'confidential',dbf:'confidential'};
 function sql(ds,q){return callTool('mcp__confidential__notion-query-data-sources',
  {data:{mode:'sql',data_source_urls:['collection://'+ds],query:q}});}
 
@@ -208,8 +212,8 @@ function setStamp(live){const el=document.getElementById('stamp');if(!el)return;
 
 let filter='all';
 function valFor(m){
- const a=B.ad[m]||0,e=B.mep[m]||0,o=B.own[m]||0;
- if(filter==='ad')return a;if(filter==='mep')return e;if(filter==='own')return o;return a+e+o;}
+ const a=B.ad[m]||0,e=B.mep[m]||0,o=B.own[m]||0,d=(B.dbf&&B.dbf[m])||0;
+ if(filter==='ad')return a;if(filter==='mep')return e;if(filter==='own')return o;if(filter==='dbf')return d;return a+e+o+d;}
 
 function drawBase(){
  document.getElementById('nationFill').setAttribute('d',GEO.nation);
@@ -247,46 +251,48 @@ function showTip(m,p){
  const tip=document.getElementById('tip'),wrap=document.getElementById('mapwrap');
  const svg=wrap.querySelector('svg');const box=svg.getBoundingClientRect();
  const sx=box.width/975,sy=box.height/610;
- const a=B.ad[m]||0,e=B.mep[m]||0,o=B.own[m]||0;
+ const a=B.ad[m]||0,e=B.mep[m]||0,o=B.own[m]||0,d=(B.dbf&&B.dbf[m])||0;
  tip.innerHTML='<b>'+META[m][0]+'</b> <span class=tr>Tier '+META[m][1]+(PRIORITY[m]?' · priority':'')+'</span><br>'+
-  'A&amp;D '+a+' · MEP '+e+' · Owner/Dev '+o+' · <b>Total '+(a+e+o)+'</b>';
+  'A&amp;D '+a+' · MEP '+e+' · Owner/Dev '+o+' · D-B '+d+' · <b>Total '+(a+e+o+d)+'</b>';
  tip.style.left=(p[0]*sx)+'px';tip.style.top=(p[1]*sy)+'px';tip.style.opacity='1';}
 function hideTip(){document.getElementById('tip').style.opacity='0';}
 
 function paintTiles(){
- const at=sum(B.ad)+B.adOther,et=sum(B.mep)+B.mepOther,ot=sum(B.own)+B.ownNational+(B.ownOther||0);
- setEl('tTot',fmt(at+et+ot));
+ const at=sum(B.ad)+B.adOther,et=sum(B.mep)+B.mepOther,ot=sum(B.own)+B.ownNational+(B.ownOther||0),dt=sum(B.dbf||{})+(B.dbfOther||0);
+ setEl('tTot',fmt(at+et+ot+dt));
  setEl('tAd',fmt(at));setEl('tAdd',fmt(sum(B.ad))+' mapped · '+fmt(B.adOther)+' other');
  setEl('tMep',fmt(et));setEl('tMepd',fmt(sum(B.mep))+' mapped · '+fmt(B.mepOther)+' other');
- setEl('tOwn',fmt(ot));setEl('tOwnd',fmt(sum(B.own))+' mapped · '+fmt(B.ownNational)+' national');}
+ setEl('tOwn',fmt(ot));setEl('tOwnd',fmt(sum(B.own))+' mapped · '+fmt(B.ownNational)+' national');
+ setEl('tDbf',fmt(dt));setEl('tDbfd',fmt(sum(B.dbf||{}))+' mapped · '+fmt(B.dbfOther||0)+' other');}
 
 function paintUnmapped(){
  const el=document.getElementById('unmapped');
  el.innerHTML='<span class="pill mut">Not on map:</span>'+
   '<span class=pill>A&amp;D other-metro '+fmt(B.adOther)+'</span>'+
   '<span class=pill>MEP other-metro '+fmt(B.mepOther)+'</span>'+
-  '<span class=pill>Owner/Dev national footprint '+fmt(B.ownNational)+'</span>';}
+  '<span class=pill>Owner/Dev national footprint '+fmt(B.ownNational)+'</span>'+
+  '<span class=pill>D-B other-metro '+fmt(B.dbfOther||0)+'</span>';}
 
 let sortCol='tot';
 function paintTable(){
  const tb=document.getElementById('tbody');tb.innerHTML='';
  const rows=Object.keys(META).map(m=>{
-  const a=B.ad[m]||0,e=B.mep[m]||0,o=B.own[m]||0;
-  return{m,name:META[m][0],tier:META[m][1],ad:a,mep:e,own:o,tot:a+e+o};})
+  const a=B.ad[m]||0,e=B.mep[m]||0,o=B.own[m]||0,d=(B.dbf&&B.dbf[m])||0;
+  return{m,name:META[m][0],tier:META[m][1],ad:a,mep:e,own:o,dbf:d,tot:a+e+o+d};})
   .filter(r=>r.tot>0).sort((x,y)=>y[sortCol]-x[sortCol]||y.tot-x.tot);
  rows.forEach(r=>{
   const tr=document.createElement('tr');
   tr.innerHTML='<td>'+r.name+(PRIORITY[r.m]?' ★':'')+'</td>'+
    '<td><span class="tbadge t'+r.tier+'">Tier '+r.tier+'</span></td>'+
-   '<td class=n>'+r.ad+'</td><td class=n>'+r.mep+'</td><td class=n>'+r.own+'</td><td class=n><b>'+r.tot+'</b></td>';
+   '<td class=n>'+r.ad+'</td><td class=n>'+r.mep+'</td><td class=n>'+r.own+'</td><td class=n>'+r.dbf+'</td><td class=n><b>'+r.tot+'</b></td>';
   tb.appendChild(tr);});
  const o1=document.createElement('tr');o1.className='oth';
  o1.innerHTML='<td>Other metros (outside 25-metro framework)</td><td></td><td class=n>'+B.adOther+
-  '</td><td class=n>'+B.mepOther+'</td><td class=n>'+(B.ownOther||0)+'</td><td class=n>'+(B.adOther+B.mepOther+(B.ownOther||0))+'</td>';
+  '</td><td class=n>'+B.mepOther+'</td><td class=n>'+(B.ownOther||0)+'</td><td class=n>'+(B.dbfOther||0)+'</td><td class=n>'+(B.adOther+B.mepOther+(B.ownOther||0)+(B.dbfOther||0))+'</td>';
  tb.appendChild(o1);
  const o2=document.createElement('tr');o2.className='oth';
  o2.innerHTML='<td>National footprint (Owner/Dev, multi-metro)</td><td></td><td class=n>—</td><td class=n>—</td><td class=n>'+
-  B.ownNational+'</td><td class=n>'+B.ownNational+'</td>';
+  B.ownNational+'</td><td class=n>—</td><td class=n>'+B.ownNational+'</td>';
  tb.appendChild(o2);}
 
 document.getElementById('chips').addEventListener('click',ev=>{
@@ -297,14 +303,18 @@ document.querySelectorAll('th.sortable').forEach(th=>th.addEventListener('click'
  sortCol=th.dataset.c;paintTable();}));
 
 async function refresh(){try{
- const [ad,mep,own]=await Promise.all([
+ const [ad,mep,own,dbf]=await Promise.all([
   sql(DS.ad,'SELECT "HQ Metro" AS k, COUNT(*) AS n FROM "collection://'+DS.ad+'" GROUP BY "HQ Metro" LIMIT 100'),
   sql(DS.mep,'SELECT "HQ Metro" AS k, COUNT(*) AS n FROM "collection://'+DS.mep+'" GROUP BY "HQ Metro" LIMIT 100'),
-  sql(DS.own,'SELECT "Owner / Developer" AS k, "Primary Metros" AS m FROM "collection://'+DS.own+'" LIMIT 100')
+  sql(DS.own,'SELECT "Owner / Developer" AS k, "Primary Metros" AS m FROM "collection://'+DS.own+'" LIMIT 100'),
+  sql(DS.dbf,'SELECT "HQ Metro" AS k, COUNT(*) AS n FROM "collection://'+DS.dbf+'" GROUP BY "HQ Metro" LIMIT 100')
  ]);
  const ga=groupToCounts(ad),gm=groupToCounts(mep),go=deriveOwn(own);
+ dbf.results=(dbf.results||[]).map(r=>({k:String(r.k||'').replace(/,\s*[A-Z]{2}$/,''),n:r.n}));
+ const gd=groupToCounts(dbf);
  B.ad=ga.o;B.adOther=ga.other;B.mep=gm.o;B.mepOther=gm.other;
  B.own=go.o;B.ownNational=go.nat;B.ownOther=go.oth;
+ B.dbf=gd.o;B.dbfOther=gd.other;
  render();paintTable();setStamp(true);
 }catch(e){render();paintTable();setStamp(false);}}
 

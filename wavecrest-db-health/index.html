@@ -43,11 +43,11 @@
 </style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 18, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
 <body>
 <div class="hdr">
  <h1>ABM Data Health <span class="chip">DETECTOR · READ-ONLY</span></h1>
- <div class="sub">Live hygiene checks over the A&amp;D roster, Signals log &amp; the Insights assessment layer. <b>Detection only</b> — merges, trashing, and promotions are done in a supervised session, never here.</div>
+ <div class="sub">Live hygiene checks over the A&amp;D + Design-Build firm rosters, Signals log &amp; the Insights assessment layer. <b>Detection only</b> — merges, trashing, and promotions are done in a supervised session, never here.</div>
 </div>
 <div id="status" class="stamp">Running checks…</div>
 
@@ -62,13 +62,14 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
  <div class="l">Weekly Audit History</div>
  <table id="hist"><thead><tr><th>Date</th><th>Firm dupes</th><th>ZZ trash-ready</th><th>Incomplete</th><th>Prov. blanks</th><th>Stale</th><th>Ins due</th><th>Ins aging</th><th>Ins no-ev</th></tr></thead><tbody></tbody></table>
  <div class="foot">
-  <b>Checks:</b> firm-dupes (Apollo-ID / name, WATG≡Wimberly false-positive suppressed) · ZZ-trash-ready rows · A&amp;D completeness (Tier / HQ Metro / Primary Domain) · Signals provenance-blanks (Type / Signal Date / Review By) · stale signals (Review By &lt; today) · <b>Insights rot</b> (past Review-By = decision due · Proposed &gt;14d untriaged · evidence-less rows · agent-auto triage-queue depth). Orphan specifiers + duplicate <i>people</i> = the monthly deeper pass.<br>
-  <b>Sources:</b> <code>ABM Target Firms</code> (e75f81a2…) · <code>Signals — WaveCrest</code> (171e9131…) · <code>Insights — WaveCrest</code> (3146edd6…). Governance: record-of-truth is human-gated; assessment promotion is supervised-only (staged-write governance v1.0, 2026-07-06).
+  <b>Checks:</b> firm-dupes (Apollo-ID / name across the A&amp;D + Design-Build rosters, WATG≡Wimberly false-positive suppressed) · ZZ-trash-ready rows (both rosters) · completeness (A&amp;D: Tier / HQ Metro / Primary Domain · D-B: Tier / HQ Metro — its schema has no domain field) · Signals provenance-blanks (Type / Signal Date / Review By) · stale signals (Review By &lt; today) · <b>Insights rot</b> (past Review-By = decision due · Proposed &gt;14d untriaged · evidence-less rows · agent-auto triage-queue depth). Orphan specifiers + duplicate <i>people</i> = the monthly deeper pass.<br>
+  <b>Sources:</b> <code>ABM Target Firms</code> (e75f81a2…) · <code>ABM Target Design-Build</code> (71eb12ab…) · <code>Signals — WaveCrest</code> (171e9131…) · <code>Insights — WaveCrest</code> (3146edd6…). Governance: record-of-truth is human-gated; assessment promotion is supervised-only (staged-write governance v1.0, 2026-07-06).
  </div>
 </div>
 
 <script>
 const AND='collection://confidential';
+const DBF='collection://confidential'; // ABM Target Design-Build (added 2026-07-18; title col "Firm name", no Primary Domain field)
 const SIG='collection://confidential';
 const INS='collection://confidential';
 const FALSE_POS=[["WATG","Wimberly Interiors"]]; // same Apollo Org ID, legitimately separate (firm + interiors studio)
@@ -88,7 +89,9 @@ async function run(){
  const today=new Date().toISOString().slice(0,10);
  let cards="", inscards="", detail="";
  try{
-  const rows=await q(AND,`SELECT "Apollo Org ID" AS oid, "Firm Name" AS name, "Tier" AS tier, "HQ Metro" AS metro, "Primary Domain" AS domain FROM "${AND}" WHERE "Firm Name" NOT LIKE 'ZZ %'`);
+  const adRows=await q(AND,`SELECT "Apollo Org ID" AS oid, "Firm Name" AS name, "Tier" AS tier, "HQ Metro" AS metro, "Primary Domain" AS domain FROM "${AND}" WHERE "Firm Name" NOT LIKE 'ZZ %'`);
+  let dbfRows=[];try{dbfRows=(await q(DBF,`SELECT "Apollo Org ID" AS oid, "Firm name" AS name, "Tier" AS tier, "HQ Metro" AS metro FROM "${DBF}" WHERE "Firm name" NOT LIKE 'ZZ %'`)).map(r=>Object.assign(r,{domain:'n/a (D-B)'}));}catch(e2){}
+  const rows=adRows.concat(dbfRows);
   // firm dupes by apollo id
   const byOid={};rows.forEach(r=>{const o=(r.oid||'').trim();if(o){(byOid[o]=byOid[o]||[]).push(r.name);}});
   let dupeGroups=[],fpGroups=0;
@@ -108,7 +111,8 @@ async function run(){
  // ZZ trash-ready
  try{
   const zz=await q(AND,`SELECT COUNT(*) AS n FROM "${AND}" WHERE "Firm Name" LIKE 'ZZ %'`);
-  const n=zz[0]?zz[0].n:0;
+  let n=zz[0]?zz[0].n:0;
+  try{const z2=await q(DBF,`SELECT COUNT(*) AS n FROM "${DBF}" WHERE "Firm name" LIKE 'ZZ %'`);n+=(z2[0]?z2[0].n:0);}catch(e2){}
   cards+=card(n>0?'warn':'ok',n,"ZZ rows (trash-ready)",n?"Empty duplicates parked for your batch-trash in the Notion UI (connector can't delete).":"None queued.");
   DATA._zz=n;
  }catch(e){liveFails++;cards+=card((LAST.zz??0)>0?'warn':'ok',LAST.zz??'—',"ZZ rows (trash-ready)",`Snapshot — last audit ${LAST.date}.`);}

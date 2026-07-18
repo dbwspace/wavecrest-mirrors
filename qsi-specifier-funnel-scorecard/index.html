@@ -85,7 +85,7 @@ a.btn.alt{background:#fff;color:var(--brand);border:1px solid var(--brand)}
 </style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 17, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap><header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div><div class=hmeta><div class=aname>QSI / Specifier-Funnel Scorecard</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 18, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><div class=wrap><header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div><div class=hmeta><div class=aname>QSI / Specifier-Funnel Scorecard</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
  <div class="grid" style="grid-template-columns:.8fr 1.2fr;gap:14px">
    <div class=card><div class=hero style=justify-content:center>
      <div class=gauge><canvas id=g></canvas><div class=lab><div class=big style=font-size:18px>Pre-launch</div><div class=cap>QSI baseline</div></div></div>
@@ -104,9 +104,9 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
 
  <h2 class=sec>Specifier funnel — current state</h2>
  <div class=card><div class=chartbox sm><canvas id=funnel></canvas></div>
-   <div class=note style=margin-top:8px>Awareness→Consideration→Spec-Intent→Conversion replaces the consumer purchase funnel. Audience of 3,146 specifiers / ~547 firms is built; movement begins when Stage 3 nurture + web analytics (GA/Amplitude) go live.</div>
+   <div class=note style=margin-top:8px>Awareness→Consideration→Spec-Intent→Conversion replaces the consumer purchase funnel. Audience of 3,146 specifiers / 547 firms — A&amp;D · MEP · Owner/Dev · Design-Build (D-B tier added 2026-07-17) — is built; movement begins when Stage 3 nurture + web analytics (GA/Amplitude) go live.</div>
  </div>
- <div class=foot>Framework: WaveCrest QSI / L1 stack (specifier-funnel-report). Live target-account + funnel counts via Notion. Reach/engagement/pipeline activate at launch.<br>Static mirror · snapshot data as of July 17, 2026 · T&amp;S Brass · WaveCrest: Specifying the Next Wave</div></div><script>
+ <div class=foot>Framework: WaveCrest QSI / L1 stack (specifier-funnel-report). Live target-account + funnel counts via Notion. Reach/engagement/pipeline activate at launch.<br>Static mirror · snapshot data as of July 18, 2026 · T&amp;S Brass · WaveCrest: Specifying the Next Wave</div></div><script>
 const COWORK=(typeof window!=='undefined'&&window.cowork)?window.cowork:null;
 async function callTool(name,args){
  if(!COWORK||!COWORK.callMcpTool)throw new Error('offline');
@@ -135,10 +135,10 @@ const APOLLO_ARGS={_conversation_ref:'wcart0701',_rationale:'dashboard credit re
    ['L1.2','Product Engagement','Pending','mut','Web analytics not yet wired'],
    ['L1.3','Specification Intent','Baseline','warn','0 spec DLs (pre-launch) · weight 40%'],
    ['L1.4','Qualified Conversion','Pending','mut','Rep-locator / forms at launch'],
-   ['L1.5','Target-Account Engagement','Built','good','285 firms · 3,146 specifiers · weight 30%'],
+   ['L1.5','Target-Account Engagement','Built','good','547 firms — 391 A&D · 66 MEP · 53 Owner/Dev · 37 Design-Build — 3,146 specifiers · weight 30%'],
    ['L1.6','Pipeline / Revenue','N/A','mut','HubSpot not connected (pull-only)']];
  const W={data:[40,30,15,10,5],labels:['L1.3 Spec-Intent','L1.5 Target-Acct','L1.2 Engagement','L1.4 Conversion','L1.1 Reach']};
- const F={Awareness:1003,Consideration:0,'Spec-Intent':0,Conversion:0};
+ const F={Awareness:3146,Consideration:0,'Spec-Intent':0,Conversion:0};
  function cards(){document.getElementById('l1grid').innerHTML=L1.map(r=>
    '<div class=card><div class=spread><b>'+r[0]+'</b><span class="pill '+r[3]+'">'+r[2]+'</span></div>'+
    '<div style=font-weight:600;margin:4px 0>'+r[1]+'</div><div class=note>'+r[4]+'</div></div>').join('');}
