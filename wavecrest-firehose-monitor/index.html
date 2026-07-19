@@ -32,7 +32,7 @@
 </head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 18, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 19, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
 <body>
 <h1>Firehose Monitor <span id="phasePill" class="pill p-info"></span></h1>
 <div class="sub">Open-web earned-media &amp; competitor detection · Advanced plan · <span id="stamp"></span></div>
@@ -55,19 +55,19 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
 
 <script>
 const DATA = {
-  "stamp": "built 2026-07-11 · last drain 2026-07-18 19:37 ET (run 17 PM) · first PM slot under v1.5 — post-application streams clean (0/24 cuml. post-v1.4, 0/17 post-v1.5) · launchd TCC root-caused (Daniel: FDA for /bin/zsh)",
+  "stamp": "built 2026-07-11 · last drain 2026-07-19 08:28 ET (run 18 AM) · transport died, SUMMARY recovered from the v1.5 tee — first live use, zero loss, no retry · excludes 0/29 post-v1.5 (0/46 cuml.) · delivery lag CONFIRMED, cursor-replay falsifier CLOSED (0 event_id overlap in 2,086 prior events) · launchd TCC root-caused (Daniel: FDA for /bin/zsh)",
   "phase": "PHASE A + URL-WATCH PILOT (armed 07-18)",
   "taps_live": 3,
   "watches_live": 89,
   "watch_cap": 250,
-  "matches_cuml": 4407,
-  "diffs_cuml": 23,
-  "clean_runs": 16,
+  "matches_cuml": 4513,
+  "diffs_cuml": 35,
+  "clean_runs": 17,
   "drain_rows": [
-    ["Tap · wavecrest-brand", "9 matches", "harvest run 17 PM (19:37 ET 07-18, ~11.1h window since 16S; single drain, first-attempt SUMMARY, day file reconciles 334→450 exactly) · 0 errors · distributor republication only — zepole ×3 (001769-40, B-1110-CR-LN, B-0972), caprara ×2 (00CC, 108T-RK), saratogasales (B-0972), expertrestaurantsupply (B-0155-LNEZ): T&S foodservice SKUs, newly-VISIBLE not newly-PRESENT · 2 keyword-bleed hits (permitgrab Orlando permits, risecelestialstudios NYC housing)"],
-    ["Tap · competitor-moves", "103 matches", "harvest run 17 PM · 0 errors · TOP ITEM: news.brgbuildingsolutions.com 'Sloan Acquires Controlling Stake in Essel Bath Fittings' — direct-competitor M&A, strongest item the tool has surfaced (unverified beyond trade press; Candidate observation) · noise structural: job-spam 19 hits / 10 domains with 12 on 6 NEW domains (orbitzap, jobvoyage, flexcareerpath, careervista, workpivot, remotenex) — 3rd consecutive rotation beating domain-level excludes; realty seeds homznspace ×5 · excludes hold: 0/13 excluded-domain hits post-application (14 raw hits ALL pre-v1.4 residue)"],
-    ["Tap · spec-ecosystem", "4 matches", "harvest run 17 PM · 0 errors · symmons.com Ultra-Sense® sensor-faucet surface ×2 (2nd consecutive window — active page movement, not one-off crawl) + commercialtouchlessfaucets.com touchless-category piece + 1 consumer row — all quarantined Candidate observations"],
-    ["URL Watch · 89 pages", "2 diffs", "harvest run 17: 2 diffs — bathselect.com + fontanashowers.com, the two Comp-Brief v2.1 roster-extension brands, moving together for the 2nd window today (also the run-15 pair; co-movement may be shared template/CDN, not editorial) · BOTH staged to Signals — WaveCrest as quarantined Candidates (Review By 07-25) · 0 paused · (absence ≠ pages unchanged — API hides crawl errors)"]
+    ["Tap · wavecrest-brand", "9 matches", "harvest run 18 AM (08:28 ET 07-19, ~12.9h window since run 17; MCP transport timed out but the host drain completed — SUMMARY recovered from the v1.5 tee, no retry, day file = 106 rows = SUMMARY total exactly) · 0 errors · distributor republication only — caprara ×3 (062X, 5-HDL-L, 108V-RK), saratogasales ×2 (B-2282-01, B-0970-FE), zepole (B-3952), direct-brand (0205LN): T&S foodservice SKUs, newly-VISIBLE not newly-PRESENT · 2 non-catalog hits for an eyeball: the-ifg commercial-kitchen trends, applenights NYC affordable-housing (2nd in 3 windows, still keyword bleed)"],
+    ["Tap · competitor-moves", "95 matches", "harvest run 18 AM · 0 errors · dominated by a symmons.com catalog-wide sweep (18 of 95 rows, 18 distinct /products/ URLs incl. Duro ActivSense + Ultra-Sense® sensor lines) — shape argues site/feed re-index over competitor activity; falsifier: check publish_time drift before reading it as a move · nearest-to-register non-competitor row: todaybusinessmag 'Blueprint of Modern Restroom Design' (DR28) · noise DOWN sharply (95 vs 142 run-15 peak, no content-farm burst) but still rotating: job-spam 13 rows / 9 domains, 6 NEW (velocareers, remotiqo, careeratlas, zarvajobs, pureskills, workpivot) — 4th consecutive window out-rotating domain-level excludes · excludes hold: 0/29 post-v1.5 (4 raw hits ALL pre-application residue)"],
+    ["Tap · spec-ecosystem", "2 matches", "harvest run 18 AM · 0 errors · both symmons.com — Duro ActivSense Faucet + Ultra-Sense® Faucet, their two sensor lines; 3rd consecutive window with Symmons on SPEC, but this time as part of the catalog sweep above rather than isolated page movement — quarantined Candidate observations"],
+    ["URL Watch · 89 pages", "12 diffs", "harvest run 18: 12 diffs — LARGEST window to date, 3× the prior max of 4. acorneng · aecdaily · bathselect · bobrick · constructionspecifier · deltafaucet /commercial + /products + /sensor-faucets · gerber-us · phcppros · sloan /news-events · tsbrass · 🔎 three A&D pubs and three sibling Delta paths moving together reads at least as much like a platform-side batch re-crawl as 12 independent updates — caveat written into every staged row · 6 staged to Signals as quarantined Candidates (≤6 cap binds for the first time; Review By 07-26), 6 deferred and logged · 0 paused · (absence ≠ pages unchanged — API hides crawl errors)"]
   ],
   "week1": [
     {"t": "Per-tag noise review — DONE as v1.4 exclude pass 07-18 (14 domains; Change Record in workspace root)", "done": true},
