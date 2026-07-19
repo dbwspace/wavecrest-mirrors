@@ -43,7 +43,7 @@
 </style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 18, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 19, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
 <body>
 <div class="hdr">
  <h1>ABM Data Health <span class="chip">DETECTOR · READ-ONLY</span></h1>
@@ -76,7 +76,8 @@ const FALSE_POS=[["WATG","Wimberly Interiors"]]; // same Apollo Org ID, legitima
 const DATA={ history:[
   {date:"2026-07-05 (build)", dupes:0, zz:20, incomplete:null, prov:0, stale:0},
   {date:"2026-07-12", dupes:0, zz:0, incomplete:11, prov:2, stale:0, insDue:0, insAging:0, insNoEv:3, hbQuar:38, hbPastGate:0, hbMisfile:2},
-  {date:"2026-07-17", dupes:0, zz:0, incomplete:11, prov:2, stale:0, insDue:3, insAging:0, insNoEv:3, hbQuar:56, hbPastGate:6, hbMisfile:5}
+  {date:"2026-07-17", dupes:0, zz:0, incomplete:11, prov:2, stale:0, insDue:3, insAging:0, insNoEv:3, hbQuar:56, hbPastGate:6, hbMisfile:5},
+  {date:"2026-07-19", dupes:0, zz:2, incomplete:11, prov:2, stale:0, insDue:3, insAging:0, insNoEv:3, hbQuar:88, hbPastGate:3, hbMisfile:11}
 ]};
 const $=id=>document.getElementById(id);
 function isFalsePos(names){const s=names.map(n=>n.trim()).sort().join("|");return FALSE_POS.some(fp=>fp.slice().sort().join("|")===s);}
