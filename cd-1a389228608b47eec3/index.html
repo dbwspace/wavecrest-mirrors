@@ -126,10 +126,14 @@
   }
   .plate img{
     width:100%; height:auto; display:block; border-radius:2px;
+    /* reserve space before the lazy image decodes — prevents layout collapse
+       and keeps the scroll-spy in sync */
+    aspect-ratio:1600 / 2071;
     background:#fff; box-shadow:var(--shadow);
     transition:box-shadow .3s ease; cursor:zoom-in;
     -webkit-user-drag:none; user-select:none;
   }
+  .thumb img{aspect-ratio:1600 / 2071}
   .plate img:hover{box-shadow:var(--shadow-lg)}
 
   /* ---------- colophon ---------- */
@@ -260,7 +264,7 @@ PAGES.forEach((label, i) => {
     '<figcaption><span class="cnum">' + id + '</span><span class="clbl">' + label + '</span></figcaption>' +
     '<picture>' +
       '<source srcset="img/p' + id + '.webp" type="image/webp">' +
-      '<img src="img/p' + id + '.jpg" alt="Page ' + n + ' — ' + label.replace(/&amp;/g,'and') + '" ' +
+      '<img src="img/p' + id + '.jpg" width="1600" height="2071" alt="Page ' + n + ' — ' + label.replace(/&amp;/g,'and') + '" ' +
       (n <= 2 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"') + ' decoding="async" draggable="false">' +
     '</picture>';
   stage.appendChild(fig);
@@ -269,7 +273,7 @@ PAGES.forEach((label, i) => {
   b.className = 'thumb';
   b.dataset.n = n;
   b.innerHTML =
-    '<img src="img/t' + id + '.webp" alt="" loading="lazy" draggable="false">' +
+    '<img src="img/t' + id + '.webp" width="260" height="336" alt="" loading="lazy" draggable="false">' +
     '<span class="tmeta"><span class="tnum">' + id + '</span><span class="tlbl">' + label + '</span></span>';
   b.addEventListener('click', () => {
     document.getElementById('p' + n).scrollIntoView({behavior:'smooth', block:'start'});
