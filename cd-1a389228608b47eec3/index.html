@@ -133,7 +133,8 @@
     transition:box-shadow .3s ease; cursor:zoom-in;
     -webkit-user-drag:none; user-select:none;
   }
-  .thumb img{aspect-ratio:1600 / 2071}
+  /* height:auto is required — the height attribute would otherwise win over aspect-ratio */
+  .thumb img{aspect-ratio:1600 / 2071; height:auto}
   .plate img:hover{box-shadow:var(--shadow-lg)}
 
   /* ---------- colophon ---------- */
