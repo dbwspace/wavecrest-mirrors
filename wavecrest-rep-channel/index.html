@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Wavecrest Rep Channel",
+  "schemaVersion": 1,
+  "description": "WaveCrest A&D rep channel coverage and whitespace — crossover density by state, competitor rep-channel structure, target profile markers, and acquisition pipeline. Follows the ABM pattern: counts and geography only, agency identities held in the private store. Static baseline from the 2026-07-20 capture (industry rep directory, 12 competitor rep locators, design-center tenant line cards, A&D association directories). Outreach gated — zero contacted."
+}
+</script>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WaveCrest — A&amp;D Rep Channel Coverage</title>
+<style>
+:root{
+  color-scheme: light;
+  --ts-blue:#004577; --ink:#12212e; --muted:#5b6b7a; --line:#dfe6ec;
+  --bg:#f6f8fa; --card:#ffffff;
+  --d0:#eef2f6; --d1:#c3dcee; --d2:#8dbcdb; --d3:#4f95c4; --d4:#004577;
+  --desert:#c0392b; --none:#e8eaec; --gold:#b8860b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 56px}
+header{border-bottom:3px solid var(--ts-blue);padding-bottom:16px;margin-bottom:24px}
+h1{margin:0 0 4px;font-size:22px;letter-spacing:-.2px;color:var(--ts-blue)}
+.sub{color:var(--muted);font-size:13px}
+.stamp{margin-top:8px;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10.5px;
+  font-weight:700;letter-spacing:.4px;text-transform:uppercase;vertical-align:middle}
+.b-static{background:#fdf3d7;color:#7a5c00;border:1px solid #e8d08a}
+.b-gate{background:#fdeaea;color:#8c2b22;border:1px solid #f0bdb8}
+.b-block{background:#eef0f3;color:#4a5560;border:1px solid #cfd6dd}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.7px;color:var(--ts-blue);
+  margin:34px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.grid{display:grid;gap:14px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+.kpi .n{font-size:30px;font-weight:700;color:var(--ts-blue);line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.kpi .l{font-size:11.5px;color:var(--muted);margin-top:7px;text-transform:uppercase;letter-spacing:.4px}
+.kpi .f{font-size:11.5px;color:var(--ink);margin-top:6px}
+.kpi.alert .n{color:var(--desert)}
+.two{grid-template-columns:1.35fr 1fr}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--muted);border-bottom:1px solid var(--line);padding:7px 8px;font-weight:600}
+td{padding:7px 8px;border-bottom:1px solid #f0f4f7;vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.map{display:grid;grid-template-columns:repeat(11,1fr);gap:4px;margin-top:6px}
+.st{aspect-ratio:1/1;border-radius:4px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;font-size:9.5px;font-weight:700;
+  color:var(--ink);background:var(--d0);border:1px solid transparent;position:relative}
+.st .c{font-size:10.5px;font-variant-numeric:tabular-nums;opacity:.85;font-weight:600}
+.st.d1{background:var(--d1)} .st.d2{background:var(--d2)}
+.st.d3{background:var(--d3);color:#fff} .st.d4{background:var(--d4);color:#fff}
+.st.desert{background:#fff;border:1.5px solid var(--desert);color:var(--desert)}
+.st.none{background:var(--none);color:#9aa5ae}
+.st.sp{visibility:hidden}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:11px;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+.note{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+.callout{background:#fff8f7;border-left:3px solid var(--desert);padding:12px 15px;
+  border-radius:0 6px 6px 0;margin-top:14px;font-size:12.5px}
+.callout.gold{background:#fffbf0;border-left-color:var(--gold)}
+.callout b{color:var(--ink)}
+.pill{display:inline-block;background:#eef4f9;color:var(--ts-blue);border-radius:4px;
+  padding:1px 7px;font-size:11px;font-weight:600;margin-right:5px}
+.mask{background:#eceff2;color:#6b7885;border-radius:3px;padding:0 6px;
+  font-size:11px;letter-spacing:.5px;font-weight:600}
+footer{margin-top:38px;padding-top:16px;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--muted)}
+footer b{color:var(--ink)}
+</style>
+</head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
+window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
+</script>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 21, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>A&amp;D Rep Channel — Coverage &amp; Whitespace</h1>
+  <div class="sub">Architecture &amp; design channel representation for WaveCrest architectural sensor faucets</div>
+  <div class="stamp">
+    Capture 2026-07-21 · <span class="badge b-static">Static baseline</span>
+    <span class="badge b-gate">Outreach gated</span>
+    <span class="badge b-block">Enumeration blocked</span>
+    <span style="display:block;margin-top:5px">Refresh 2026-07-21 added 0 agencies — competitor locator enumeration is blocked on governance, not tooling. Counts carried unchanged from the 2026-07-20 baseline.</span>
+  </div>
+</header>
+
+<div class="grid kpis">
+  <div class="card kpi">
+    <div class="n">576</div><div class="l">Agencies in directory</div>
+    <div class="f">Industry rep directory, national</div>
+  </div>
+  <div class="card kpi">
+    <div class="n">40</div><div class="l">Crossover agencies</div>
+    <div class="f"><b>6.9%</b> carry both Div&nbsp;10 &amp; Div&nbsp;22</div>
+  </div>
+  <div class="card kpi">
+    <div class="n">16</div><div class="l">Already carry T&amp;S Brass</div>
+    <div class="f">5 of them crossover</div>
+  </div>
+  <div class="card kpi">
+    <div class="n">7</div><div class="l">Open-slot targets</div>
+    <div class="f">Crossover, no faucet conflict</div>
+  </div>
+  <div class="card kpi alert">
+    <div class="n">3</div><div class="l">Crossover deserts</div>
+    <div class="f">Major metros, zero crossover</div>
+  </div>
+</div>
+
+<h2>Crossover density by state</h2>
+<div class="card">
+  <div class="map" id="map"></div>
+  <div class="legend">
+    <span><span class="sw" style="background:var(--d4)"></span>3–4 crossover</span>
+    <span><span class="sw" style="background:var(--d2)"></span>2 crossover</span>
+    <span><span class="sw" style="background:var(--d1)"></span>1 crossover</span>
+    <span><span class="sw" style="background:#fff;border:1.5px solid var(--desert)"></span>Desert — Div 22 bench, zero crossover</span>
+    <span><span class="sw" style="background:var(--none)"></span>No commercial-fixture rep</span>
+  </div>
+  <div class="note">
+    Crossover = an agency carrying both a <b>Division 10</b> line (washroom accessories, partitions, lockers)
+    and a <b>Division 22</b> line (commercial plumbing fixtures). This is the archetype that can walk an
+    architect through the fitting and the washroom package in one conversation. Counts reflect the source
+    directory; agency identities are held in the private store.
+  </div>
+</div>
+
+<div class="grid two" style="margin-top:14px">
+  <div class="card">
+    <h2 style="margin-top:0">Crossover deserts</h2>
+    <table>
+      <thead><tr><th>State</th><th class="n">Div 22 reps</th><th class="n">Crossover</th></tr></thead>
+      <tbody>
+        <tr><td><b>Illinois</b> &mdash; Chicago</td><td class="n">14</td><td class="n" style="color:var(--desert)">0</td></tr>
+        <tr><td><b>Georgia</b> &mdash; Atlanta</td><td class="n">10</td><td class="n" style="color:var(--desert)">0</td></tr>
+        <tr><td><b>Colorado</b> &mdash; Denver</td><td class="n">9</td><td class="n" style="color:var(--desert)">0</td></tr>
+        <tr><td>Indiana</td><td class="n">6</td><td class="n" style="color:var(--desert)">0</td></tr>
+        <tr><td>Kansas</td><td class="n">5</td><td class="n" style="color:var(--desert)">0</td></tr>
+        <tr><td>Maryland · Virginia · Oklahoma</td><td class="n">4 ea.</td><td class="n" style="color:var(--desert)">0</td></tr>
+        <tr><td>Connecticut · New Mexico</td><td class="n">3 ea.</td><td class="n" style="color:var(--desert)">0</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <b>Chicago, Atlanta and Denver</b> each hold a deep commercial-plumbing bench and
+      <b>zero</b> agencies able to carry both divisions. Denver is sharper still — the clearest
+      Division&nbsp;10 architectural voice found anywhere sits there, with no plumbing line at all.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">Competitor channel structure</h2>
+    <table>
+      <thead><tr><th>Brand</th><th>Architectural rep channel</th></tr></thead>
+      <tbody>
+        <tr><td><b>Bobrick</b></td><td style="color:var(--ts-blue);font-weight:600">Yes — explicitly split <span style="font-weight:400;color:var(--muted)">· re-verified 07-21</span></td></tr>
+        <tr><td><b>Zurn</b> <span class="pill">Zurn Elkay</span></td><td>Generic locator — but the parent spans <b>both divisions</b></td></tr>
+        <tr><td>Chicago · <b>Bradley</b> <span class="pill">Watts</span></td><td>Generic locator, zip-gated</td></tr>
+        <tr><td>Sloan · Delta</td><td>Generic locator</td></tr>
+        <tr><td><b>Elkay</b> <span class="pill">Zurn Elkay</span></td><td>None — 32 agencies, zero A&amp;D signal</td></tr>
+        <tr><td><b>Symmons</b></td><td>None — 32 agencies, zero A&amp;D signal</td></tr>
+        <tr><td><b>Kohler · TOTO · GROHE</b></td><td style="color:var(--desert)">No rep path at all</td></tr>
+        <tr><td>American Standard</td><td>No commercial locator</td></tr>
+      </tbody>
+    </table>
+    <div class="callout gold">
+      <b>Bobrick is the only brand of twelve</b> that publicly separates architectural
+      representatives from aftermarket. Across all <b>1,137 brands</b> represented at one major
+      design center, exactly <b>one</b> showroom carries a Division&nbsp;10 line.
+    </div>
+    <div class="callout" style="border-left-color:var(--ts-blue);background:#f4f8fb">
+      <b>New 2026-07-21 — a competitor has solved the crossover problem by portfolio.</b>
+      The Zurn brand family now spans <b>both divisions in-house</b>: Zurn, Elkay, Wilkins and Just
+      on the fitting side; <b>Hadrian</b> partitions and <b>World&nbsp;Dryer</b> on the washroom side.
+      The crossover archetype is rare among <i>rep agencies</i> — but a competitor can already walk a
+      specifier through the full package without one. <b>Falsifier not yet run:</b> whether those
+      Division&nbsp;10 brands share a channel with the fitting lines, or sell separately. If separate,
+      the advantage is nominal.
+    </div>
+  </div>
+</div>
+
+<h2>Target profile — evidence markers</h2>
+<div class="card">
+  <table>
+    <thead><tr><th>Marker</th><th>Diagnostic weight</th></tr></thead>
+    <tbody>
+      <tr><td>Carries both a Division 10 and a Division 22 line</td><td><span class="pill">Primary</span> 6.9% base rate</td></tr>
+      <tr><td>Dual-division manufacturer on the line card</td><td><span class="pill">Primary</span> cheapest single filter</td></tr>
+      <tr><td>No competing commercial faucet line</td><td><span class="pill">Gating</span> usually a hard stop</td></tr>
+      <tr><td>Named architectural or specification practice</td><td>Strong</td></tr>
+      <tr><td>Architect or designer named as a call point</td><td>Strong</td></tr>
+      <tr><td>Training room / lunch-and-learn infrastructure</td><td>Moderate</td></tr>
+      <tr><td>Design-center or showroom presence</td><td>Moderate</td></tr>
+      <tr><td>CSI CCPR or CDT credentialed staff</td><td>Moderate — ~150 CCPR holders nationally</td></tr>
+    </tbody>
+  </table>
+  <div class="note">
+    Scored on three <b>independent</b> axes — capability × availability × territory — deliberately not summed.
+    An agency with a superb architectural practice that carries a competing faucet line is worth zero this
+    year and top-tier the moment that line moves. Every point traces to a URL, a capture date and a
+    verbatim snippet.
+  </div>
+</div>
+
+<h2>Pipeline</h2>
+<div class="card">
+  <table>
+    <thead><tr><th>Stage</th><th class="n">Count</th><th>State</th></tr></thead>
+    <tbody>
+      <tr><td>Directory universe</td><td class="n">576</td><td>Captured</td></tr>
+      <tr><td>Crossover archetype</td><td class="n">40</td><td>Identified</td></tr>
+      <tr><td>Already carrying T&amp;S Brass</td><td class="n">16</td><td>Mapped — <b>5 crossover</b></td></tr>
+      <tr><td>Open-slot priority targets</td><td class="n">7</td><td>Qualified, held in private store</td></tr>
+      <tr><td>Lowest-friction pilot candidates</td><td class="n">2</td><td>Carry the line + run architectural practices</td></tr>
+      <tr><td>Contacted</td><td class="n" style="color:var(--desert)">0</td><td><b>Gated</b> — Sales alignment required</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <b>Nothing has been contacted and nothing will be</b> until Sales is fully involved, an M&amp;S
+    agreement exists, and explicit approval is given. Appointing a representative is a Sales channel
+    decision. Agency names, contacts and line cards are held in the private store —
+    <span class="mask">masked</span> in this view by design.
+  </div>
+</div>
+
+<footer>
+  <b>Source &amp; caveat.</b> Counts derive from a national industry rep directory, twelve competitor
+  rep-locator pages, design-center tenant line cards, and A&amp;D association directories.
+  The directory edition is <b>dated</b> — structural patterns are durable, individual firms require
+  re-verification before any use. Five competitor locators are JS-gated and not yet enumerated, so
+  crossover counts are a <b>floor, not a ceiling</b>.<br><br>
+  <b>Enumeration status — 2026-07-21.</b> All five JS-gated locators were re-probed and every one is
+  <b>form-gated</b>: results appear only after a zip or state is submitted. Rendering the page is not
+  enough. The crawlers permitted under our governance can render JavaScript but cannot submit forms,
+  and the tools that can submit forms require account-wide access, which we do not grant. This is a
+  <b>permission boundary, not a tooling failure</b> — it will not resolve on a retry. Every count on
+  this page therefore remains a floor. <b>100% of the directory-derived roster</b> is past its
+  re-verification threshold and barred from downstream use until individually refreshed.<br><br>
+  <b>Governance.</b> Public business information only — agency names, addresses, published line cards.
+  No personal contact data. No account-scoped access to any third-party tool. Snapshot-only; zero writes
+  to T&amp;S corporate systems. Static baseline: this view renders captured values and does not query live.<br><br>
+  Prepared by Daniel B Washburn · 2026-07-20
+</footer>
+
+</div>
+<script>
+(function(){
+  var L=[
+   ["AK","none"],[],[],[],[],[],[],[],[],[],["ME","none"],
+   [],[],[],[],[],[],[],[],["VT","none"],["NH","none"],["MA",1],
+   ["WA",3],["ID","none"],["MT",0],["ND","none"],["MN",1],["IL","desert",14],["WI",1],["MI",3],["NY",4],["CT","desert",3],["RI","none"],
+   ["OR",1],["NV","none"],["WY","none"],["SD","none"],["IA",0],["IN","desert",6],["OH",4],["PA",1],["NJ",2],["DE","none"],["MD","desert",4],
+   ["CA",3],["UT",1],["CO","desert",9],["NE",0],["MO",1],["KY",0],["WV","none"],["VA","desert",4],["DC","none"],[],
+   [],["AZ",0],["NM","desert",3],["KS","desert",5],["AR",0],["TN",1],["NC",2],["SC",0],[],[],[],
+   [],[],[],["OK","desert",4],["LA",2],["MS",0],["AL",0],["GA","desert",10],[],[],[],
+   [],[],[],["TX",3],[],[],[],["FL",1],[],["PR",2],[]
+  ];
+  var m=document.getElementById("map");
+  L.forEach(function(s){
+    var d=document.createElement("div");
+    if(!s||!s.length){d.className="st sp";m.appendChild(d);return;}
+    var code=s[0],v=s[1];
+    var cls="st",label="";
+    if(v==="none"){cls+=" none";label="—";}
+    else if(v==="desert"){cls+=" desert";label="0";d.title=code+" — "+s[2]+" Div 22 reps, zero crossover";}
+    else{var n=v;label=String(n);
+      if(n>=3)cls+=" d4";else if(n===2)cls+=" d2";else if(n===1)cls+=" d1";else cls+=" d0";
+      d.title=code+" — "+n+" crossover agenc"+(n===1?"y":"ies");}
+    d.className=cls;
+    d.innerHTML='<div>'+code+'</div><div class="c">'+label+'</div>';
+    m.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
