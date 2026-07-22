@@ -49,7 +49,7 @@
 </head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 21, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 22, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div>
 <body>
 <div class="hdr">
   <div>
@@ -103,10 +103,10 @@ window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"s
 
 <script>
 const DATA = {
-  updated: "2026-07-20 · run 28 (r28) — MONDAY DID NOT REBOUND: 5th consecutive fully-unattended headless fire via the remote Apify connector · 5 net-new of 150 (frontier 219→224) — 2 Architect Magazine editorials (adaptable-building theory; Shenzhen Bay Cultural Center review, <span data-tf>confidential</span> / Ma Yansong = TRUE NEGATIVE across all 4 firm data sources) + 3 Bustler competition pages (Museum of Emotions #9 launch, A' Design Award, Open Chair) · ArchDaily contributed ZERO net-new for the 3rd straight day — watch for structural staleness vs genuine quiet · S1 0 / S2 0 (Staging write correctly no-op) · NO award-burst (5 net-new, no winner vein; live award coverage all previously banked) · matcher verified live via control query (391 A&amp;D rows, correct Tier hits) · cumulative holds S1 21 / S2 28 / 17 distinct firms · fill-or-kill CLOSED (FILL decided 07-12)",
+  updated: "2026-07-21 · run 29 (r29) — QUEUE STALL, RECOVERED: the 3:10 PM headless fire was accepted but the Apify run sat in READY ~96 min waiting for a memory slot, then ran clean (150 banked, 0 failed, 0.70 CU, peak 3.45GB) and SUCCEEDED 20:52Z — the scheduled session had already given up at ~14 min and written a NO-RUN breadcrumb (since reconciled to RESOLVED). THIS run = manual drain in an interactive session with Daniel; per his instruction ALL Notion writes HELD (moot — 0 S1). 1 net-new of 150 (frontier 224→225): 'MVRDV wins competition for confidentialM Rotterdam landmark' (Bustler) — non-target foreign firm, non-US, no vertical/product hook → S3. ArchDaily / Architect Mag / Metropolis / Architizer all ZERO net-new. NO award-burst (1 vs ≥8). Cumulative holds S1 21 / S2 28 / 17 distinct firms · fill-or-kill CLOSED (FILL 07-12). Failure mode is Apify scheduling-side (memory contention at the shared ladder slot), distinct from the old connector-absent misses; stagger / self-healing-drain fix HELD pending Daniel",
   reviewDate: "2026-07-15",
-  runsToDate: 28,
-  cost: { cuLastRun: 0.765, usdLastRun: 0.11, estMonthlyUsd: 3.0 },
+  runsToDate: 29,
+  cost: { cuLastRun: 0.699, usdLastRun: 0.11, estMonthlyUsd: 3.0 },
   pagesLastRun: 150,
   s1Cumulative: 21,
   s2Cumulative: 28,
@@ -145,6 +145,7 @@ const DATA = {
     { firm:"<span data-tf>confidential</span>", proj:"Newark Liberty Terminal A, confidentialB, LEED Gold (transport, US) — design architect (w/ STV exec architect); completed 2023 · Jul 2", url:"https://architizer.com/blog/practice/materials/seeing-the-light-newark-liberty-terminal-a-acuity-brands-lighting/" },
   ],
   s3Notable: [
+    { note:"Jul 21 r29: QUEUE STALL RECOVERED — 1 net-new of 150 (frontier 224→225): 'MVRDV wins competition for confidentialM Rotterdam landmark' (Bustler /news). MVRDV = non-target across all four firm data sources (A&amp;D 391 / MEP 66 / O-D 53 / D-B ~313); a competition-win (award) signal is present but the non-US 'confidentialM landmark' has no restroom-bearing vertical and no product/plumbing kw → does NOT clear the S2 bar → S3 context, no ABM action (dedupe req if ever promoted). NO award burst (1 net-new vs the ≥8 threshold). RUN META: the 3:10 PM headless fire was accepted but the run sat in READY ~96 min for a memory slot before running clean (314s, 150 banked, 0 failed, 0.699 CU, peak 3.45GB) and SUCCEEDING 20:52Z; the scheduled session had given up at ~14 min and written NORUN_2026-07-21_apify-queue-stall.md (baseline preserved, since reconciled to RESOLVED). This board + snapshot = manual drain, interactive with Daniel; ALL Notion writes HELD per his instruction (moot, 0 S1). New failure mode downstream of the still-holding connector fix — Apify scheduling-side memory contention at the shared ladder slot; stagger / self-healing-drain fix HELD pending discussion.", url:"https://bustler.net/news/11081/mvrdv-wins-competition-for-250m-rotterdam-landmark" },
     { note:"Jul 19 r27: QUIET SUNDAY, WEEKEND PATTERN CONFIRMED — 3 net-new of 150 (frontier 216→219), all three from Bustler's competition feed: The Quiet Tower (observation tower, Latvia — Buildner), The Oak Moon Pavilion (yoga pavilion, Italy), The Architect's Chair / Stockholm Furniture Fair Edition (furniture object). All are open-call LAUNCHES (calls for entries), not winners/shortlists; organizer-run open competitions carry no firm attribution at launch, and none sits in a vertical where sensor faucets are specified → S3 context, no ABM action. Second consecutive weekend day in low single digits (07-18 Sat = 1, 07-19 Sun = 3) with ZERO target-firm project stories both days — the editorial verticals (ArchDaily / Architect Magazine / Metropolis) were static against the prior frontier and every net-new URL came from Bustler. Weekend cadence is a structurally thin window for S1 discovery. NO award burst (3 net-new vs the ≥8 threshold; launch churn is Bustler's steady-state baseline noise, not a burst signature). S1 0 → Notion Signal Staging write a correct no-op; cumulative holds S1 21 / S2 28 / 17 distinct firms. Watchlist unchanged: AIA COTE Top Ten (students) + NOMA Phil Freelon awards, plus the still-pending WINNER announcements for the 2026 Stirling shortlist and WAF 2026 finalists — the highest-probability near-term S1/S2 vein. 4th consecutive fully-unattended headless fire (remote-connector pattern durable). 150 banked (146/175 crawled), 0 failed, 0.70 CU.", url:"https://bustler.net/news/11065/design-a-yoga-pavilion-in-italy-the-oak-moon-pavilion-is-launched" },
     { note:"Jul 18 r26: VERY QUIET SATURDAY — 1 net-new of 150 (frontier 215→216): a single Bustler /news competitions-and-awards roundup (calls for entries: Warming Huts, NOMA Phil Freelon Professional Design Awards, AIA COTE Top Ten for Students, Portland Waterfront Park Design). Award/competition-adjacent editorial but calls-for-entries, NOT winners/shortlist, and no target firm or project vertical nameable → S3 context, no ABM action. NO award burst (1 net-new URL, well below the 8-net-new-URL threshold). Watch AIA COTE Top Ten (students) + NOMA Phil Freelon award for downstream winner drops that may name target firms. S1 0 → Notion Signal Staging write a correct no-op; cumulative holds S1 21 / S2 28 / 17 distinct firms. 3rd consecutive fully-unattended headless fire (remote-connector pattern durable). 150 banked (156/176 crawled), 0 failed, 0.82 CU.", url:"https://bustler.net/news/11080/new-architecture-and-design-competitions-warming-huts-noma-phil-freelon-professional-design-awards-aia-cote-top-ten-for-students-and-portland-waterfront-park-design" },
     { note:"Jul 17 r25: QUIET FRIDAY — 5 net-new of 150 (frontier 210→215): 1 Metropolis editorial + 4 Bustler competition listings (Museum of Emotions #9, Oak Moon Pavilion, Architect's Chair Stockholm, Mujassam Watan #8 deadline — no firm×vertical pairing, S3 noise). The editorial: <span data-tf>confidential</span>' 114k sf Crystal Bridges Museum expansion, Bentonville AR ('cultural village') — relevant civic/cultural US vertical but firm NOT in Target DB; MATCHER RULE exercised: deliberately NOT matched to Tier-3 target '<span data-tf>confidential</span>' (distinct San Diego practice; word-boundary core-name rule, <span data-tf>confidential</span> precedent) → S3 vertical-only, light watch, dedupe req if ever considered for ABM add. NO award-cycle motion (0 award-signature URLs; next expected vein = Stirling winner ~Oct 15 + A+Awards drops). S1 0 → Staging write correctly no-op; cumulative holds S1 21 / S2 28 / 17 distinct firms. 2nd consecutive fully-unattended headless fire (remote connector pattern now repeat-proven). Notion match ran LIVE against full rosters (A&D 394 / MEP 68 / O-D 54).", url:"https://metropolismag.com/projects/moshe-safdie-expands-crystal-bridges-museum/" },
@@ -164,10 +165,10 @@ const DATA = {
     { note:"ABI fell to 44.5 — billings recovery collapsed again (macro headwind for spec pipelines); only 3% of architects are under 30 — pipeline/succession context.", url:"https://www.architectmagazine.com/design/architectures-recovery-just-collapsed-again" }
   ],
   sourceYield: [
-    { src:"Bustler", n:79 },
-    { src:"Architizer", n:58 },
-    { src:"Metropolis", n:44 },
-    { src:"Architect Magazine", n:30 },
+    { src:"Architizer", n:44 },
+    { src:"Metropolis", n:37 },
+    { src:"Bustler", n:35 },
+    { src:"Architect Magazine", n:21 },
     { src:"AIA awards", n:11 },
     { src:"ArchDaily", n:2 }
   ],
@@ -199,7 +200,8 @@ const DATA = {
     { date:"2026-07-17 · r25 (5 net-new · quiet Friday · <span data-tf>confidential</span>≠<span data-tf>confidential</span> matcher win · 2nd unattended headless fire; frontier 210→215)", pages:150, newUrls:5, s1:0, s2:0, cu:0.697 },
     { date:"2026-07-18 · r26 (1 net-new · very quiet Saturday · Bustler competitions roundup → S3 · 3rd unattended headless fire; frontier 215→216)", pages:150, newUrls:1, s1:0, s2:0, cu:0.821 },
     { date:"2026-07-19 · r27 (3 net-new · quiet Sunday · 3 Bustler competition launches → S3 · weekend thin-window pattern confirmed · 4th unattended headless fire; frontier 216→219)", pages:150, newUrls:3, s1:0, s2:0, cu:0.695 },
-    { date:"2026-07-20 · r28 (5 net-new · Monday did NOT rebound · 2 Architect Mag editorials + 3 Bustler competition pages → S3 · <span data-tf>confidential</span> true negative, matcher control-verified · ArchDaily zero for 3rd straight day · 5th unattended headless fire; frontier 219→224)", pages:150, newUrls:5, s1:0, s2:0, cu:0.765 }
+    { date:"2026-07-20 · r28 (5 net-new · Monday did NOT rebound · 2 Architect Mag editorials + 3 Bustler competition pages → S3 · <span data-tf>confidential</span> true negative, matcher control-verified · ArchDaily zero for 3rd straight day · 5th unattended headless fire; frontier 219→224)", pages:150, newUrls:5, s1:0, s2:0, cu:0.765 },
+    { date:"2026-07-21 · r29 (1 net-new · QUEUE STALL recovered — run sat READY ~96 min then succeeded; manual drain, Notion HELD · MVRDV Rotterdam comp-win → S3; frontier 224→225)", pages:150, newUrls:1, s1:0, s2:0, cu:0.699 }
   ]
 };
 
