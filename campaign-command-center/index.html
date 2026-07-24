@@ -89,12 +89,12 @@ a.btn.alt{background:#fff;color:var(--brand);border:1px solid var(--brand)}
 </style></head><script>/* WAVE-2 STATIC MIRROR SHIM — live connector calls disabled */
 window.cowork={callMcpTool:async()=>({isError:true,content:[{type:"text",text:"static mirror"}]}),askClaude:async()=>"static mirror",runScheduledTask:async()=>null};
 </script>
-<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 22, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><span data-wcstage="operating" title="Populated with current data; refresh path live. Lean on it today, subject to the board's stated caveats." style="display:inline-block;font:700 10px/1 Lato,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#1B2A41;background:#F5F1E9;border:1.5px solid #B07E4A;border-radius:999px;padding:5px 12px;vertical-align:middle;margin:0 0 10px">OPERATING</span><div class=wrap><header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div><div class=hmeta><div class=aname>Campaign Command Center</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
+<div style="position:sticky;top:0;z-index:99999;background:#B07E4A;color:#141F31;font:600 13px/1.4 Lato,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;text-align:center">Static snapshot — data as of July 24, 2026 · live dashboards remain internal · confidential register applied · this mirror is temporary</div><body><span data-wcstage="operating" title="Populated with current data; refresh path live. Lean on it today, subject to the board's stated caveats." style="display:inline-block;font:700 10px/1 Lato,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#1B2A41;background:#F5F1E9;border:1.5px solid #B07E4A;border-radius:999px;padding:5px 12px;vertical-align:middle;margin:0 0 10px">OPERATING</span><div class=wrap><header class=top><div class=brandmark><div><div class=wm>Wave<b>Crest</b></div><div class=sub>Specifying the Next Wave</div></div></div><div class=hmeta><div class=aname>Campaign Command Center</div><div class=stamp id=stamp><span class=dot></span>loading…</div></div></header>
  <div class="grid g3">
    <div class="card tile"><div class=k>Specifiers built</div><div class=v id=spec>5,569</div><div class=d id=specd>5,497 verified emails · 98.7%</div></div>
    <div class="card tile"><div class=k>Target firms</div><div class=v id=firms>834</div><div class=d>391 A&amp;D · 77 MEP · 53 Owner/Dev · 313 D-B</div></div>
    <div class="card tile"><div class=k>Apollo credits left</div><div class=v id=cred>634</div><div class=d id=credd>of 4,470 · cycle ends Aug 5</div></div>
-   <div class="card tile"><div class=k>AI share-of-voice</div><div class=v id=sov>3.4<small> idx</small></div><div class=d>ChatGPT · Brand Radar set (07-22)</div></div>
+   <div class="card tile"><div class=k>AI share-of-voice</div><div class=v id=sov>8.8<small> idx</small></div><div class=d>ChatGPT · Brand Radar set (07-24)</div></div>
    <div class="card tile"><div class=k>Engagement funnel</div><div class=v id=reached>327</div><div class=d>Reached · 3,534 Unaware · 1,708 unstamped (pre-launch · 2026-07-22 weekly pulse — +8 Unaware · Reached/unstamped flat)</div></div>
    <div class="card tile"><div class=k>North Star</div><div class=v style=font-size:18px;padding-top:10px>QSI</div><div class=d>Qualified Specification Intent</div></div>
  </div>
@@ -125,7 +125,7 @@ flowchart LR
      <div class=note>ABM Intelligence · Apollo Credit-Burn · QSI Scorecard · Brand Radar · DB Health · Rot Triage · Rep-Enablement · A&amp;D Signal Layer · Firehose Monitor — separate live artifacts; fifteen mirrored on this site.</div>
    </div>
  </div>
- <div class=foot>Data: Apollo (credits), Notion ABM (counts), Ahrefs Brand Radar (SOV) — all live via MCP. Flags from Runbook §14-16.<br>Static mirror · snapshot data as of July 22, 2026 · T&amp;S Brass · WaveCrest: Specifying the Next Wave</div></div><script>
+ <div class=foot>Data: Apollo (credits), Notion ABM (counts), Ahrefs Brand Radar (SOV) — all live via MCP. Flags from Runbook §14-16.<br>Static mirror · snapshot data as of July 24, 2026 · T&amp;S Brass · WaveCrest: Specifying the Next Wave</div></div><script>
 const COWORK=(typeof window!=='undefined'&&window.cowork)?window.cowork:null;
 async function callTool(name,args){
  if(!COWORK||!COWORK.callMcpTool)throw new Error('offline');
@@ -151,7 +151,7 @@ const NOTION={spec:'confidential',ad:'confidential',
 const APOLLO_ARGS={_conversation_ref:'wcart0701',_rationale:'dashboard credit refresh'};
 
 
- const C={spec:5569,verif:5497,ad:391,mep:77,own:53,dbf:313,left:634,limit:4470,sov:3.4,reached:327};
+ const C={spec:5569,verif:5497,ad:391,mep:77,own:53,dbf:313,left:634,limit:4470,sov:8.8,reached:327};
  function paint(){
    setEl('spec',fmt(C.spec));setEl('firms',fmt(C.ad+C.mep+C.own+(C.dbf||0)));
    setEl('cred',fmt(C.left));setEl('credd','of '+fmt(C.limit)+' · cycle ends Aug 5');
